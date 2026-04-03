@@ -38,7 +38,15 @@ const ProjectDetail = () => {
   const nextProject = projectsData[nextProjectId];
 
   return (
-    <div className="bg-black text-white min-h-screen">
+    <div className="bg-black text-white min-h-screen relative">
+      {/* Sticky Back Button */}
+      <Link 
+        to="/" 
+        className="fixed top-8 left-8 z-[100] mix-blend-difference px-6 py-3 border border-white/20 rounded-sm text-[0.7rem] tracking-[3px] uppercase font-bold hover:bg-white hover:text-black transition-all duration-500 backdrop-blur-sm"
+      >
+        ← BACK TO WORK
+      </Link>
+
       <section className="project-hero h-[80vh] flex flex-col justify-end px-[5vw] pb-md relative overflow-hidden fade-in">
         <div className="hero-bg absolute inset-0 -z-10">
           {project.youtubeId ? (
@@ -66,13 +74,18 @@ const ProjectDetail = () => {
         </div>
       </section>
 
-      <section className="project-content py-lg px-[5vw]">
-        <div className="project-grid grid grid-cols-1 md:grid-cols-[1fr,2fr] gap-[60px]">
+      <section className="project-content py-16 md:py-32 px-[5vw] border-b border-white/5">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-[1fr,2fr] gap-12 md:gap-24">
           <div className="fade-in-up">
-            <h2 className="text-2xl text-gray">CONCEPT</h2>
+            <h2 className="text-[0.7rem] tracking-[4px] text-gray uppercase mb-4">PROJECT SCOPE</h2>
+            <div className="flex flex-col gap-4 text-[0.9rem] text-gray-light uppercase tracking-widest">
+              <div>YEAR: {project.year}</div>
+              <div>ROLE: {project.role}</div>
+            </div>
           </div>
           <div className="fade-in-up delay-[200ms]">
-            <p className="text-[1.3rem] leading-relaxed text-gray-light max-w-4xl lowercase">
+            <h2 className="text-[0.7rem] tracking-[4px] text-gray uppercase mb-4">DESCRIPTION</h2>
+            <p className="text-[1.1rem] md:text-[1.4rem] leading-relaxed text-white font-medium mb-12 lowercase">
               {project.description}
             </p>
             {project.externalLink && (
@@ -80,46 +93,55 @@ const ProjectDetail = () => {
                 href={project.externalLink} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-block mt-10 border-b-2 border-white text-white uppercase tracking-widest pb-1 hover-target"
+                className="inline-flex items-center gap-4 text-white uppercase tracking-widest group no-underline border border-white/20 px-8 py-4 hover:bg-white hover:text-black transition-all duration-500"
               >
-                View full project
+                View Full Project
+                <span className="transform transition-transform group-hover:translate-x-2">→</span>
               </a>
             )}
           </div>
         </div>
       </section>
 
-      <section className="project-visuals px-[5vw] pb-lg columns-1 md:columns-2 lg:columns-3 gap-10">
+      <section className="project-visuals bg-black flex flex-col items-center">
         {project.gallery.map((media, index) => (
-          <div key={index} className="media-wrapper break-inside-avoid mb-10 rounded-[2px] overflow-hidden bg-gray-dark group fade-in-up">
-            {media.includes('youtube.com') || media.includes('shorts') ? (
-              <div className="aspect-video">
+          <div key={index} className="w-full max-w-[1600px] relative overflow-hidden fade-in-up">
+            {media.includes('youtube.com') || media.includes('shorts') || media.includes('youtu.be') ? (
+              <div className="aspect-video w-full">
                 <iframe 
-                  src={`https://www.youtube.com/embed/${project.youtubeId || media.split('/').pop()}?controls=1`}
-                  className="w-full h-full"
-                  allow="encrypted-media"
+                  src={`https://www.youtube.com/embed/${media.split('/').pop().split('?')[0]}?autoplay=0&controls=1&modestbranding=1&rel=0`}
+                  className="w-full h-full border-0"
+                  allow="autoplay; encrypted-media"
                 />
               </div>
             ) : (
               <img 
                 src={media} 
-                alt={`${project.title} visual ${index + 1}`} 
+                alt={`${project.title} detail ${index + 1}`} 
                 loading="lazy" 
-                className="w-full h-auto block grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-[1.02]"
+                className="w-full h-auto block object-cover grayscale transition-all duration-1000 hover:grayscale-0"
               />
             )}
           </div>
         ))}
       </section>
 
-      <section className="next-project py-lg px-[5vw] text-center border-t border-white/10 fade-in">
-        <p className="text-gray uppercase tracking-[2px] mb-5">NEXT PROJECT</p>
+      <section className="next-project py-lg px-[5vw] text-center border-t border-white/10 fade-in flex flex-col items-center gap-10">
         <Link 
-          to={`/projects/${nextProjectId}`} 
-          className="text-[clamp(2rem,5vw,4rem)] text-white no-underline hover-target transition-all duration-500 hover:text-gray-light"
+          to="/" 
+          className="text-gray-light hover:text-white uppercase tracking-[4px] text-sm transition-colors border-b border-white/10 pb-2"
         >
-          {nextProject.title}
+          BACK TO ALL WORK
         </Link>
+        <div>
+          <p className="text-gray uppercase tracking-[2px] mb-5">NEXT PROJECT</p>
+          <Link 
+            to={`/projects/${nextProjectId}`} 
+            className="text-[clamp(2rem,5vw,4rem)] text-white no-underline hover-target transition-all duration-500 hover:text-gray-light"
+          >
+            {nextProject.title}
+          </Link>
+        </div>
       </section>
     </div>
   );

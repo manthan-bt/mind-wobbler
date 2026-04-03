@@ -31,24 +31,24 @@ const Home = () => {
     <div>
       {/* Hero Section */}
       <section ref={heroRef} className="hero relative h-screen flex flex-col justify-center px-[5vw] overflow-hidden">
-        <div className="hero-bg absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-          <div className="absolute inset-0 w-full h-full scale-[1.1] animate-hero-pulse">
-            <iframe 
-              src="https://www.youtube.com/embed/8zZe4gTxtY0?autoplay=1&mute=1&controls=0&loop=1&playlist=8zZe4gTxtY0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1"
-              className="absolute top-1/2 left-1/2 w-[115%] h-[115%] -translate-x-1/2 -translate-y-1/2 object-cover aspect-video"
+        <div className="hero-bg absolute inset-0 -z-10 grayscale">
+          <div className="absolute inset-0 bg-black/40 z-10" />
+          <div className="w-full h-full scale-[2.5] md:scale-[1.33] pointer-events-none origin-center">
+            <iframe
+              src="https://www.youtube.com/embed/8zZe4gTxtY0?autoplay=1&mute=1&controls=0&loop=1&playlist=8zZe4gTxtY0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
+              className="w-full h-full object-cover"
               allow="autoplay; encrypted-media"
-              loading="lazy"
             />
           </div>
           <div className="hero-overlay absolute inset-0 bg-gradient-to-b from-black/30 to-black" />
         </div>
 
-        <div className="hero-content relative z-10 text-center max-w-[90vw] mx-auto">
-          <h1 className="text-[clamp(2.5rem,4.5vw,4.8rem)] leading-none font-extrabold mb-8 mt-12 tracking-tighter">
-            TRANSFORMING VISIONS<br />INTO CINEMATIC REALITIES
+        <div className="hero-content relative z-10 text-center px-[5vw]">
+          <h1 className="text-[clamp(3.5rem,10vw,8.5rem)] leading-[0.8] font-black mb-6 tracking-tighter fade-in text-shadow-premium uppercase">
+            MIND <br /> WOBBLER
           </h1>
-          <p className="text-lg font-light text-gray-light tracking-widest fade-in delay-200">
-            BRANDING, VIDEO PRODUCTION & VISUAL STORYTELLING
+          <p className="text-[clamp(0.8rem,1.2vw,1.1rem)] tracking-[0.6em] text-gray uppercase fade-in delay-300">
+            PERSONAL PASSION PROJECT • BY MANTHAN B T
           </p>
         </div>
 
@@ -61,23 +61,13 @@ const Home = () => {
       </section>
 
       {/* Work Section */}
-      <section id="work" className="work bg-black py-lg px-[2vw]">
-        <div className="section-header px-[3vw] mb-md fade-in">
-          <span className="section-tag">SELECTED PROJECTS</span>
-          <h2 className="text-[clamp(2rem,4vw,4rem)] font-normal">CRAFTING DIGITAL LEGACIES</h2>
-        </div>
-
-        <div className="work-grid columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-5">
+      <section id="work" className="work-section py-24 px-[5vw]">
+        <h2 className="section-tag">SELECTED PROJECTS</h2>
+        <div className="work-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-x-10 md:gap-y-16">
           {Object.values(projectsData).map((project) => (
-            <ProjectCard 
+            <ProjectCard
               key={project.id}
-              id={project.id}
-              title={project.title}
-              category={project.category}
-              media={project.hero}
-              youtubeId={project.youtubeId}
-              externalLink={project.externalLink}
-              aspectRatio={['sytletics', 'wali', 'habitec'].includes(project.id) ? '1/1' : 'auto'}
+              {...project}
             />
           ))}
         </div>
@@ -108,25 +98,24 @@ const Home = () => {
       <section id="about" className="about py-lg px-[5vw]">
         <div className="about-grid grid grid-cols-1 lg:grid-cols-[0.8fr,1.2fr] gap-[60px] lg:gap-[100px] items-center">
           <div className="about-image relative w-full max-w-[450px] mx-auto aspect-[4/5] bg-gray-dark overflow-hidden border border-white/10 rounded-sm fade-in group">
-            <img 
-              src="/manthan.jpg" 
-              alt="Manthan" 
+            <img
+              src="/manthan.jpg"
+              alt="Manthan"
               className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
             />
           </div>
-          <div className="about-text">
-            <h2 className="text-[0.8rem] tracking-[4px] text-gray mb-[30px] uppercase fade-in">ABOUT ME</h2>
-            <p className="text-[clamp(1.4rem,2.5vw,2.1rem)] leading-tight font-medium text-white mb-[30px] tracking-tight fade-in-up">
-              I’m Manthan, a creative designer and videographer based in Bangalore, and the founder of Mind Wobbler — a creative studio focused on branding, cinematic storytelling, and visual design.
+          <div className="about-text text-center lg:text-left">
+            <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] leading-none font-bold text-white mb-[30px] tracking-tight uppercase fade-in">
+              MANTHAN B T
+            </h2>
+            <p className="text-[1.2rem] md:text-[1.8rem] leading-tight font-medium text-gray-light mb-[40px] tracking-tight fade-in-up lowercase">
+              I’m a creative designer and videographer based in Bangalore. Mind Wobbler is my personal playground where I explore visual storytelling as a passion and a hobby.
             </p>
-            <p className="text-lg leading-relaxed text-gray max-w-[650px] mb-5 lowercase fade-in-up delay-[200ms]">
-              Through Mind Wobbler, I work on building complete visual identities, producing cinematic video content, and
-              crafting modern, minimal experiences for digital platforms. My work spans brand systems, event coverage, and
-              architectural visuals, with a strong focus on clarity, storytelling, and impact.
+            <p className="text-lg leading-relaxed text-gray max-w-[650px] mx-auto lg:mx-0 mb-6 lowercase fade-in-up delay-[200ms]">
+              What started as a hobby has evolved into a curated digital showcase. I focus on branding, cinematic video content, and experimental visual design, always pushing the boundaries of clarity and impact.
             </p>
-            <p className="text-lg leading-relaxed text-gray max-w-[650px] lowercase fade-in-up delay-[400ms]">
-              I approach every project with a balance of design thinking and visual narrative — ensuring that each output
-              is not just aesthetically strong, but also meaningful and memorable.
+            <p className="text-lg leading-relaxed text-gray max-w-[650px] mx-auto lg:mx-0 lowercase fade-in-up delay-[400ms]">
+              While this is my passion project, I approach every output with professional-grade standards. If you're looking for high-impact visual design or cinematic production, this portfolio represents my expertise and dedication to the craft.
             </p>
           </div>
         </div>
@@ -139,8 +128,10 @@ const Home = () => {
             <h2 className="text-[clamp(2rem,4vw,4rem)] font-normal uppercase leading-tight">LET’S WORK TOGETHER.</h2>
             <p className="text-xl text-gray mt-5 mb-16 lowercase">WE ARE ALWAYS LOOKING FOR NEW CHALLENGES AND VISIONARY CLIENTS.</p>
             <a href="mailto:manthan.bt@gmail.com" className="cta-link text-[clamp(1.5rem,3vw,2.5rem)] text-white border-b-2 border-white pb-1 hover-target tracking-wide">manthan.bt@gmail.com</a>
-            
-            <div className="social-links mt-16 flex gap-8">
+
+            <div className="social-links mt-16 flex flex-wrap gap-8">
+              <a href="https://www.linkedin.com/in/manthan-bt-268610295/" target="_blank" rel="noopener noreferrer" className="text-white hover-target tracking-widest text-[1.1rem]">LINKEDIN</a>
+              <a href="https://www.youtube.com/@mind_wobbler" target="_blank" rel="noopener noreferrer" className="text-white hover-target tracking-widest text-[1.1rem]">YOUTUBE</a>
               <a href="https://www.instagram.com/mind_wobbler" target="_blank" rel="noopener noreferrer" className="text-white hover-target tracking-widest text-[1.1rem]">INSTAGRAM</a>
               <a href="https://www.behance.net/mind_wobbler" target="_blank" rel="noopener noreferrer" className="text-white hover-target tracking-widest text-[1.1rem]">BEHANCE</a>
             </div>

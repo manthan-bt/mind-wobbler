@@ -1,40 +1,68 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const ProjectCard = ({ id, title, category, media, youtubeId, externalLink, aspectRatio = 'auto' }) => {
+const ProjectCard = ({ id, title, category, hero, gallery, youtubeId, externalLink }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const isVideo = !!youtubeId;
-  const displayMedia = youtubeId 
+  
+  // Slideshow logic for images
+  useEffect(() => {
+    let interval;
+    if (isHovered && !isVideo && gallery && gallery.length > 1) {
+      interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % Math.min(gallery.length, 5)); // Cycle through first 5 images
+      }, 1500);
+    } else {
+      setCurrentIndex(0);
+    }
+    return () => clearInterval(interval);
+  }, [isHovered, isVideo, gallery]);
+
+  const displayMedia = isVideo 
     ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg` 
-    : media;
+    : (isHovered && gallery && gallery.length > 0 ? gallery[currentIndex] : hero);
 
   return (
     <Link 
       to={externalLink ? externalLink : `/projects/${id}`} 
       target={externalLink ? "_blank" : "_self"}
-      className="break-inside-avoid block no-underline text-white mb-8 group fade-in-up"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="block no-underline text-white group fade-in-up"
     >
-      <div className="w-full overflow-hidden bg-gray-dark rounded-[2px]">
-        <div style={{ aspectRatio }} className="relative overflow-hidden">
-          <img 
-            src={displayMedia} 
-            alt={title} 
-            loading="lazy" 
-            className="w-full h-auto block object-cover transition-transform duration-[1.2s] cubic-bezier(0.19, 1, 0.22, 1) group-hover:scale-105"
-          />
-          {isVideo && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/0 transition-colors">
-              <div className="w-12 h-12 border-2 border-white rounded-full flex items-center justify-center">
-                <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-white border-b-[6px] border-b-transparent ml-1" />
-              </div>
+      <div className="w-full relative overflow-hidden grayscale transition-all duration-700 hover:grayscale-0 rounded-[2px]">
+        <div className="relative overflow-hidden aspect-video bg-gray-dark">
+          {isVideo ? (
+            <div className="w-full h-full pointer-events-none scale-[1.05]">
+              <iframe 
+                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${youtubeId}&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1`}
+                className="w-full h-full object-cover scale-[1.3]"
+                allow="autoplay; encrypted-media"
+              />
+            </div>
+          ) : (
+            <div className="w-full h-full overflow-hidden relative">
+              {/* Main Image with Crossfade */}
+              <img 
+                key={displayMedia}
+                src={displayMedia} 
+                alt={title} 
+                loading="lazy" 
+                className="w-full h-full block object-cover transition-all duration-1000 ease-in-out group-hover:scale-110 animate-fade-in"
+              />
+              
+              {/* Overlay for smoother transitions if needed */}
+              <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
           )}
         </div>
       </div>
-      <div className="mt-[15px] px-[5px]">
-        <div className="text-[0.6rem] font-semibold uppercase tracking-[1px] text-gray mb-1">
+      <div className="mt-4 px-1 transition-opacity duration-500 group-hover:opacity-100 opacity-60">
+        <div className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-gray mb-1">
           {category}
         </div>
-        <h3 className="text-[1.1rem] font-medium tracking-tight transition-colors group-hover:text-gray-light">
+        <h3 className="text-[1rem] md:text-[1.2rem] font-bold tracking-tight uppercase">
           {title}
         </h3>
       </div>
