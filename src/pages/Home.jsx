@@ -52,9 +52,11 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="scroll-indicator absolute bottom-10 left-[5vw] flex items-center gap-4 fade-in delay-500">
-          <div className="line w-px h-[60px] bg-white relative overflow-hidden after:content-[''] after:absolute after:-top-full after:left-0 after:w-full after:h-full after:bg-gray after:animate-scroll-line" />
-          <span className="text-[0.8rem] tracking-[2px]">SCROLL</span>
+        <div className="scroll-indicator absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 fade-in delay-500">
+          <span className="text-[0.7rem] tracking-[3px] opacity-70">SCROLL</span>
+          <div className="line w-[1px] h-[50px] bg-white/30 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-full bg-white origin-top animate-scroll-line" />
+          </div>
         </div>
       </section>
 
@@ -115,11 +117,12 @@ const Home = () => {
           <div className="about-text">
             <h2 className="text-[0.8rem] tracking-[4px] text-gray mb-[30px] uppercase fade-in">ABOUT ME</h2>
             <p className="text-[clamp(1.4rem,2.5vw,2.1rem)] leading-tight font-medium text-white mb-[30px] tracking-tight fade-in-up">
-              I’m Manthan, a creative designer and videographer based in Bangalore, and the founder of Mind Wobbler.
+              I’m Manthan, a creative designer and videographer based in Bangalore, and the founder of Mind Wobbler — a creative studio focused on branding, cinematic storytelling, and visual design.
             </p>
             <p className="text-lg leading-relaxed text-gray max-w-[650px] mb-5 lowercase fade-in-up delay-[200ms]">
               Through Mind Wobbler, I work on building complete visual identities, producing cinematic video content, and
-              crafting modern, minimal experiences for digital platforms.
+              crafting modern, minimal experiences for digital platforms. My work spans brand systems, event coverage, and
+              architectural visuals, with a strong focus on clarity, storytelling, and impact.
             </p>
             <p className="text-lg leading-relaxed text-gray max-w-[650px] lowercase fade-in-up delay-[400ms]">
               I approach every project with a balance of design thinking and visual narrative — ensuring that each output
