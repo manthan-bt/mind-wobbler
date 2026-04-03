@@ -44,7 +44,7 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile Menu Button */}
-      <button 
+      <button
         className="md:hidden relative z-[2005] text-white p-2 pointer-events-auto transition-transform duration-300 active:scale-90"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"

@@ -5,6 +5,7 @@ const CustomCursor = () => {
   const cursorRef = useRef(null);
   const followerRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -15,13 +16,14 @@ const CustomCursor = () => {
     let rafId;
 
     const onMouseMove = (e) => {
+      if (!isVisible) setIsVisible(true);
       mouseX = e.clientX;
       mouseY = e.clientY;
 
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
       }
-
+      
       // Update hero reveal properties if on Home page
       if (location.pathname === '/') {
         const hero = document.querySelector('.hero');
@@ -35,6 +37,9 @@ const CustomCursor = () => {
         }
       }
     };
+
+    const onMouseEnter = () => setIsVisible(true);
+    const onMouseLeave = () => setIsVisible(false);
 
     const renderFollower = () => {
       followerX += (mouseX - followerX) * 0.15;
@@ -55,6 +60,8 @@ const CustomCursor = () => {
     };
 
     window.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseenter', onMouseEnter);
+    document.addEventListener('mouseleave', onMouseLeave);
     renderFollower();
     addHoverListeners();
 
@@ -64,22 +71,26 @@ const CustomCursor = () => {
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseenter', onMouseEnter);
+      document.removeEventListener('mouseleave', onMouseLeave);
       cancelAnimationFrame(rafId);
       observer.disconnect();
     };
-  }, [location.pathname]);
+  }, [location.pathname, isVisible]);
 
   return (
     <>
       <div
         ref={cursorRef}
-        className={`fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] transition-[width,height,background-color] duration-300 transform -translate-x-1/2 -translate-y-1/2 ${
+        style={{ opacity: isVisible ? 1 : 0 }}
+        className={`fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] transition-[width,height,background-color,opacity] duration-300 transform -translate-x-1/2 -translate-y-1/2 ${
           isHovered ? 'w-3 h-3 bg-transparent border border-white' : ''
         }`}
       />
       <div
         ref={followerRef}
-        className={`fixed top-0 left-0 w-10 h-10 border border-white/30 rounded-full pointer-events-none z-[9998] transition-[width,height,background-color] duration-300 transform -translate-x-1/2 -translate-y-1/2 ${
+        style={{ opacity: isVisible ? 1 : 0 }}
+        className={`fixed top-0 left-0 w-10 h-10 border border-white/30 rounded-full pointer-events-none z-[9998] transition-[width,height,background-color,opacity] duration-300 transform -translate-x-1/2 -translate-y-1/2 ${
           isHovered ? 'w-[60px] h-[60px] bg-white/10 border-transparent' : ''
         }`}
       />

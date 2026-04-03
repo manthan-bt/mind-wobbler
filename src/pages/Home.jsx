@@ -44,10 +44,10 @@ const Home = () => {
         </div>
 
         <div className="hero-content relative z-10 text-center px-[5vw]">
-          <h1 className="text-[clamp(3.5rem,10vw,8.5rem)] leading-[0.8] font-black mb-6 tracking-tighter fade-in text-shadow-premium uppercase">
+          <h1 className="text-[clamp(2.5rem,7vw,5rem)] leading-[0.9] font-black mb-6 tracking-tighter fade-in text-shadow-premium uppercase">
             MIND <br /> WOBBLER
           </h1>
-          <p className="text-[clamp(0.8rem,1.2vw,1.1rem)] tracking-[0.6em] text-gray uppercase fade-in delay-300">
+          <p className="text-[clamp(0.6rem,0.9vw,0.75rem)] tracking-[0.5em] text-gray uppercase fade-in delay-300">
             PERSONAL PASSION PROJECT • BY MANTHAN B T
           </p>
         </div>
