@@ -6,15 +6,6 @@ import { motion } from 'framer-motion';
 const Home = () => {
   const heroRef = useRef(null);
   const [iframeLoaded, setIframeLoaded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 768px)');
-    const check = () => setIsMobile(mq.matches);
-    check();
-    mq.addEventListener('change', check);
-    return () => mq.removeEventListener('change', check);
-  }, []);
 
   // Intersection Observer for scroll animations
   useEffect(() => {
@@ -41,38 +32,32 @@ const Home = () => {
     <div>
       {/* Hero Section */}
       <section ref={heroRef} className="hero relative h-screen flex flex-col justify-center px-[5vw] overflow-hidden">
-        <div className="hero-bg absolute inset-0 -z-10 grayscale">
+        <div className="hero-bg absolute inset-0 z-0 grayscale">
           <div className="absolute inset-0 bg-black/40 z-10" />
-          {/* Mobile: static thumbnail only — no iframe so YouTube controls never appear */}
-          {isMobile ? (
-            <img
-              src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8zZe4gTxtY0.png"
-              alt="Hero"
-              className="absolute inset-0 w-full h-full object-cover hero-mobile-img"
+
+          {/* Background Placeholder — shows for everyone until iframe loads */}
+          <img
+            src="https://img.youtube.com/vi/8zZe4gTxtY0/maxresdefault.jpg"
+            alt="Hero Placeholder"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 z-0 ${iframeLoaded ? 'opacity-0' : 'opacity-100'}`}
+          />
+
+          {/* YouTube iframe background — fades in over placeholder */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            <iframe
+              src="https://www.youtube.com/embed/8zZe4gTxtY0?autoplay=1&mute=1&controls=0&loop=1&playlist=8zZe4gTxtY0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
+              className={`iframe-cover transition-opacity duration-1000 ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
+              allow="autoplay; encrypted-media"
+              onLoad={() => setIframeLoaded(true)}
             />
-          ) : (
-            <>
-              <img 
-                src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8zZe4gTxtY0.png" 
-                alt="Hero Placeholder" 
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${iframeLoaded ? 'opacity-0' : 'opacity-100'}`} 
-              />
-              <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <iframe
-                  src="https://www.youtube.com/embed/8zZe4gTxtY0?autoplay=1&mute=1&controls=0&loop=1&playlist=8zZe4gTxtY0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
-                  className={`iframe-cover transition-opacity duration-1000 ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
-                  allow="autoplay; encrypted-media"
-                  onLoad={() => setIframeLoaded(true)}
-                />
-                {/* Blocks mouse events → YouTube never shows hover controls overlay */}
-                <div className="absolute inset-0 z-20" style={{ pointerEvents: 'all', background: 'transparent' }} />
-              </div>
-            </>
-          )}
-          <div className="hero-overlay absolute inset-0 bg-gradient-to-b from-black/30 to-black" />
+            {/* Blocks mouse events → YouTube never shows hover controls overlay */}
+            <div className="absolute inset-0 z-20" style={{ pointerEvents: 'all', background: 'transparent' }} />
+          </div>
+
+          <div className="hero-overlay absolute inset-0 bg-gradient-to-b from-black/30 to-black z-20" />
         </div>
 
-        <div className="hero-content relative z-10 text-center px-[5vw]">
+        <div className="hero-content relative z-30 text-center px-[5vw]">
           <h1 className="text-[clamp(2.5rem,7vw,5rem)] leading-[0.9] font-black mb-6 tracking-tighter fade-in text-shadow-premium uppercase">
             MIND <br /> WOBBLER
           </h1>
@@ -130,7 +115,7 @@ const Home = () => {
             <img
               src="/manthan.jpg"
               alt="Manthan"
-              className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
+              className="w-full h-full object-cover grayscale transition-custom group-hover:grayscale-0"
             />
           </div>
           <div className="about-text text-center lg:text-left">

@@ -29,8 +29,8 @@ export default {
       },
       keyframes: {
         heroPulse: {
-          '0%': { transform: 'scale(1.15)' },
-          '100%': { transform: 'scale(1.2)' },
+          '0%': { transform: 'scale(1.05)' },
+          '100%': { transform: 'scale(1.1)' },
         },
         scrollLine: {
           '0%': { top: '-100%' },

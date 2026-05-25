@@ -47,6 +47,18 @@
     pointer-events: none;
   }
 
+  /* Specific for small card previews to hide YouTube logo/title */
+  .video-preview-iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    /* Scale(1.5) aggressively crops all YouTube UI elements */
+    transform: translate(-50%, -50%) scale(1.5);
+    pointer-events: none;
+  }
+
   @media (max-width: 768px) {
     .iframe-cover {
       /* scale(1.35) on mobile also crops bars + fills narrow screens */
@@ -120,46 +132,42 @@
 @keyframes fade-in-up {
   0% {
     opacity: 0;
-    transform: translateY(30px) scale(0.98);
+    transform: translateY(20px);
   }
 
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
-.fade-in-up {
-  animation: fade-in-up 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-}
-
-.work-grid>*:nth-child(n) {
+.fade-in {
   opacity: 0;
-  animation-fill-mode: forwards;
+  transition: opacity 0.8s ease-out;
 }
 
-.work-grid>*:nth-child(1) {
-  animation-delay: 0.1s;
+.fade-in.is-visible {
+  opacity: 1 !important;
 }
 
-.work-grid>*:nth-child(2) {
-  animation-delay: 0.2s;
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.work-grid>*:nth-child(3) {
-  animation-delay: 0.3s;
+.fade-in-up.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
-.work-grid>*:nth-child(4) {
-  animation-delay: 0.4s;
+/* Optimize transitions */
+.transition-custom {
+  transition: filter 0.5s ease, transform 0.5s ease, opacity 0.5s ease;
 }
 
-.work-grid>*:nth-child(5) {
-  animation-delay: 0.5s;
-}
-
-.work-grid>*:nth-child(n+6) {
-  animation-delay: 0.6s;
+.work-grid>* {
+  will-change: transform, opacity;
 }
 
 @keyframes fade-in {
@@ -173,16 +181,5 @@
 }
 
 .animate-fade-in {
-  animation: fade-in 1s ease-in-out;
-}
-
-/* Mobile hero: slow cinematic zoom on static thumbnail */
-@keyframes hero-mobile-zoom {
-  0%   { transform: scale(1.35); }
-  100% { transform: scale(1.55); }
-}
-
-.hero-mobile-img {
-  animation: hero-mobile-zoom 12s ease-in-out infinite alternate;
-  transform-origin: center center;
+  animation: fade-in 0.8s ease-out;
 }
