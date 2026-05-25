@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.mindwobbler.com" }],
+      "destination": "https://mindwobbler.com/$1",
+      "permanent": true
+    }
+  ]
+}

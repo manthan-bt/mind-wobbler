@@ -1,10 +1,20 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { projectsData } from '../data/projectsData';
 import ProjectCard from '../components/ProjectCard';
 import { motion } from 'framer-motion';
 
 const Home = () => {
   const heroRef = useRef(null);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    const check = () => setIsMobile(mq.matches);
+    check();
+    mq.addEventListener('change', check);
+    return () => mq.removeEventListener('change', check);
+  }, []);
 
   // Intersection Observer for scroll animations
   useEffect(() => {
@@ -33,13 +43,32 @@ const Home = () => {
       <section ref={heroRef} className="hero relative h-screen flex flex-col justify-center px-[5vw] overflow-hidden">
         <div className="hero-bg absolute inset-0 -z-10 grayscale">
           <div className="absolute inset-0 bg-black/40 z-10" />
-          <div className="w-full h-full scale-[2.5] md:scale-[1.33] pointer-events-none origin-center">
-            <iframe
-              src="https://www.youtube.com/embed/8zZe4gTxtY0?autoplay=1&mute=1&controls=0&loop=1&playlist=8zZe4gTxtY0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
-              className="w-full h-full object-cover"
-              allow="autoplay; encrypted-media"
+          {/* Mobile: static thumbnail only — no iframe so YouTube controls never appear */}
+          {isMobile ? (
+            <img
+              src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8zZe4gTxtY0.png"
+              alt="Hero"
+              className="absolute inset-0 w-full h-full object-cover hero-mobile-img"
             />
-          </div>
+          ) : (
+            <>
+              <img 
+                src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8zZe4gTxtY0.png" 
+                alt="Hero Placeholder" 
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${iframeLoaded ? 'opacity-0' : 'opacity-100'}`} 
+              />
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <iframe
+                  src="https://www.youtube.com/embed/8zZe4gTxtY0?autoplay=1&mute=1&controls=0&loop=1&playlist=8zZe4gTxtY0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
+                  className={`iframe-cover transition-opacity duration-1000 ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
+                  allow="autoplay; encrypted-media"
+                  onLoad={() => setIframeLoaded(true)}
+                />
+                {/* Blocks mouse events → YouTube never shows hover controls overlay */}
+                <div className="absolute inset-0 z-20" style={{ pointerEvents: 'all', background: 'transparent' }} />
+              </div>
+            </>
+          )}
           <div className="hero-overlay absolute inset-0 bg-gradient-to-b from-black/30 to-black" />
         </div>
 
@@ -108,13 +137,13 @@ const Home = () => {
             <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] leading-none font-bold text-white mb-[30px] tracking-tight uppercase fade-in">
               MANTHAN B T
             </h2>
-            <p className="text-[1.2rem] md:text-[1.8rem] leading-tight font-medium text-gray-light mb-[40px] tracking-tight fade-in-up lowercase">
+            <p className="text-[1.2rem] md:text-[1.8rem] leading-tight font-medium text-gray-light mb-[40px] tracking-tight fade-in-up">
               I’m a creative designer and videographer based in Bangalore. Mind Wobbler is my personal playground where I explore visual storytelling as a passion and a hobby.
             </p>
-            <p className="text-lg leading-relaxed text-gray max-w-[650px] mx-auto lg:mx-0 mb-6 lowercase fade-in-up delay-[200ms]">
+            <p className="text-lg leading-relaxed text-gray max-w-[650px] mx-auto lg:mx-0 mb-6 fade-in-up delay-[200ms]">
               What started as a hobby has evolved into a curated digital showcase. I focus on branding, cinematic video content, and experimental visual design, always pushing the boundaries of clarity and impact.
             </p>
-            <p className="text-lg leading-relaxed text-gray max-w-[650px] mx-auto lg:mx-0 lowercase fade-in-up delay-[400ms]">
+            <p className="text-lg leading-relaxed text-gray max-w-[650px] mx-auto lg:mx-0 fade-in-up delay-[400ms]">
               While this is my passion project, I approach every output with professional-grade standards. If you're looking for high-impact visual design or cinematic production, this portfolio represents my expertise and dedication to the craft.
             </p>
           </div>
@@ -126,7 +155,7 @@ const Home = () => {
         <div className="contact-grid grid grid-cols-1 lg:grid-cols-2 gap-20">
           <div className="contact-info fade-in">
             <h2 className="text-[clamp(2rem,4vw,4rem)] font-normal uppercase leading-tight">LET’S WORK TOGETHER.</h2>
-            <p className="text-xl text-gray mt-5 mb-16 lowercase">WE ARE ALWAYS LOOKING FOR NEW CHALLENGES AND VISIONARY CLIENTS.</p>
+            <p className="text-xl text-gray mt-5 mb-16">WE ARE ALWAYS LOOKING FOR NEW CHALLENGES AND VISIONARY CLIENTS.</p>
             <a href="mailto:manthan.bt@gmail.com" className="cta-link text-[clamp(1.5rem,3vw,2.5rem)] text-white border-b-2 border-white pb-1 hover-target tracking-wide">manthan.bt@gmail.com</a>
 
             <div className="social-links mt-16 flex flex-wrap gap-8">

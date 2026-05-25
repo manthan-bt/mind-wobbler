@@ -2,13 +2,30 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const CustomCursor = () => {
+  return null;
   const cursorRef = useRef(null);
   const followerRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(
+        window.matchMedia('(max-width: 768px)').matches ||
+        ('ontouchstart' in window) ||
+        navigator.maxTouchPoints > 0
+      );
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+
     let mouseX = 0;
     let mouseY = 0;
     let followerX = 0;
@@ -76,7 +93,9 @@ const CustomCursor = () => {
       cancelAnimationFrame(rafId);
       observer.disconnect();
     };
-  }, [location.pathname, isVisible]);
+  }, [location.pathname, isVisible, isMobile]);
+
+  if (isMobile) return null;
 
   return (
     <>

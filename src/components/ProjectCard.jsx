@@ -33,13 +33,15 @@ const ProjectCard = ({ id, title, category, hero, gallery, youtubeId, externalLi
     >
       <div className="w-full relative overflow-hidden grayscale transition-all duration-700 hover:grayscale-0 rounded-[2px]">
         <div className="relative overflow-hidden aspect-video bg-gray-dark">
-          {isVideo ? (
-            <div className="w-full h-full pointer-events-none scale-[1.05]">
+          {isVideo && isHovered ? (
+            <div className="w-full h-full relative overflow-hidden">
               <iframe 
-                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${youtubeId}&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1`}
-                className="w-full h-full object-cover scale-[1.3]"
+                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${youtubeId}&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&playsinline=1`}
+                className="w-full h-full"
                 allow="autoplay; encrypted-media"
               />
+              {/* Blocks all mouse events so YouTube never receives hover → no controls overlay */}
+              <div className="absolute inset-0 z-10" style={{ pointerEvents: 'all', background: 'transparent' }} />
             </div>
           ) : (
             <div className="w-full h-full overflow-hidden relative">

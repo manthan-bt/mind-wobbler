@@ -1,10 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { projectsData } from '../data/projectsData';
 
 const ProjectDetail = () => {
   const { id } = useParams();
   const project = projectsData[id];
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    const check = () => setIsMobile(mq.matches);
+    check();
+    mq.addEventListener('change', check);
+    return () => mq.removeEventListener('change', check);
+  }, []);
+
+  useEffect(() => {
+    setIframeLoaded(false);
+  }, [id]);
 
   // Intersection Observer for scroll animations
   useEffect(() => {
@@ -39,23 +53,25 @@ const ProjectDetail = () => {
 
   return (
     <div className="bg-black text-white min-h-screen relative">
-      {/* Sticky Back Button */}
-      <Link 
-        to="/" 
-        className="fixed top-8 left-8 z-[100] mix-blend-difference px-6 py-3 border border-white/20 rounded-sm text-[0.7rem] tracking-[3px] uppercase font-bold hover:bg-white hover:text-black transition-all duration-500 backdrop-blur-sm"
-      >
-        ← BACK TO WORK
-      </Link>
-
       <section className="project-hero h-[80vh] flex flex-col justify-end px-[5vw] pb-md relative overflow-hidden fade-in">
         <div className="hero-bg absolute inset-0 -z-10">
           {project.youtubeId ? (
-            <div className="w-full h-full scale-[1.1] animate-hero-pulse">
-              <iframe 
-                src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${project.youtubeId}&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1`}
-                className="w-full h-full object-cover aspect-video pointer-events-none"
-                allow="autoplay; encrypted-media"
+            <div className="w-full h-full relative overflow-hidden scale-[1.1] animate-hero-pulse">
+              {/* Always show thumbnail as base */}
+              <img 
+                src={project.hero} 
+                alt={project.title} 
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${!isMobile && iframeLoaded ? 'opacity-0' : 'opacity-100'}`} 
               />
+              {/* Desktop only: YouTube iframe — never on mobile (causes play/pause controls to flash) */}
+              {!isMobile && (
+                <iframe 
+                  src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${project.youtubeId}&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1`}
+                  className={`iframe-cover transition-opacity duration-1000 ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
+                  allow="autoplay; encrypted-media"
+                  onLoad={() => setIframeLoaded(true)}
+                />
+              )}
             </div>
           ) : (
             <img src={project.hero} alt={project.title} className="w-full h-full object-cover scale-[1.15] animate-hero-pulse" />
@@ -85,7 +101,7 @@ const ProjectDetail = () => {
           </div>
           <div className="fade-in-up delay-[200ms]">
             <h2 className="text-[0.7rem] tracking-[4px] text-gray uppercase mb-4">DESCRIPTION</h2>
-            <p className="text-[1.1rem] md:text-[1.4rem] leading-relaxed text-white font-medium mb-12 lowercase">
+            <p className="text-[1.1rem] md:text-[1.4rem] leading-relaxed text-white font-medium mb-12">
               {project.description}
             </p>
             {project.externalLink && (
@@ -104,26 +120,35 @@ const ProjectDetail = () => {
       </section>
 
       <section className="project-visuals bg-black flex flex-col items-center">
-        {project.gallery.map((media, index) => (
-          <div key={index} className="w-full max-w-[1600px] relative overflow-hidden fade-in-up">
-            {media.includes('youtube.com') || media.includes('shorts') || media.includes('youtu.be') ? (
-              <div className="aspect-video w-full">
-                <iframe 
-                  src={`https://www.youtube.com/embed/${media.split('/').pop().split('?')[0]}?autoplay=0&controls=1&modestbranding=1&rel=0`}
-                  className="w-full h-full border-0"
-                  allow="autoplay; encrypted-media"
+        {project.gallery.map((media, index) => {
+          // Detect YouTube URLs or Behance URLs that embed a youtubeId (broken placeholder pattern)
+          const isYouTubeUrl = media.includes('youtube.com') || media.includes('shorts') || media.includes('youtu.be');
+          const isProjectVideoPlaceholder = !isYouTubeUrl && project.youtubeId && media.includes(project.youtubeId);
+          const videoId = isYouTubeUrl
+            ? media.split('/').pop().split('?')[0]
+            : isProjectVideoPlaceholder ? project.youtubeId : null;
+
+          return (
+            <div key={index} className="w-full max-w-[1600px] relative overflow-hidden fade-in-up">
+              {videoId ? (
+                <div className="aspect-video w-full relative overflow-hidden">
+                  <iframe 
+                    src={`https://www.youtube.com/embed/${videoId}?autoplay=0&controls=1&modestbranding=1&rel=0&playsinline=1`}
+                    className="w-full h-full border-0"
+                    allow="autoplay; encrypted-media"
+                  />
+                </div>
+              ) : (
+                <img 
+                  src={media} 
+                  alt={`${project.title} detail ${index + 1}`} 
+                  loading="lazy" 
+                  className="w-full h-auto block object-cover grayscale transition-all duration-1000 hover:grayscale-0"
                 />
-              </div>
-            ) : (
-              <img 
-                src={media} 
-                alt={`${project.title} detail ${index + 1}`} 
-                loading="lazy" 
-                className="w-full h-auto block object-cover grayscale transition-all duration-1000 hover:grayscale-0"
-              />
-            )}
-          </div>
-        ))}
+              )}
+            </div>
+          );
+        })}
       </section>
 
       <section className="next-project py-lg px-[5vw] text-center border-t border-white/10 fade-in flex flex-col items-center gap-10">
