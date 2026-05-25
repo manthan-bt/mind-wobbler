@@ -3,8 +3,16 @@ import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const isHome = location.pathname === '/';
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -14,48 +22,48 @@ const Navbar = () => {
   useEffect(() => { setIsOpen(false); }, [location.pathname]);
 
   const navItems = [
-    { to: '#work', label: 'WORK' },
-    { to: '#services', label: 'SERVICES' },
-    { to: '#about', label: 'ABOUT' },
-    { to: '#contact', label: 'CONTACT' },
+    { to: '/work', label: 'WORK' },
+    { to: '/services', label: 'SERVICES' },
+    { to: '/about', label: 'ABOUT' },
+    { to: '/contact', label: 'CONTACT' },
   ];
 
   const NavLink = ({ to, label }) => {
-    const href = isHome ? to : `/${to}`;
+    const isActive = location.pathname === to;
     return (
-      <a
-        href={href}
+      <Link
+        to={to}
         onClick={() => setIsOpen(false)}
-        className="text-[0.9rem] font-medium uppercase tracking-wider relative overflow-hidden transition-all duration-300 hover:after:scale-x-100 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-px after:bg-white after:scale-x-0 after:origin-right after:transition-transform after:duration-500 after:ease-in-out hover:after:origin-left"
+        className={`text-[0.8rem] font-bold uppercase tracking-wider relative overflow-hidden transition-all duration-300 hover:opacity-100 ${
+          isActive ? 'opacity-100' : 'opacity-60'
+        }`}
       >
         {label}
-      </a>
+      </Link>
     );
   };
 
   return (
     <>
-      <header className="fixed top-0 w-full h-20 px-[5vw] flex justify-between items-center z-[2000] bg-transparent">
-        {/* Logo / Back */}
+      <header 
+        className={`fixed top-0 w-full h-20 px-[5vw] flex justify-between items-center z-[2000] transition-colors duration-500 ${
+          scrolled 
+            ? 'bg-black/60 backdrop-blur-xl border-b border-white/5' 
+            : 'bg-transparent border-b border-transparent'
+        }`}
+      >
+        {/* Logo */}
         <div className="logo relative z-[2005]">
-          {isHome ? (
-            <Link to="/" className="flex items-center gap-3 no-underline group pointer-events-auto">
-              <img
-                src="/mind-wobbler-icon.png"
-                alt="M"
-                className="h-6 w-auto brightness-0 invert transition-transform duration-500 group-hover:scale-110"
-              />
-              <span className="text-white font-bold tracking-[0.3em] text-shadow-premium uppercase">
-                MIND WOBBLER
-              </span>
-            </Link>
-          ) : (
-            <Link to="/" className="flex items-center gap-2 no-underline group pointer-events-auto text-white hover:opacity-60 transition-opacity duration-300 py-2">
-              <span className="font-bold tracking-[0.2em] text-[0.8rem] uppercase">
-                ← BACK TO WORK
-              </span>
-            </Link>
-          )}
+          <Link to="/" className="flex items-center gap-3 no-underline group pointer-events-auto">
+            <img
+              src="/mind-wobbler-icon.png"
+              alt="M"
+              className="h-6 w-auto brightness-0 invert transition-transform duration-500 group-hover:scale-110"
+            />
+            <span className="text-white font-bold tracking-[0.3em] text-shadow-premium uppercase">
+              MIND WOBBLER
+            </span>
+          </Link>
         </div>
 
         {/* Desktop Nav */}
@@ -65,13 +73,12 @@ const Navbar = () => {
           ))}
         </nav>
 
-        {/* Hamburger — absolute-positioned bars for precise control */}
+        {/* Hamburger */}
         <button
           className="md:hidden relative z-[2005] w-10 h-10 pointer-events-auto focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
-          {/* Top bar */}
           <span
             className="absolute left-1/2 bg-white"
             style={{
@@ -85,7 +92,6 @@ const Navbar = () => {
               transition: 'transform 0.4s cubic-bezier(0.23,1,0.32,1)',
             }}
           />
-          {/* Middle bar */}
           <span
             className="absolute left-1/2 bg-white"
             style={{
@@ -98,7 +104,6 @@ const Navbar = () => {
               transition: 'opacity 0.25s ease',
             }}
           />
-          {/* Bottom bar */}
           <span
             className="absolute left-1/2 bg-white"
             style={{
@@ -115,7 +120,7 @@ const Navbar = () => {
         </button>
       </header>
 
-      {/* Mobile Overlay — clip-path circle reveal from hamburger corner, same centered design */}
+      {/* Mobile Overlay */}
       <div
         className="fixed inset-0 bg-black z-[1999] flex flex-col items-center justify-center gap-10 md:hidden"
         style={{
@@ -125,13 +130,15 @@ const Navbar = () => {
         }}
       >
         {navItems.map(({ to, label }, i) => {
-          const href = isHome ? to : `/${to}`;
+          const isActive = location.pathname === to;
           return (
-            <a
+            <Link
               key={label}
-              href={href}
+              to={to}
               onClick={() => setIsOpen(false)}
-              className="text-[1.8rem] font-bold uppercase tracking-wider text-white no-underline relative overflow-hidden transition-all duration-300 hover:after:scale-x-100 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-px after:bg-white after:scale-x-0 after:origin-right after:transition-transform after:duration-500 after:ease-in-out hover:after:origin-left"
+              className={`text-[1.8rem] font-bold uppercase tracking-wider text-white no-underline relative overflow-hidden transition-all duration-300 hover:after:scale-x-100 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-px after:bg-white after:transition-transform after:duration-500 after:ease-in-out hover:after:origin-left ${
+                isActive ? 'after:scale-x-100 after:origin-left' : 'after:scale-x-0 after:origin-right'
+              }`}
               style={{
                 transform: isOpen ? 'translateY(0) skewY(0deg)' : 'translateY(20px) skewY(1.5deg)',
                 opacity: isOpen ? 1 : 0,
@@ -139,7 +146,7 @@ const Navbar = () => {
               }}
             >
               {label}
-            </a>
+            </Link>
           );
         })}
       </div>

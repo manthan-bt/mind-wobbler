@@ -2,25 +2,31 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const CustomCursor = () => {
-  return null;
   const cursorRef = useRef(null);
   const followerRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const isVisibleRef = useRef(false);
   const location = useLocation();
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(
-        window.matchMedia('(max-width: 768px)').matches ||
-        ('ontouchstart' in window) ||
-        navigator.maxTouchPoints > 0
-      );
+      const mobile = window.innerWidth <= 1024;
+      setIsMobile(mobile);
+      if (!mobile) {
+        document.documentElement.classList.add('custom-cursor-active');
+      } else {
+        document.documentElement.classList.remove('custom-cursor-active');
+      }
     };
+    
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      document.documentElement.classList.remove('custom-cursor-active');
+    };
   }, []);
 
   useEffect(() => {
@@ -33,7 +39,11 @@ const CustomCursor = () => {
     let rafId;
 
     const onMouseMove = (e) => {
-      if (!isVisible) setIsVisible(true);
+      if (!isVisibleRef.current) {
+        isVisibleRef.current = true;
+        setIsVisible(true);
+      }
+      
       mouseX = e.clientX;
       mouseY = e.clientY;
 
@@ -55,8 +65,15 @@ const CustomCursor = () => {
       }
     };
 
-    const onMouseEnter = () => setIsVisible(true);
-    const onMouseLeave = () => setIsVisible(false);
+    const onMouseEnter = () => {
+      isVisibleRef.current = true;
+      setIsVisible(true);
+    };
+
+    const onMouseLeave = () => {
+      isVisibleRef.current = false;
+      setIsVisible(false);
+    };
 
     const renderFollower = () => {
       followerX += (mouseX - followerX) * 0.15;
@@ -68,32 +85,25 @@ const CustomCursor = () => {
       rafId = requestAnimationFrame(renderFollower);
     };
 
-    const addHoverListeners = () => {
-      const targets = document.querySelectorAll('a, button, .hover-target');
-      targets.forEach((target) => {
-        target.addEventListener('mouseenter', () => setIsHovered(true));
-        target.addEventListener('mouseleave', () => setIsHovered(false));
-      });
+    const onMouseOver = (e) => {
+      const target = e.target.closest('a, button, .hover-target');
+      setIsHovered(!!target);
     };
 
     window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseover', onMouseOver);
     document.addEventListener('mouseenter', onMouseEnter);
     document.addEventListener('mouseleave', onMouseLeave);
     renderFollower();
-    addHoverListeners();
-
-    // Re-bind listeners when location changes (new elements might appear)
-    const observer = new MutationObserver(addHoverListeners);
-    observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseover', onMouseOver);
       document.removeEventListener('mouseenter', onMouseEnter);
       document.removeEventListener('mouseleave', onMouseLeave);
       cancelAnimationFrame(rafId);
-      observer.disconnect();
     };
-  }, [location.pathname, isVisible, isMobile]);
+  }, [location.pathname, isMobile]);
 
   if (isMobile) return null;
 

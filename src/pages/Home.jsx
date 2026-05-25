@@ -1,48 +1,45 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { projectsData } from '../data/projectsData';
 import ProjectCard from '../components/ProjectCard';
-import { motion } from 'framer-motion';
+import AnimatedNumber from '../components/AnimatedNumber';
 
 const Home = () => {
   const heroRef = useRef(null);
   const [iframeLoaded, setIframeLoaded] = useState(false);
 
-  // Intersection Observer for scroll animations
   useEffect(() => {
-    const observerOptions = {
-      threshold: 0.15
-    };
-
+    window.scrollTo(0, 0);
+    const observerOptions = { threshold: 0.15 };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
       });
     }, observerOptions);
 
-    document.querySelectorAll('.fade-in, .fade-in-up').forEach(el => {
-      observer.observe(el);
-    });
-
+    document.querySelectorAll('.fade-in, .fade-in-up').forEach(el => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
+  const topProjects = Object.values(projectsData).slice(0, 3);
+
+  const servicePreviews = [
+    { title: 'BRAND IDENTITY', path: '/services/branding', num: '01', img: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=1000' },
+    { title: 'CINEMATOGRAPHY', path: '/services/cinematography', num: '02', img: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1000' },
+    { title: 'PHOTOGRAPHY', path: '/services/photography', num: '03', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1000' }
+  ];
+
   return (
-    <div>
-      {/* Hero Section */}
+    <div className="bg-black">
+      {/* 01. HERO */}
       <section ref={heroRef} className="hero relative h-screen flex flex-col justify-center px-[5vw] overflow-hidden">
         <div className="hero-bg absolute inset-0 z-0 grayscale">
           <div className="absolute inset-0 bg-black/40 z-10" />
-
-          {/* Background Placeholder — shows for everyone until iframe loads */}
           <img
             src="https://img.youtube.com/vi/8zZe4gTxtY0/maxresdefault.jpg"
             alt="Hero Placeholder"
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 z-0 ${iframeLoaded ? 'opacity-0' : 'opacity-100'}`}
           />
-
-          {/* YouTube iframe background — fades in over placeholder */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
             <iframe
               src="https://www.youtube.com/embed/8zZe4gTxtY0?autoplay=1&mute=1&controls=0&loop=1&playlist=8zZe4gTxtY0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
@@ -50,122 +47,121 @@ const Home = () => {
               allow="autoplay; encrypted-media"
               onLoad={() => setIframeLoaded(true)}
             />
-            {/* Blocks mouse events → YouTube never shows hover controls overlay */}
             <div className="absolute inset-0 z-20" style={{ pointerEvents: 'all', background: 'transparent' }} />
           </div>
-
-          <div className="hero-overlay absolute inset-0 bg-gradient-to-b from-black/30 to-black z-20" />
+          <div className="hero-overlay absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black z-20" />
         </div>
 
         <div className="hero-content relative z-30 text-center px-[5vw]">
-          <h1 className="text-[clamp(2.5rem,7vw,5rem)] leading-[0.9] font-black mb-6 tracking-tighter fade-in text-shadow-premium uppercase">
+          <h1 className="text-[clamp(3.5rem,8vw,7rem)] leading-[0.85] font-black mb-6 tracking-tighter fade-in text-shadow-premium uppercase">
             MIND <br /> WOBBLER
           </h1>
-          <p className="text-[clamp(0.6rem,0.9vw,0.75rem)] tracking-[0.5em] text-gray uppercase fade-in delay-300">
-            PERSONAL PASSION PROJECT • BY MANTHAN B T
+          <p className="text-[0.65rem] tracking-[0.5em] text-white/50 uppercase fade-in delay-300 font-bold">
+            STRATEGIC CREATIVE STUDIO • ESTABLISHED 2023
           </p>
         </div>
 
         <div className="scroll-indicator absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 fade-in delay-500">
-          <span className="text-[0.7rem] tracking-[3px] opacity-70">SCROLL</span>
+          <span className="text-[0.6rem] tracking-[3px] opacity-70 font-bold">SCROLL</span>
           <div className="line w-[1px] h-[50px] bg-white/30 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-white origin-top animate-scroll-line" />
           </div>
         </div>
       </section>
 
-      {/* Work Section */}
-      <section id="work" className="work-section py-24 px-[5vw]">
-        <h2 className="section-tag">SELECTED PROJECTS</h2>
-        <div className="work-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-x-10 md:gap-y-16">
-          {Object.values(projectsData).map((project) => (
-            <ProjectCard
-              key={project.id}
-              {...project}
-            />
+      {/* 02. STATS */}
+      <section className="px-[5vw] py-32 border-b border-white/5 fade-in">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-0">
+          <div className="flex flex-col lg:border-r border-white/10 px-4">
+            <span className="text-white text-[clamp(2rem,4vw,3rem)] font-bold tracking-tighter leading-none mb-4">
+              <AnimatedNumber value={2023} />
+            </span>
+            <p className="text-[0.55rem] tracking-[0.4em] text-white/30 uppercase font-bold">ESTABLISHED</p>
+          </div>
+          <div className="flex flex-col lg:border-r border-white/10 px-4">
+            <span className="text-white text-[clamp(2rem,4vw,3rem)] font-bold tracking-tighter leading-none mb-4">
+              <AnimatedNumber value={50} suffix="+" />
+            </span>
+            <p className="text-[0.55rem] tracking-[0.4em] text-white/30 uppercase font-bold">COMMISSIONS</p>
+          </div>
+          <div className="flex flex-col lg:border-r border-white/10 px-4">
+            <span className="text-white text-[clamp(2rem,4vw,3rem)] font-bold tracking-tighter leading-none mb-4">
+              <AnimatedNumber value={15} suffix="+" />
+            </span>
+            <p className="text-[0.55rem] tracking-[0.4em] text-white/30 uppercase font-bold">GLOBAL PARTNERS</p>
+          </div>
+          <div className="flex flex-col px-4">
+            <span className="text-white text-[clamp(2rem,4vw,3rem)] font-bold tracking-tighter leading-none mb-4">
+              0<AnimatedNumber value={5} />
+            </span>
+            <p className="text-[0.55rem] tracking-[0.4em] text-white/30 uppercase font-bold">STUDIO VERTICALS</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 03. CAPABILITIES */}
+      <section className="px-[5vw] py-32 overflow-hidden">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-24 fade-in">
+          <div className="max-w-2xl">
+            <h2 className="text-[0.6rem] tracking-[0.5em] text-white/30 mb-8 uppercase font-bold">CAPABILITIES</h2>
+            <h3 className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold text-white uppercase tracking-tighter leading-none">
+              DEFINING THE <br /> VISUAL FRONTIER.
+            </h3>
+          </div>
+          <Link to="/services" className="group flex items-center gap-3 text-white border-b border-white/20 pb-2 hover:border-white transition-all hover-target mb-4">
+            <span className="text-[0.65rem] tracking-[0.4em] font-bold uppercase">INDEX</span>
+            <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {servicePreviews.map((service, index) => (
+            <Link key={service.title} to={service.path} className="group block relative aspect-[3/4] overflow-hidden bg-gray-dark rounded-sm fade-in-up hover-target" style={{ transitionDelay: `${index * 100}ms` }}>
+              <img src={service.img} alt={service.title} className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-1000 group-hover:scale-105 group-hover:grayscale-0" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+              <div className="absolute bottom-10 left-10 z-20">
+                <span className="text-white/40 text-[0.6rem] font-bold block mb-3 tracking-[0.3em] uppercase">{service.num}</span>
+                <h4 className="text-white font-bold tracking-tighter text-2xl uppercase leading-none">{service.title}</h4>
+              </div>
+              <div className="absolute top-10 right-10 z-20 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-[-10px] group-hover:translate-x-0">
+                <span className="text-xl">→</span>
+              </div>
+            </Link>
           ))}
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="services bg-gray-dark py-lg px-[5vw]">
-        <div className="section-header mb-md fade-in">
-          <h2 className="text-[clamp(2rem,4vw,4rem)] font-normal uppercase">SERVICES</h2>
+      {/* 04. WORK */}
+      <section className="px-[5vw] py-32 bg-white/[0.01] border-y border-white/5">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-24 fade-in">
+          <div className="max-w-2xl">
+            <h2 className="text-[0.6rem] tracking-[0.5em] text-white/30 mb-8 uppercase font-bold">WORK</h2>
+            <h3 className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold text-white uppercase tracking-tighter leading-none">
+              SELECTED <br /> PRODUCTIONS.
+            </h3>
+          </div>
+          <Link to="/work" className="group flex items-center gap-3 text-white border-b border-white/20 pb-2 hover:border-white transition-all hover-target mb-4">
+            <span className="text-[0.65rem] tracking-[0.4em] font-bold uppercase">ARCHIVE</span>
+            <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
+          </Link>
         </div>
-        <div className="service-grid grid grid-cols-1 md:grid-cols-3 gap-16">
-          <div className="service-item border-t border-white/20 pt-10 fade-in-up">
-            <h3 className="text-2xl font-light mb-5">BRANDING</h3>
-            <p className="text-gray leading-loose">LOGO DESIGN<br />IDENTITY SYSTEMS<br />BRAND GUIDELINES</p>
-          </div>
-          <div className="service-item border-t border-white/20 pt-10 fade-in-up delay-200">
-            <h3 className="text-2xl font-light mb-5">VIDEO PRODUCTION</h3>
-            <p className="text-gray leading-loose">CINEMATIC VIDEOGRAPHY<br />EDITING & COLOR GRADING<br />EVENT COVERAGE</p>
-          </div>
-          <div className="service-item border-t border-white/20 pt-10 fade-in-up delay-[400ms]">
-            <h3 className="text-2xl font-light mb-5">PHOTOGRAPHY</h3>
-            <p className="text-gray leading-loose">ARCHITECTURAL PHOTOGRAPHY<br />INTERIOR SHOOTS<br />EVENT COVERAGE</p>
-          </div>
-        </div>
-      </section>
 
-      {/* About Section */}
-      <section id="about" className="about py-lg px-[5vw]">
-        <div className="about-grid grid grid-cols-1 lg:grid-cols-[0.8fr,1.2fr] gap-[60px] lg:gap-[100px] items-center">
-          <div className="about-image relative w-full max-w-[450px] mx-auto aspect-[4/5] bg-gray-dark overflow-hidden border border-white/10 rounded-sm fade-in group">
-            <img
-              src="/manthan.jpg"
-              alt="Manthan"
-              className="w-full h-full object-cover grayscale transition-custom group-hover:grayscale-0"
-            />
-          </div>
-          <div className="about-text text-center lg:text-left">
-            <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] leading-none font-bold text-white mb-[30px] tracking-tight uppercase fade-in">
-              MANTHAN B T
-            </h2>
-            <p className="text-[1.2rem] md:text-[1.8rem] leading-tight font-medium text-gray-light mb-[40px] tracking-tight fade-in-up">
-              I’m a creative designer and videographer based in Bangalore. Mind Wobbler is my personal playground where I explore visual storytelling as a passion and a hobby.
-            </p>
-            <p className="text-lg leading-relaxed text-gray max-w-[650px] mx-auto lg:mx-0 mb-6 fade-in-up delay-[200ms]">
-              What started as a hobby has evolved into a curated digital showcase. I focus on branding, cinematic video content, and experimental visual design, always pushing the boundaries of clarity and impact.
-            </p>
-            <p className="text-lg leading-relaxed text-gray max-w-[650px] mx-auto lg:mx-0 fade-in-up delay-[400ms]">
-              While this is my passion project, I approach every output with professional-grade standards. If you're looking for high-impact visual design or cinematic production, this portfolio represents my expertise and dedication to the craft.
-            </p>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {topProjects.map((project) => (
+            <ProjectCard key={project.id} {...project} />
+          ))}
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="contact py-lg px-[5vw]">
-        <div className="contact-grid grid grid-cols-1 lg:grid-cols-2 gap-20">
-          <div className="contact-info fade-in">
-            <h2 className="text-[clamp(2rem,4vw,4rem)] font-normal uppercase leading-tight">LET’S WORK TOGETHER.</h2>
-            <p className="text-xl text-gray mt-5 mb-16">WE ARE ALWAYS LOOKING FOR NEW CHALLENGES AND VISIONARY CLIENTS.</p>
-            <a href="mailto:manthan.bt@gmail.com" className="cta-link text-[clamp(1.5rem,3vw,2.5rem)] text-white border-b-2 border-white pb-1 hover-target tracking-wide">manthan.bt@gmail.com</a>
-
-            <div className="social-links mt-16 flex flex-wrap gap-8">
-              <a href="https://www.linkedin.com/in/manthan-bt-268610295/" target="_blank" rel="noopener noreferrer" className="text-white hover-target tracking-widest text-[1.1rem]">LINKEDIN</a>
-              <a href="https://www.youtube.com/@mind_wobbler" target="_blank" rel="noopener noreferrer" className="text-white hover-target tracking-widest text-[1.1rem]">YOUTUBE</a>
-              <a href="https://www.instagram.com/mind_wobbler" target="_blank" rel="noopener noreferrer" className="text-white hover-target tracking-widest text-[1.1rem]">INSTAGRAM</a>
-              <a href="https://www.behance.net/mind_wobbler" target="_blank" rel="noopener noreferrer" className="text-white hover-target tracking-widest text-[1.1rem]">BEHANCE</a>
-            </div>
-          </div>
-
-          <div className="contact-form fade-in-up delay-200">
-            <form className="flex flex-col gap-10">
-              <div className="input-group">
-                <input type="text" placeholder="NAME" required className="w-full bg-transparent border-b border-white/30 text-white text-xl py-4 outline-none focus:border-white transition-colors" />
-              </div>
-              <div className="input-group">
-                <input type="email" placeholder="EMAIL" required className="w-full bg-transparent border-b border-white/30 text-white text-xl py-4 outline-none focus:border-white transition-colors" />
-              </div>
-              <div className="input-group">
-                <input type="text" placeholder="MESSAGE" required className="w-full bg-transparent border-b border-white/30 text-white text-xl py-4 outline-none focus:border-white transition-colors" />
-              </div>
-              <button type="submit" className="bg-white text-black py-5 px-10 text-[1.1rem] font-bold uppercase tracking-widest self-start transition-transform hover:-translate-y-1 hover-target">SEND INQUIRY</button>
-            </form>
-          </div>
-        </div>
+      {/* 05. CONTACT */}
+      <section className="px-[5vw] py-32 text-center fade-in">
+        <p className="text-[0.6rem] tracking-[0.5em] text-white/30 mb-8 uppercase font-bold">START A PROJECT</p>
+        <h3 className="text-[clamp(2rem,5vw,4rem)] font-bold text-white mb-10 tracking-tighter uppercase leading-none">
+          LET'S BUILD <br /> THE FUTURE.
+        </h3>
+        <Link to="/contact" className="inline-block bg-white text-black py-5 px-16 text-[0.7rem] font-black tracking-[0.4em] uppercase hover:bg-gray-light transition-all hover-target shadow-2xl">
+          GET IN TOUCH
+        </Link>
       </section>
     </div>
   );

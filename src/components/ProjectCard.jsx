@@ -7,19 +7,17 @@ const ProjectCard = ({ id, title, category, hero, gallery, youtubeId, externalLi
   const [videoLoaded, setVideoLoaded] = useState(false);
   const isVideo = !!youtubeId;
   
-  // Reset video loaded state when not hovering
   useEffect(() => {
     if (!isHovered) {
       setVideoLoaded(false);
     }
   }, [isHovered]);
 
-  // Slideshow logic for images
   useEffect(() => {
     let interval;
     if (isHovered && !isVideo && gallery && gallery.length > 1) {
       interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % Math.min(gallery.length, 5)); // Cycle through first 5 images
+        setCurrentIndex((prev) => (prev + 1) % Math.min(gallery.length, 5));
       }, 1500);
     } else {
       setCurrentIndex(0);
@@ -39,26 +37,26 @@ const ProjectCard = ({ id, title, category, hero, gallery, youtubeId, externalLi
       onMouseLeave={() => setIsHovered(false)}
       className="block no-underline text-white group fade-in-up"
     >
-      <div className="w-full relative overflow-hidden grayscale transition-custom hover:grayscale-0 rounded-[2px]">
-        <div className="relative overflow-hidden aspect-video bg-gray-dark">
-          {/* Main Image / Thumbnail — Always here as base/fallback */}
-          <div className="w-full h-full overflow-hidden relative">
+      <div className="w-full relative overflow-hidden bg-gray-dark rounded-sm">
+        <div className="relative overflow-hidden aspect-[16/10] sm:aspect-video">
+          {/* Grayscale overlay that fades out on hover */}
+          <div className="w-full h-full overflow-hidden relative z-10">
             <img 
               key={displayMedia}
               src={displayMedia} 
               alt={title} 
               loading="lazy" 
-              className={`w-full h-full block object-cover transition-custom group-hover:scale-110 animate-fade-in ${isVideo && videoLoaded ? 'opacity-0' : 'opacity-100'}`}
+              className={`w-full h-full block object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105 ${isVideo && videoLoaded ? 'opacity-0' : 'opacity-100'}`}
             />
-            <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            {/* Subtle inner shadow for depth */}
+            <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.2)] pointer-events-none" />
           </div>
 
-          {/* Video Iframe — Overlays thumbnail when hovering */}
           {isVideo && isHovered && (
-            <div className={`absolute inset-0 w-full h-full overflow-hidden pointer-events-none transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}>
+            <div className={`absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-20 transition-opacity duration-700 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}>
               <iframe 
                 src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${youtubeId}&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&playsinline=1`}
-                className="video-preview-iframe"
+                className="video-preview-iframe grayscale group-hover:grayscale-0 transition-all duration-1000"
                 allow="autoplay; encrypted-media"
                 onLoad={() => setVideoLoaded(true)}
               />
@@ -66,13 +64,18 @@ const ProjectCard = ({ id, title, category, hero, gallery, youtubeId, externalLi
           )}
         </div>
       </div>
-      <div className="mt-4 px-1 transition-opacity duration-500 group-hover:opacity-100 opacity-60">
-        <div className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-gray mb-1">
-          {category}
+      <div className="mt-6 flex justify-between items-start">
+        <div>
+          <h3 className="text-[0.9rem] font-bold tracking-tight uppercase mb-1">
+            {title}
+          </h3>
+          <div className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-white/30">
+            {category}
+          </div>
         </div>
-        <h3 className="text-[1rem] md:text-[1.2rem] font-bold tracking-tight uppercase">
-          {title}
-        </h3>
+        <div className="opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-[-10px] group-hover:translate-x-0">
+          <span className="text-xl">→</span>
+        </div>
       </div>
     </Link>
   );

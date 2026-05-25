@@ -9,6 +9,11 @@
     text-transform: uppercase;
   }
 
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+
   h1,
   h2,
   h3,
