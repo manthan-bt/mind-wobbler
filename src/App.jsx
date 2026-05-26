@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
@@ -9,20 +9,19 @@ import Work from './pages/Work';
 import Services from './pages/Services';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import BrandingService from './pages/BrandingService';
-import CinematographyService from './pages/CinematographyService';
-import PhotographyService from './pages/PhotographyService';
-import MotionDesignService from './pages/MotionDesignService';
-import UIService from './pages/UIService';
-import SocialService from './pages/SocialService';
-import GraphicService from './pages/GraphicService';
+import Unsubscribe from './pages/Unsubscribe';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import Cookies from './pages/Cookies';
 import ProjectDetail from './pages/ProjectDetail';
+import CookieConsent from './components/CookieConsent';
 
 function App() {
   return (
     <Router>
       <SmoothScroll>
         <CustomCursor />
+        <CookieConsent />
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <main className="flex-grow">
@@ -30,15 +29,12 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/work" element={<Work />} />
               <Route path="/services" element={<Services />} />
-              <Route path="/services/branding" element={<BrandingService />} />
-              <Route path="/services/cinematography" element={<CinematographyService />} />
-              <Route path="/services/photography" element={<PhotographyService />} />
-              <Route path="/services/motion" element={<MotionDesignService />} />
-              <Route path="/services/uiux" element={<UIService />} />
-              <Route path="/services/social" element={<SocialService />} />
-              <Route path="/services/graphic" element={<GraphicService />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/unsubscribe" element={<Unsubscribe />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/cookies" element={<Cookies />} />
               <Route path="/projects/:id" element={<ProjectDetail />} />
             </Routes>
           </main>

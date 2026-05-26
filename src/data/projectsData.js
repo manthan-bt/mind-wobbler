@@ -2,7 +2,7 @@ export const projectsData = {
   aatmatrisha: {
     id: "aatmatrisha",
     title: "AATMATRISHA",
-    category: "EVENT DESIGN",
+    category: "CINEMATOGRAPHY",
     year: "2025",
     role: "CREATIVE & VIDEO DIRECTION",
     description: "Aatmatrisha is the flagship techno-cultural fest of PES University. We captured the electric atmosphere and creative spirit of the event through high-energy recap videos and cinematic coverage.",
@@ -43,7 +43,7 @@ export const projectsData = {
   wali: {
     id: "wali",
     title: "WALI CONSTRUCTION",
-    category: "IDENTITY",
+    category: "3D & MOTION",
     year: "2025",
     role: "VISUAL IDENTITY & ANIMATION",
     description: "Wali Construction is a leader in the infrastructure sector. Our approach for Wali was to build a robust and reliable brand identity, complemented by sleek animations that demonstrate growth and precision.",
@@ -65,7 +65,7 @@ export const projectsData = {
   aura: {
     id: "aura",
     title: "AURA",
-    category: "3D VISUALS",
+    category: "3D & MOTION",
     year: "2025",
     role: "3D ANIMATION & APPAREL DESIGN",
     description: "Aura is a journey into abstract dimensions. We combined high-fidelity 3D animations with streetwear apparel design to create a unified visual experience that feels both futuristic and grounded.",
@@ -83,7 +83,7 @@ export const projectsData = {
   hosp: {
     id: "hosp",
     title: "HOSP",
-    category: "BRAND IDENTITY",
+    category: "BRANDING",
     year: "2025",
     role: "VISUAL IDENTITY & MOCKUPS",
     description: "HOSP is a healthcare-focused startup. We provided a clean, trust-oriented visual system including logo systems and medical branding mocks to elevate their market presence.",
@@ -123,7 +123,7 @@ export const projectsData = {
   rapidlab: {
     id: "rapidlab",
     title: "RAPID LAB",
-    category: "BRANDING",
+    category: "GRAPHIC DESIGN",
     year: "2024",
     role: "VISUAL IDENTITY & POSTER DESIGN",
     description: "Rapid Lab is a laboratory innovation hub. We crafted an extensive evolution gallery of posters and brand identity mockups focusing on growth and experimentation.",
@@ -141,7 +141,7 @@ export const projectsData = {
   unmaadh: {
     id: "unmaadh",
     title: "UNMAADH",
-    category: "ART DIRECTION",
+    category: "GRAPHIC DESIGN",
     year: "2024",
     role: "CREATIVE & ART DIRECTION",
     description: "Unmaadh is a conceptual art project. We provided creative direction for abstract visuals, album art mockups, and sensory imagery that pushes boundaries.",

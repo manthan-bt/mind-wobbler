@@ -3,7 +3,7 @@ import { useInView, animate } from 'framer-motion';
 
 const AnimatedNumber = ({ value, duration = 2.5, suffix = '' }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: false, margin: "-50px" });
   const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {
@@ -18,6 +18,8 @@ const AnimatedNumber = ({ value, duration = 2.5, suffix = '' }) => {
         },
       });
       return () => controls.stop();
+    } else {
+      setDisplayValue(0);
     }
   }, [isInView, value, duration]);
 

@@ -4,16 +4,108 @@
 
 @layer base {
   body {
-    @apply bg-black text-white font-montserrat antialiased selection:bg-white selection:text-black;
+    @apply bg-white text-black font-montserrat antialiased selection:bg-black selection:text-white;
     overflow-x: hidden;
-    text-transform: uppercase;
+  }
+
+  /* Global Noise/Grain Overlay */
+  body::after {
+    content: "";
+    position: fixed;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background-image: url("https://res.cloudinary.com/dydlv7s4w/image/upload/v1678103324/noise_fdfp1z.png");
+    background-repeat: repeat;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 9999;
+    animation: noise-anim 1s steps(2) infinite;
   }
 
   .custom-cursor-active,
   .custom-cursor-active * {
     cursor: none !important;
   }
+}
 
+@keyframes noise-anim {
+  0% { transform: translate(0,0); }
+  10% { transform: translate(-5%,-5%); }
+  20% { transform: translate(-10%,5%); }
+  30% { transform: translate(5%,-10%); }
+  40% { transform: translate(-5%,15%); }
+  50% { transform: translate(-10%,5%); }
+  60% { transform: translate(15%,0); }
+  70% { transform: translate(0,10%); }
+  80% { transform: translate(-15%,0); }
+  90% { transform: translate(10%,5%); }
+  100% { transform: translate(5%,0); }
+}
+
+/* Glitch Effect Utility */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00c1;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+  mix-blend-mode: multiply;
+  opacity: 0.7;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 #00fff9;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+  mix-blend-mode: multiply;
+  opacity: 0.7;
+}
+
+/* For pure B&W, we use shades of gray instead of colors */
+.glitch-text-mono::before {
+  text-shadow: -2px 0 #eee;
+}
+.glitch-text-mono::after {
+  text-shadow: 2px 0 #888;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(31px, 9999px, 94px, 0); }
+  20% { clip: rect(62px, 9999px, 42px, 0); }
+  40% { clip: rect(16px, 9999px, 78px, 0); }
+  60% { clip: rect(58px, 9999px, 14px, 0); }
+  80% { clip: rect(93px, 9999px, 5px, 0); }
+  100% { clip: rect(21px, 9999px, 88px, 0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(65px, 9999px, 100px, 0); }
+  20% { clip: rect(12px, 9999px, 58px, 0); }
+  40% { clip: rect(84px, 9999px, 32px, 0); }
+  60% { clip: rect(45px, 9999px, 82px, 0); }
+  80% { clip: rect(29px, 9999px, 16px, 0); }
+  100% { clip: rect(55px, 9999px, 44px, 0); }
+}
+
+@layer base {
   h1,
   h2,
   h3,
@@ -23,7 +115,7 @@
   a,
   button,
   .hover-target {
-    @apply font-bold tracking-tighter uppercase;
+    @apply font-bold tracking-tighter;
   }
 }
 
@@ -187,4 +279,18 @@
 
 .animate-fade-in {
   animation: fade-in 0.8s ease-out;
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+.animate-dash-flow {
+  animation: dash-flow 1s linear infinite;
+}
+
+.glow-filter {
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
 }

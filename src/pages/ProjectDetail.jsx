@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
+import ScrollReveal from '../components/ScrollReveal';
 import { projectsData } from '../data/projectsData';
 
 const ProjectDetail = () => {
@@ -43,50 +44,50 @@ const ProjectDetail = () => {
   const nextProject = projectsData[nextProjectId];
 
   return (
-    <div className="bg-black text-white min-h-screen relative">
-      <section key={id} className="project-hero h-[80vh] flex flex-col justify-end px-[5vw] pb-md relative overflow-hidden">
+    <div className="bg-white text-black min-h-screen relative">
+      <section key={id} className="project-hero h-[85vh] flex flex-col justify-end px-6 md:px-[3vw] pb-16 relative overflow-hidden">
         <div className="hero-bg absolute inset-0 z-0">
           {project.youtubeId ? (
             <div className="w-full h-full relative overflow-hidden">
               <img
                 src={`https://img.youtube.com/vi/${project.youtubeId}/maxresdefault.jpg`}
                 alt={project.title}
-                className="absolute inset-0 w-full h-full object-cover scale-[1.05] animate-hero-pulse"
+                className="absolute inset-0 w-full h-full object-cover scale-[1.05] animate-hero-pulse opacity-25"
               />
             </div>
           ) : (
             <img 
               src={project.hero} 
               alt={project.title} 
-              className="w-full h-full object-cover scale-[1.05] animate-hero-pulse" 
+              className="w-full h-full object-cover scale-[1.05] animate-hero-pulse opacity-25" 
             />
           )}
-          <div className="hero-overlay absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent z-10" />
+          <div className="hero-overlay absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent z-10" />
         </div>
         <div className="relative z-20">
-          <span className="section-tag">{project.category}</span>
-          <h1 className="text-[clamp(3rem,6vw,6rem)] leading-none font-semibold tracking-[-0.04em] mb-5 uppercase grayscale hover:grayscale-0 transition-custom">
+          <span className="block text-[0.7rem] font-bold uppercase tracking-[0.3em] text-black/40 mb-6">{project.category}</span>
+          <h1 className="text-[clamp(2.5rem,6vw,5rem)] leading-[0.9] font-black tracking-tighter mb-8 uppercase">
             {project.title}
           </h1>
-          <div className="project-meta flex gap-10 text-[1.1rem] text-gray-light uppercase tracking-widest">
-            <span>YEAR: {project.year}</span>
-            <span>ROLE: {project.role}</span>
+          <div className="project-meta flex gap-12 text-[0.9rem] text-black/60 uppercase tracking-widest font-bold">
+            <span>Year: {project.year}</span>
+            <span>Role: {project.role}</span>
           </div>
         </div>
       </section>
 
-      <section className="project-content py-16 md:py-32 px-[5vw] border-b border-white/5 relative z-20">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-[1fr,2fr] gap-12 md:gap-24">
-          <div className="fade-in is-visible">
-            <h2 className="text-[0.7rem] tracking-[4px] text-gray uppercase mb-4">PROJECT SCOPE</h2>
-            <div className="flex flex-col gap-4 text-[0.9rem] text-gray-light uppercase tracking-widest">
-              <div>YEAR: {project.year}</div>
-              <div>ROLE: {project.role}</div>
+      <section className="project-content py-24 md:py-48 px-6 md:px-[3vw] relative z-20 bg-white">
+        <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20">
+          <div className="md:col-span-4 lg:col-span-3 fade-in">
+            <h2 className="text-[0.7rem] tracking-[0.3em] text-black/40 uppercase mb-8 font-bold">PROJECT SCOPE</h2>
+            <div className="flex flex-col gap-6 text-[0.9rem] text-black/60 font-bold uppercase tracking-widest">
+              <div className="border-b border-black/5 pb-2">Year: {project.year}</div>
+              <div className="border-b border-black/5 pb-2">Role: {project.role}</div>
             </div>
           </div>
-          <div className="fade-in is-visible">
-            <h2 className="text-[0.7rem] tracking-[4px] text-gray uppercase mb-4">DESCRIPTION</h2>
-            <p className="text-[1.1rem] md:text-[1.4rem] leading-relaxed text-white font-medium mb-12">
+          <div className="md:col-span-8 lg:col-span-7 fade-in">
+            <h2 className="text-[0.7rem] tracking-[0.3em] text-black/40 uppercase mb-8 font-bold">DESCRIPTION</h2>
+            <p className="text-[clamp(1.1rem,1.8vw,1.5rem)] leading-relaxed text-black/80 font-medium mb-16">
               {project.description}
             </p>
             {project.externalLink && (
@@ -94,17 +95,17 @@ const ProjectDetail = () => {
                 href={project.externalLink} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-4 text-white uppercase tracking-widest group no-underline border border-white/20 px-8 py-4 hover:bg-white hover:text-black transition-custom"
+                className="inline-flex items-center gap-6 text-black uppercase tracking-[0.3em] group no-underline border-b-2 border-black/20 pb-2 hover:border-black transition-all font-black text-sm"
               >
-                View Full Project
-                <span className="transform transition-transform group-hover:translate-x-2">→</span>
+                Launch Experience
+                <span className="transform transition-transform group-hover:translate-x-3">→</span>
               </a>
             )}
           </div>
         </div>
       </section>
 
-      <section className="project-visuals bg-black flex flex-col items-center relative z-20">
+      <section className="project-visuals bg-white flex flex-col items-center relative z-20 px-6 md:px-[3vw] py-12 gap-12 md:gap-24">
         {project.gallery.map((media, index) => {
           // Detect YouTube URLs or Behance URLs that embed a youtubeId (broken placeholder pattern)
           const isYouTubeUrl = media.includes('youtube.com') || media.includes('shorts') || media.includes('youtu.be');
@@ -114,7 +115,11 @@ const ProjectDetail = () => {
             : isProjectVideoPlaceholder ? project.youtubeId : null;
 
           return (
-            <div key={index} className="w-full max-w-[1600px] relative overflow-hidden fade-in-up">
+            <ScrollReveal 
+              key={index}
+              type="clip"
+              className="w-full relative overflow-hidden border border-black/5 shadow-2xl"
+            >
               {videoId ? (
                 <div className="aspect-video w-full relative overflow-hidden">
                   <iframe 
@@ -128,26 +133,26 @@ const ProjectDetail = () => {
                   src={media} 
                   alt={`${project.title} detail ${index + 1}`} 
                   loading="lazy" 
-                  className="w-full h-auto block object-cover grayscale transition-custom hover:grayscale-0"
+                  className="w-full h-auto block object-cover"
                 />
               )}
-            </div>
+            </ScrollReveal>
           );
         })}
       </section>
 
-      <section className="next-project py-lg px-[5vw] text-center border-t border-white/10 fade-in flex flex-col items-center gap-10">
+      <section className="next-project py-48 px-6 md:px-[3vw] text-center border-t border-black/10 fade-in flex flex-col items-center gap-12 bg-white">
         <Link 
-          to="/" 
-          className="text-gray-light hover:text-white uppercase tracking-[4px] text-sm transition-colors border-b border-white/10 pb-2"
+          to="/work" 
+          className="text-black/60 hover:text-black uppercase tracking-[4px] text-xs transition-colors border-b-2 border-black/10 pb-2 font-bold"
         >
-          BACK TO ALL WORK
+          VIEW ARCHIVE
         </Link>
-        <div>
-          <p className="text-gray uppercase tracking-[2px] mb-5">NEXT PROJECT</p>
+        <div className="w-full">
+          <p className="text-black/40 uppercase tracking-[3px] mb-8 font-bold text-xs">SEQUENTIAL PRODUCTION</p>
           <Link 
             to={`/projects/${nextProjectId}`} 
-            className="text-[clamp(2rem,5vw,4rem)] text-white no-underline hover-target transition-all duration-500 hover:text-gray-light"
+            className="text-[clamp(2.5rem,6vw,5rem)] leading-[0.9] text-black no-underline hover-target transition-all duration-500 hover:text-black/40 font-black uppercase tracking-tighter"
           >
             {nextProject.title}
           </Link>

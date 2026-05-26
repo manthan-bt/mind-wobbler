@@ -29,6 +29,11 @@ const CustomCursor = () => {
     };
   }, []);
 
+  // Reset hover state on route change to prevent cursor from getting stuck in hover state
+  useEffect(() => {
+    setIsHovered(false);
+  }, [location.pathname]);
+
   useEffect(() => {
     if (isMobile) return;
 
@@ -52,7 +57,7 @@ const CustomCursor = () => {
       }
       
       // Update hero reveal properties if on Home page
-      if (location.pathname === '/') {
+      if (window.location.pathname === '/') {
         const hero = document.querySelector('.hero');
         const revealLayer = document.querySelector('.hero-reveal-layer');
         if (hero && revealLayer) {
@@ -103,7 +108,7 @@ const CustomCursor = () => {
       document.removeEventListener('mouseleave', onMouseLeave);
       cancelAnimationFrame(rafId);
     };
-  }, [location.pathname, isMobile]);
+  }, [isMobile]);
 
   if (isMobile) return null;
 
@@ -111,16 +116,16 @@ const CustomCursor = () => {
     <>
       <div
         ref={cursorRef}
-        style={{ opacity: isVisible ? 1 : 0 }}
+        style={{ opacity: isVisible ? 1 : 0, mixBlendMode: 'difference' }}
         className={`fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] transition-[width,height,background-color,opacity] duration-300 transform -translate-x-1/2 -translate-y-1/2 ${
           isHovered ? 'w-3 h-3 bg-transparent border border-white' : ''
         }`}
       />
       <div
         ref={followerRef}
-        style={{ opacity: isVisible ? 1 : 0 }}
-        className={`fixed top-0 left-0 w-10 h-10 border border-white/30 rounded-full pointer-events-none z-[9998] transition-[width,height,background-color,opacity] duration-300 transform -translate-x-1/2 -translate-y-1/2 ${
-          isHovered ? 'w-[60px] h-[60px] bg-white/10 border-transparent' : ''
+        style={{ opacity: isVisible ? 1 : 0, mixBlendMode: 'difference' }}
+        className={`fixed top-0 left-0 w-10 h-10 border border-white/40 rounded-full pointer-events-none z-[9998] transition-[width,height,background-color,opacity] duration-300 transform -translate-x-1/2 -translate-y-1/2 ${
+          isHovered ? 'w-[60px] h-[60px] bg-white/20 border-transparent' : ''
         }`}
       />
     </>

@@ -56,8 +56,8 @@ export default async function handler(req, res) {
       path: logoPath,
       cid: 'mw_logo'
     });
-    logoHtml = `<img src="cid:mw_logo" alt="MIND WOBBLER" style="height: 36px; width: auto; border: 0; display: block; margin: 0 auto;" />`;
-    adminLogoHtml = `<img src="cid:mw_logo" alt="MIND WOBBLER" style="height: 28px; width: auto; border: 0; display: inline-block; vertical-align: middle;" />`;
+    logoHtml = `<img src="cid:mw_logo" alt="MIND WOBBLER" style="height: auto; max-height: 48px; width: auto; max-width: 200px; border: 0; display: block; margin: 0 auto;" />`;
+    adminLogoHtml = `<img src="cid:mw_logo" alt="MIND WOBBLER" style="height: auto; max-height: 32px; width: auto; max-width: 160px; border: 0; display: inline-block; vertical-align: middle;" />`;
   } else if (fs.existsSync(iconPath)) {
     attachments.push({
       filename: 'mind-wobbler-icon.png',
@@ -89,7 +89,7 @@ export default async function handler(req, res) {
     },
   });
 
-  // Client confirmation HTML (High contrast: White Header, Dark Body, Montserrat font)
+  // Client confirmation HTML (Refined: White Background, Monochromatic, Professional, MOBILE RESPONSIVE)
   const clientHtml = `
 <!DOCTYPE html>
 <html lang="en">
@@ -98,144 +98,136 @@ export default async function handler(req, res) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inquiry Received</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
     body {
       margin: 0;
       padding: 0;
-      background-color: #000000;
-      color: #ffffff;
+      background-color: #f9f9f9;
+      color: #000000;
       font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      text-transform: uppercase;
       -webkit-font-smoothing: antialiased;
+      width: 100% !important;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
     }
     table {
       border-collapse: collapse;
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+    img {
+      -ms-interpolation-mode: bicubic;
+      max-width: 100%;
+      height: auto;
     }
     .wrapper {
       width: 100%;
-      background-color: #000000;
-      padding: 60px 20px;
+      background-color: #f9f9f9;
+      padding: 40px 0;
     }
     .content-table {
-      max-width: 600px;
       width: 100%;
+      max-width: 600px;
       margin: 0 auto;
-      border: 1px solid #222222;
-      background-color: #0a0a0a;
+      background-color: #ffffff;
+      border: 1px solid #eeeeee;
     }
     .header-cell {
-      padding: 35px 40px;
+      padding: 40px 20px;
       text-align: center;
-      background-color: #ffffff;
-      border-bottom: 1px solid #222222;
-    }
-    .logo-text {
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: 0.4em;
-      color: #000000;
-      margin: 0;
-      display: inline-block;
-      font-family: 'Montserrat', sans-serif;
     }
     .body-cell {
-      padding: 50px 40px;
+      padding: 40px 30px 60px;
+    }
+    .status-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: #888888;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: block;
     }
     .title {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 900;
-      letter-spacing: 0.1em;
-      margin-bottom: 24px;
-      color: #ffffff;
-      line-height: 1.4;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+      color: #000000;
+      line-height: 1.1;
+      text-transform: uppercase;
     }
     .intro-text {
-      font-size: 12px;
-      line-height: 1.8;
-      letter-spacing: 0.15em;
-      color: #a0a0a0;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #555555;
       margin-bottom: 40px;
     }
-    .summary-title {
+    .section-label {
       font-size: 10px;
-      font-weight: 900;
-      letter-spacing: 0.35em;
-      color: rgba(255, 255, 255, 0.4);
-      margin-bottom: 24px;
-      border-bottom: 1px solid #222222;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #aaaaaa;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      border-bottom: 1px solid #eeeeee;
       padding-bottom: 8px;
     }
-    .detail-row {
-      margin-bottom: 24px;
+    .detail-item {
+      margin-bottom: 28px;
     }
     .detail-label {
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: 0.3em;
-      color: rgba(255, 255, 255, 0.4);
-      margin-bottom: 8px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #888888;
+      margin-bottom: 4px;
+      text-transform: uppercase;
     }
     .detail-value {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: #ffffff;
-    }
-    .message-box {
-      background-color: #111111;
-      border-left: 2px solid #ffffff;
-      padding: 24px;
-      margin-top: 10px;
-      border-top: 1px solid rgba(255,255,255,0.03);
-      border-right: 1px solid rgba(255,255,255,0.03);
-      border-bottom: 1px solid rgba(255,255,255,0.03);
+      font-size: 14px;
+      font-weight: 600;
+      color: #000000;
+      text-transform: uppercase;
     }
     .message-text {
-      font-size: 13px;
-      line-height: 1.8;
-      letter-spacing: 0.08em;
-      color: #ffffff;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #333333;
       white-space: pre-wrap;
-      text-transform: none;
+      margin-top: 10px;
     }
     .footer-cell {
-      padding: 40px;
-      border-top: 1px solid #222222;
+      padding: 40px 20px;
+      background-color: #000000;
       text-align: center;
-    }
-    .social-links {
-      margin-bottom: 24px;
     }
     .social-link {
       color: #ffffff;
       text-decoration: none;
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: 0.25em;
-      margin: 0 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      margin: 0 10px 10px;
       display: inline-block;
+      text-transform: uppercase;
     }
     .copyright {
       font-size: 9px;
-      color: rgba(255, 255, 255, 0.3);
-      letter-spacing: 0.2em;
+      color: #555555;
+      letter-spacing: 0.1em;
+      margin-top: 24px;
+      text-transform: uppercase;
     }
-    @media only screen and (max-width: 600px) {
-      .wrapper {
-        padding: 20px 10px;
-      }
-      .body-cell {
-        padding: 30px 20px;
-      }
-      .header-cell {
-        padding: 25px 20px;
-      }
+    @media only screen and (max-width: 480px) {
+      .body-cell { padding: 30px 20px 40px !important; }
+      .title { font-size: 20px !important; }
+      .intro-text { font-size: 13px !important; }
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
-    <table class="content-table" align="center">
+    <table class="content-table" align="center" width="100%" cellpadding="0" cellspacing="0">
       <tr>
         <td class="header-cell">
           ${logoHtml}
@@ -243,40 +235,41 @@ export default async function handler(req, res) {
       </tr>
       <tr>
         <td class="body-cell">
-          <div class="title">THANK YOU FOR GETTING IN TOUCH</div>
+          <span class="status-tag">Transmission Received</span>
+          <div class="title">We've received <br/> your inquiry.</div>
           <div class="intro-text">
-            WE HAVE RECEIVED YOUR ENQUIRY. WE WILL CONTACT YOU AS SOON AS POSSIBLE.
+            Thank you for reaching out to Mind Wobbler. Our team has received your submission and is currently reviewing the details. You can expect a follow-up from one of our partners within 24 hours.
           </div>
           
-          <div class="summary-title">MESSAGE DETAILS</div>
+          <div class="section-label">Submission Summary</div>
           
-          <div class="detail-row">
-            <div class="detail-label">NAME</div>
-            <div class="detail-value">${name.toUpperCase()}</div>
+          <div class="detail-item">
+            <div class="detail-label">Client</div>
+            <div class="detail-value">${name}</div>
           </div>
           
-          <div class="detail-row">
-            <div class="detail-label">INQUIRY TYPE</div>
-            <div class="detail-value">${(inquiryType || 'GENERAL INQUIRY').toUpperCase()}</div>
+          <div class="detail-item">
+            <div class="detail-label">Interest</div>
+            <div class="detail-value">${inquiryType || 'General Inquiry'}</div>
           </div>
           
-          <div class="detail-row">
-            <div class="detail-label">MESSAGE</div>
-            <div class="message-box">
-              <div class="message-text">${message}</div>
-            </div>
+          <div class="detail-item" style="margin-bottom: 0;">
+            <div class="detail-label">Vision</div>
+            <div class="message-text">${message}</div>
           </div>
         </td>
       </tr>
       <tr>
         <td class="footer-cell">
-          <div class="social-links">
-            <a href="https://www.instagram.com/mind_wobbler" class="social-link">INSTAGRAM</a>
-            <a href="https://www.linkedin.com/in/manthan-bt-268610295/" class="social-link">LINKEDIN</a>
-            <a href="https://www.behance.net/mind_wobbler" class="social-link">BEHANCE</a>
-            <a href="https://www.youtube.com/@mind_wobbler" class="social-link">YOUTUBE</a>
+          <div style="margin-bottom: 24px;">
+            <a href="https://www.instagram.com/mind_wobbler" class="social-link">Instagram</a>
+            <a href="https://www.linkedin.com/in/manthan-bt-268610295/" class="social-link">LinkedIn</a>
+            <a href="https://www.behance.net/mind_wobbler" class="social-link">Behance</a>
           </div>
-          <div class="copyright">MIND WOBBLER &copy; 2026. ALL RIGHTS RESERVED.</div>
+          <div style="margin-bottom: 24px;">
+            <a href="https://mind-wobbler.vercel.app/unsubscribe" style="color: #555555; text-decoration: underline; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Unsubscribe from updates</a>
+          </div>
+          <div class="copyright">MIND WOBBLER &copy; 2026 &bull; Strategic Creative Direction</div>
         </td>
       </tr>
     </table>
@@ -285,211 +278,139 @@ export default async function handler(req, res) {
 </html>
   `;
 
-  // Admin notification HTML (Sleek dark panel with white actions)
+  // Admin notification HTML (Sleek, whitespace-focused admin report, MOBILE RESPONSIVE)
   const adminHtml = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Inquiry Alert</title>
+  <title>New Opportunity</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
     body {
       margin: 0;
       padding: 0;
-      background-color: #000000;
-      color: #ffffff;
-      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      text-transform: uppercase;
-      -webkit-font-smoothing: antialiased;
-    }
-    table {
-      border-collapse: collapse;
-    }
-    .wrapper {
-      width: 100%;
-      background-color: #000000;
-      padding: 60px 20px;
-    }
-    .content-table {
-      max-width: 600px;
-      width: 100%;
-      margin: 0 auto;
-      border: 1px solid #222222;
-      background-color: #0a0a0a;
-    }
-    .header-cell {
-      padding: 30px 40px;
       background-color: #ffffff;
-      border-bottom: 1px solid #222222;
-      text-align: left;
-    }
-    .logo-text {
-      font-size: 16px;
-      font-weight: 900;
-      letter-spacing: 0.4em;
       color: #000000;
-      margin: 0;
-      display: inline-block;
-      vertical-align: middle;
       font-family: 'Montserrat', sans-serif;
+      width: 100% !important;
     }
-    .system-badge {
+    .container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+    .header {
+      border-bottom: 2px solid #000000;
+      padding-bottom: 30px;
+      margin-bottom: 40px;
+    }
+    .tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      color: #888888;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .headline {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+    .data-grid {
+      margin-bottom: 40px;
+    }
+    .data-row {
+      margin-bottom: 32px;
+    }
+    .label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #aaaaaa;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #000000;
+      word-break: break-word;
+    }
+    .message-container {
+      background-color: #f9f9f9;
+      padding: 25px;
+      border-left: 4px solid #000000;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #333333;
+    }
+    .cta-btn {
+      display: inline-block;
       background-color: #000000;
       color: #ffffff;
-      font-size: 8px;
-      font-weight: 900;
-      letter-spacing: 0.25em;
-      padding: 5px 10px;
-      vertical-align: middle;
-      margin-left: 15px;
-      display: inline-block;
-    }
-    .body-cell {
-      padding: 50px 40px;
-    }
-    .title {
-      font-size: 22px;
-      font-weight: 900;
-      letter-spacing: 0.1em;
-      margin-bottom: 30px;
-      color: #ffffff;
-      line-height: 1.4;
-    }
-    .detail-row {
-      margin-bottom: 24px;
-    }
-    .detail-label {
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: 0.3em;
-      color: rgba(255, 255, 255, 0.4);
-      margin-bottom: 8px;
-    }
-    .detail-value {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: #ffffff;
-    }
-    .message-box {
-      background-color: #111111;
-      border-left: 2px solid #ffffff;
-      padding: 24px;
-      margin-top: 10px;
-      border-top: 1px solid rgba(255,255,255,0.03);
-      border-right: 1px solid rgba(255,255,255,0.03);
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-    }
-    .message-text {
-      font-size: 13px;
-      line-height: 1.8;
-      letter-spacing: 0.08em;
-      color: #ffffff;
-      white-space: pre-wrap;
-      text-transform: none;
-    }
-    .cta-container {
-      margin-top: 45px;
-      text-align: center;
-    }
-    .btn {
-      background-color: #ffffff;
-      color: #000000;
       text-decoration: none;
+      padding: 18px 36px;
       font-size: 11px;
       font-weight: 900;
-      letter-spacing: 0.35em;
-      padding: 20px 40px;
-      display: inline-block;
-      border: 1px solid #ffffff;
-    }
-    .footer-cell {
-      padding: 30px;
-      border-top: 1px solid #222222;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-top: 40px;
       text-align: center;
     }
-    .system-info {
-      font-size: 8px;
-      color: rgba(255, 255, 255, 0.3);
-      letter-spacing: 0.15em;
+    .footer {
+      margin-top: 60px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #cccccc;
+      text-transform: uppercase;
     }
-    @media only screen and (max-width: 600px) {
-      .wrapper {
-        padding: 20px 10px;
-      }
-      .body-cell {
-        padding: 30px 20px;
-      }
-      .header-cell {
-        padding: 25px 20px;
-        text-align: center;
-      }
-      .system-badge {
-        margin-top: 10px;
-        margin-left: 0;
-        display: block;
-      }
+    @media only screen and (max-width: 480px) {
+      .headline { font-size: 22px !important; }
+      .message-container { padding: 20px !important; }
+      .cta-btn { width: 100%; box-sizing: border-box; }
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <table class="content-table" align="center">
-      <tr>
-        <td class="header-cell">
-          <table width="100%">
-            <tr>
-              <td>
-                ${adminLogoHtml}
-              </td>
-              <td align="right" style="text-align: right;">
-                <div class="system-badge">SYSTEM</div>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td class="body-cell">
-          <div class="title">NEW INQUIRY RECEIVED</div>
-          
-          <div class="detail-row">
-            <div class="detail-label">NAME</div>
-            <div class="detail-value">${name.toUpperCase()}</div>
-          </div>
-          
-          <div class="detail-row">
-            <div class="detail-label">EMAIL</div>
-            <div class="detail-value" style="text-transform: none;">
-              <a href="mailto:${email}" style="color: #ffffff; text-decoration: underline;">${email}</a>
-            </div>
-          </div>
-          
-          <div class="detail-row">
-            <div class="detail-label">INQUIRY TYPE</div>
-            <div class="detail-value">${(inquiryType || 'GENERAL INQUIRY').toUpperCase()}</div>
-          </div>
-          
-          <div class="detail-row">
-            <div class="detail-label">MESSAGE</div>
-            <div class="message-box">
-              <div class="message-text">${message}</div>
-            </div>
-          </div>
-          
-          <div class="cta-container">
-            <a href="mailto:${email}?subject=RE:%20Inquiry%20with%20Mind%20Wobbler" class="btn">REPLY TO CLIENT</a>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td class="footer-cell">
-          <div class="system-info">AUTOMATED SYSTEM NOTIFICATION &bull; MIND WOBBLER STUDIOS ENGINE</div>
-        </td>
-      </tr>
-    </table>
+  <div class="container">
+    <div class="header">
+      <span class="tag">System Alert</span>
+      <div class="headline">New Project <br/> Opportunity</div>
+    </div>
+    
+    <div class="data-grid">
+      <div class="data-row">
+        <div class="label">Lead Name</div>
+        <div class="value">${name.toUpperCase()}</div>
+      </div>
+      <div class="data-row">
+        <div class="label">Lead Email</div>
+        <div class="value" style="text-transform: lowercase;">${email}</div>
+      </div>
+      <div class="data-row">
+        <div class="label">Project Discipline</div>
+        <div class="value">${(inquiryType || 'GENERAL INQUIRY').toUpperCase()}</div>
+      </div>
+      <div class="data-row" style="margin-bottom: 0;">
+        <div class="label">Client Vision</div>
+        <div class="message-container">${message}</div>
+      </div>
+    </div>
+
+    <a href="mailto:${email}?subject=RE: Project Inquiry with Mind Wobbler" class="cta-btn">Initiate Response</a>
+    
+    <div class="footer">
+      Automated via Mind Wobbler Engine &bull; Bengaluru, India
+    </div>
   </div>
 </body>
 </html>
