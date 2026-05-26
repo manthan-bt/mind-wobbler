@@ -159,9 +159,14 @@ const Home = () => {
         <h3 className="text-[clamp(2rem,5vw,4rem)] font-bold text-white mb-10 tracking-tighter uppercase leading-none">
           LET'S BUILD <br /> THE FUTURE.
         </h3>
-        <Link to="/contact" className="inline-block bg-white text-black py-5 px-16 text-[0.7rem] font-black tracking-[0.4em] uppercase hover:bg-gray-light transition-all hover-target shadow-2xl">
-          GET IN TOUCH
-        </Link>
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 max-w-md mx-auto">
+          <a href="mailto:mindwobblerstudios@gmail.com" className="inline-block bg-white text-black py-5 px-12 text-[0.7rem] font-black tracking-[0.4em] uppercase hover:bg-gray-light transition-all hover-target shadow-2xl w-full sm:w-auto">
+            SEND EMAIL
+          </a>
+          <a href="https://wa.me/918105176785" target="_blank" rel="noopener noreferrer" className="inline-block border border-white text-white py-5 px-12 text-[0.7rem] font-black tracking-[0.4em] uppercase hover:bg-white hover:text-black transition-all hover-target w-full sm:w-auto">
+            WHATSAPP
+          </a>
+        </div>
       </section>
     </div>
   );

@@ -111,7 +111,14 @@ const About = () => {
       <section className="px-[5vw] py-32 text-center fade-in border-t border-white/5">
         <p className="text-[0.6rem] tracking-[0.5em] text-white/30 mb-8 uppercase font-bold">READY TO COMMENCE?</p>
         <h3 className="text-[clamp(2rem,5vw,4rem)] font-bold text-white mb-10 tracking-tighter uppercase leading-none">BUILD THE <br /> UNCONVENTIONAL.</h3>
-        <Link to="/contact" className="inline-block border border-white text-white py-4 px-16 text-[0.7rem] font-bold tracking-[0.4em] uppercase hover:bg-white hover:text-black transition-all hover-target">GET IN TOUCH</Link>
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 max-w-md mx-auto">
+          <a href="mailto:mindwobblerstudios@gmail.com" className="inline-block bg-white text-black py-4 px-12 text-[0.7rem] font-bold tracking-[0.4em] uppercase hover:bg-gray-light transition-all hover-target shadow-2xl w-full sm:w-auto">
+            SEND EMAIL
+          </a>
+          <a href="https://wa.me/918105176785" target="_blank" rel="noopener noreferrer" className="inline-block border border-white text-white py-4 px-12 text-[0.7rem] font-bold tracking-[0.4em] uppercase hover:bg-white hover:text-black transition-all hover-target w-full sm:w-auto">
+            WHATSAPP
+          </a>
+        </div>
       </section>
     </div>
   );
