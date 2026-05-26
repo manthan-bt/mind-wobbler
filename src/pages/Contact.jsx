@@ -72,7 +72,7 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !email) {
+    if (!name || !email || !message) {
       alert("PLEASE FILL IN ALL REQUIRED FIELDS.");
       return;
     }
@@ -80,20 +80,17 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch("https://formsubmit.co/ajax/mindwobblerstudios@gmail.com", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           name: name,
           email: email,
-          "inquiry type": inquiryType || 'GENERAL INQUIRY',
+          inquiryType: inquiryType || 'GENERAL INQUIRY',
           message: message,
-          _subject: `NEW INQUIRY FROM ${name.toUpperCase()} - ${inquiryType || 'GENERAL INQUIRY'}`,
-          _captcha: "false",
-          _honey: honey
+          honey: honey
         })
       });
 
