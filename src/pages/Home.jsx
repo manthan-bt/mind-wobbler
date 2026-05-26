@@ -24,8 +24,8 @@ const Home = () => {
   const topProjects = Object.values(projectsData).slice(0, 3);
 
   const servicePreviews = [
-    { title: 'BRAND IDENTITY', path: '/services/branding', num: '01', img: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=1000' },
-    { title: 'CINEMATOGRAPHY', path: '/services/cinematography', num: '02', img: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1000' },
+    { title: 'BRAND IDENTITY', path: '/services/branding', num: '01', img: 'https://images.unsplash.com/photo-1633533451638-32f1e337d254?auto=format&fit=crop&q=80&w=1000' },
+    { title: 'CINEMATOGRAPHY', path: '/services/cinematography', num: '02', img: 'https://images.unsplash.com/photo-1515634928627-2a4e0dae3ddf?auto=format&fit=crop&q=80&w=1000' },
     { title: 'PHOTOGRAPHY', path: '/services/photography', num: '03', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1000' }
   ];
 

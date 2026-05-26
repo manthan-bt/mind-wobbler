@@ -19,7 +19,7 @@ const UIService = () => {
       <section className="relative h-screen flex flex-col justify-end pb-24 px-[5vw] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=2000" 
+            src="https://images.unsplash.com/photo-1602576666092-bf6447a729fc?auto=format&fit=crop&q=80&w=2000" 
             alt="UI Background"
             className="w-full h-full object-cover grayscale opacity-40 scale-110 blur-[2px]"
           />

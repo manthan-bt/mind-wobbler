@@ -19,7 +19,7 @@ const MotionDesignService = () => {
       <section className="relative h-screen flex flex-col justify-end pb-24 px-[5vw] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1574717024453-3540ecd6afe5?auto=format&fit=crop&q=80&w=2000" 
+            src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=2000" 
             alt="Motion Background"
             className="w-full h-full object-cover grayscale opacity-40 scale-110 blur-[2px]"
           />

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import AnimatedNumber from '../components/AnimatedNumber';
 
 const About = () => {

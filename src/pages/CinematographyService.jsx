@@ -19,7 +19,7 @@ const CinematographyService = () => {
       <section className="relative h-screen flex flex-col justify-end pb-24 px-[5vw] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=2000" 
+            src="https://images.unsplash.com/photo-1515634928627-2a4e0dae3ddf?auto=format&fit=crop&q=80&w=2000" 
             alt="Cinematography Background"
             className="w-full h-full object-cover grayscale opacity-40 scale-110 blur-[2px]"
           />

@@ -19,7 +19,7 @@ const GraphicService = () => {
       <section className="relative h-screen flex flex-col justify-end pb-24 px-[5vw] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=2000" 
+            src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=2000" 
             alt="Graphic Background"
             className="w-full h-full object-cover grayscale opacity-40 scale-110 blur-[2px]"
           />

@@ -23,7 +23,7 @@ const Services = () => {
       title: 'BRAND IDENTITY',
       path: '/services/branding',
       desc: 'DEFINING THE VISUAL AND STRATEGIC FOUNDATIONS OF MODERN ENTITIES.',
-      image: 'https://images.unsplash.com/photo-1586717791821-3f44a563dc4c?auto=format&fit=crop&q=80&w=1600'
+      image: 'https://images.unsplash.com/photo-1633533451638-32f1e337d254?auto=format&fit=crop&q=80&w=1600'
     },
     {
       id: 'cinematography',
@@ -31,7 +31,7 @@ const Services = () => {
       title: 'CINEMATOGRAPHY',
       path: '/services/cinematography',
       desc: 'HIGH-END FILM PRODUCTION TAILORED FOR EMOTIONAL AND VISUAL IMPACT.',
-      image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1600'
+      image: 'https://images.unsplash.com/photo-1515634928627-2a4e0dae3ddf?auto=format&fit=crop&q=80&w=1600'
     },
     {
       id: 'photography',
@@ -47,7 +47,7 @@ const Services = () => {
       title: 'POST-PRODUCTION & MOTION',
       path: '/services/motion',
       desc: 'EXPERT VIDEO EDITING AND DYNAMIC VISUAL SYSTEMS FOR MODERN NARRATIVES.',
-      image: 'https://images.unsplash.com/photo-1574717024453-3540ecd6afe5?auto=format&fit=crop&q=80&w=1600'
+      image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=1600'
     },
     {
       id: 'uiux',
@@ -55,7 +55,7 @@ const Services = () => {
       title: 'UI/UX STRATEGY',
       path: '/services/uiux',
       desc: 'MINIMALIST DIGITAL EXPERIENCES BUILT ON FUNCTIONAL PRECISION.',
-      image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=1600'
+      image: 'https://images.unsplash.com/photo-1602576666092-bf6447a729fc?auto=format&fit=crop&q=80&w=1600'
     },
     {
       id: 'social',
@@ -63,7 +63,7 @@ const Services = () => {
       title: 'SOCIAL MANAGEMENT',
       path: '/services/social',
       desc: 'STRATEGIC CONTENT CURATION AND COMMUNITY GROWTH FOR DIGITAL BRANDS.',
-      image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&q=80&w=1600'
+      image: 'https://images.unsplash.com/photo-1683721003111-070bcc053d8b?auto=format&fit=crop&q=80&w=1600'
     },
     {
       id: 'graphic',
@@ -71,7 +71,7 @@ const Services = () => {
       title: 'GRAPHIC DESIGN',
       path: '/services/graphic',
       desc: 'HITTING THE INTERSECTION OF TYPE, FORM, AND FUNCTIONAL COMMUNICATION.',
-      image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1600'
+      image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=1600'
     }
   ];
 

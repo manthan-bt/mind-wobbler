@@ -75,7 +75,7 @@ const Contact = () => {
             <div className="space-y-12">
               <div>
                 <h4 className="text-[0.6rem] tracking-[0.4em] text-white/40 mb-4 uppercase">NEW BUSINESS</h4>
-                <a href="mailto:mindwobblerstudios@gmail.com" className="cta-link text-[clamp(1.2rem,2.5vw,2rem)] text-white border-b border-white/20 pb-1 hover:border-white transition-colors hover-target tracking-wide uppercase font-bold">MINDWOBBLERSTUDIOS@GMAIL.COM</a>
+                <a href="mailto:mindwobblerstudios@gmail.com" className="cta-link text-[clamp(1.2rem,2.5vw,2rem)] text-white border-b border-white/20 pb-1 hover:border-white transition-colors hover-target tracking-wide uppercase font-bold break-all">MINDWOBBLERSTUDIOS@GMAIL.COM</a>
               </div>
               
               <div>
