@@ -76,25 +76,25 @@ const Home = () => {
             <span className="text-white text-[clamp(2rem,4vw,3rem)] font-bold tracking-tighter leading-none mb-4">
               <AnimatedNumber value={2023} />
             </span>
-            <p className="text-[0.55rem] tracking-[0.4em] text-white/30 uppercase font-bold">ESTABLISHED</p>
+            <p className="text-[0.55rem] tracking-[0.4em] text-white/30 uppercase font-bold">FOUNDED</p>
           </div>
           <div className="flex flex-col lg:border-r border-white/10 px-4">
             <span className="text-white text-[clamp(2rem,4vw,3rem)] font-bold tracking-tighter leading-none mb-4">
               <AnimatedNumber value={50} suffix="+" />
             </span>
-            <p className="text-[0.55rem] tracking-[0.4em] text-white/30 uppercase font-bold">COMMISSIONS</p>
+            <p className="text-[0.55rem] tracking-[0.4em] text-white/30 uppercase font-bold">PROJECTS</p>
           </div>
           <div className="flex flex-col lg:border-r border-white/10 px-4">
             <span className="text-white text-[clamp(2rem,4vw,3rem)] font-bold tracking-tighter leading-none mb-4">
               <AnimatedNumber value={15} suffix="+" />
             </span>
-            <p className="text-[0.55rem] tracking-[0.4em] text-white/30 uppercase font-bold">GLOBAL PARTNERS</p>
+            <p className="text-[0.55rem] tracking-[0.4em] text-white/30 uppercase font-bold">CLIENTS</p>
           </div>
           <div className="flex flex-col px-4">
             <span className="text-white text-[clamp(2rem,4vw,3rem)] font-bold tracking-tighter leading-none mb-4">
               0<AnimatedNumber value={5} />
             </span>
-            <p className="text-[0.55rem] tracking-[0.4em] text-white/30 uppercase font-bold">STUDIO VERTICALS</p>
+            <p className="text-[0.55rem] tracking-[0.4em] text-white/30 uppercase font-bold">DISCIPLINES</p>
           </div>
         </div>
       </section>
