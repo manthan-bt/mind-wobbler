@@ -4,8 +4,8 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 const ScrollReveal = ({ 
   children, 
   type = 'slide', 
-  startRatio = 0.95, // Start near bottom
-  centerRatio = 0.65, // Complete earlier
+  startRatio = 0.90, // Trigger slightly later
+  centerRatio = 0.30, // Complete higher up for better visibility
   className = '' 
 }) => {
   const ref = useRef(null);
@@ -21,38 +21,31 @@ const ScrollReveal = ({
     offset: [`start ${startRatio}`, `start ${centerRatio}`]
   });
 
-  // Use a very high stiffness spring to match scroll exactly with zero lag
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 400,
-    damping: 90,
-    mass: 1,
-    restDelta: 0.0001
+  // Ease-in-out-cubic mapping applied directly to scroll progress for instant matching
+  const easedProgress = useTransform(scrollYProgress, (t) => {
+    return t < 0.5 
+      ? 4 * t * t * t 
+      : 1 - Math.pow(-2 * t + 2, 3) / 2;
   });
 
   if (!shouldAnimate) {
     return <div className={className}>{children}</div>;
   }
 
-  // Restore original animation values
-  // Slide: 30px translation + Opacity (as it was originally)
-  const slideY = useTransform(smoothProgress, [0, 1], [30, 0]);
-  const slideOpacity = useTransform(smoothProgress, [0, 1], [0, 1]);
-
-  // Clip: original editorial clip-path reveal + scale 0.97
-  const clipPath = useTransform(smoothProgress, [0, 1], ["inset(100% 0% 0% 0%)", "inset(0% 0% 0% 0%)"]);
-  const clipScale = useTransform(smoothProgress, [0, 1], [0.97, 1]);
-  const clipOpacity = useTransform(smoothProgress, [0, 1], [0, 1]);
-
-  const fadeOpacity = smoothProgress;
+  // Visuals strictly matching the "very nice" original version
+  const slideY = useTransform(easedProgress, [0, 1], [30, 0]);
+  const opacity = easedProgress;
+  const clipPath = useTransform(easedProgress, [0, 1], ["inset(100% 0% 0% 0%)", "inset(0% 0% 0% 0%)"]);
+  const scale = useTransform(easedProgress, [0, 1], [0.97, 1]);
 
   let style = { willChange: 'transform, opacity, clip-path' };
   if (type === 'clip') {
-    style = { ...style, clipPath, scale: clipScale, opacity: clipOpacity };
+    style = { ...style, clipPath, scale, opacity };
   } else if (type === 'fade') {
-    style = { ...style, opacity: fadeOpacity };
+    style = { ...style, opacity };
   } else {
-    // Default Slide: how it was before
-    style = { ...style, y: slideY, opacity: slideOpacity };
+    // Slide (the original 30px translation)
+    style = { ...style, y: slideY, opacity };
   }
 
   return (
