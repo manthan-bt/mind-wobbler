@@ -21,10 +21,11 @@ const ScrollReveal = ({
       let clampedProgress;
       
       if (isMobile) {
-        // Mobile-optimized range: start at 98% height, complete at 75% height.
-        // This ensures stacked contents are fully visible and readable as soon as they enter.
+        // Mobile: start animating when element enters bottom 10% of screen,
+        // complete when element reaches ~35% from top (near upper-center).
+        // This prevents elements finishing animation while still low on screen.
         const y_start = 0.98 * viewportHeight;
-        const y_end = 0.75 * viewportHeight;
+        const y_end = 0.35 * viewportHeight;
         const distance = y_start - y_end;
         const rawProgress = (y_start - rect.top) / distance;
         clampedProgress = Math.max(0, Math.min(1, rawProgress));

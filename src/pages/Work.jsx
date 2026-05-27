@@ -5,6 +5,7 @@ import ProjectCard from '../components/ProjectCard';
 
 const Work = () => {
   const [selectedFilter, setSelectedFilter] = useState('ALL');
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const sidebarRef = useRef(null);
 
   useEffect(() => {
@@ -129,6 +130,58 @@ const Work = () => {
             </p>
           </div>
         </section>
+
+        {/* Mobile Category Dropdown — only visible below xl */}
+        <div className="xl:hidden px-6 md:px-[4vw] mb-16">
+          <button
+            onClick={() => setMobileDropdownOpen(prev => !prev)}
+            className="w-full flex items-center justify-between border-b border-black/20 pb-3 group"
+          >
+            <span className="text-[0.65rem] font-bold tracking-[0.3em] uppercase text-black/40">
+              Category
+            </span>
+            <div className="flex items-center gap-3">
+              <span className="text-[0.65rem] font-bold tracking-[0.2em] uppercase text-black">
+                {filters.find(f => f.value === selectedFilter)?.label}
+              </span>
+              <span
+                className={`text-black/50 text-xs transition-transform duration-300 ${mobileDropdownOpen ? 'rotate-180' : ''}`}
+              >
+                &#8964;
+              </span>
+            </div>
+          </button>
+
+          {/* Dropdown Links */}
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+              mobileDropdownOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+            }`}
+          >
+            <div className="flex flex-col pt-1">
+              {filters.map((filter) => (
+                <button
+                  key={filter.value}
+                  onClick={() => {
+                    setSelectedFilter(filter.value);
+                    setMobileDropdownOpen(false);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className={`flex items-center gap-4 py-3 border-b border-black/5 text-left group ${
+                    selectedFilter === filter.value ? 'text-black' : 'text-black/30'
+                  }`}
+                >
+                  <div className={`h-[1px] transition-all duration-300 ${
+                    selectedFilter === filter.value ? 'w-5 bg-black' : 'w-2 bg-black/20 group-hover:w-4 group-hover:bg-black/60'
+                  }`} />
+                  <span className="text-[0.65rem] font-bold tracking-[0.2em] uppercase transition-colors group-hover:text-black">
+                    {filter.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
 
 
 

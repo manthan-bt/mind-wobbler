@@ -3,6 +3,7 @@ import ScrollReveal from '../components/ScrollReveal';
 
 const Services = () => {
   const [activeSection, setActiveActiveSection] = useState('overview');
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const sidebarRef = useRef(null);
 
   useEffect(() => {
@@ -271,6 +272,57 @@ const Services = () => {
             </p>
           </div>
         </section>
+
+        {/* Mobile Services Dropdown — only visible below xl */}
+        <div className="xl:hidden px-6 md:px-[4vw] mb-16">
+          <button
+            onClick={() => setMobileDropdownOpen(prev => !prev)}
+            className="w-full flex items-center justify-between border-b border-black/20 pb-3 group"
+          >
+            <span className="text-[0.65rem] font-bold tracking-[0.3em] uppercase text-black/40">
+              Disciplines
+            </span>
+            <div className="flex items-center gap-3">
+              <span className="text-[0.65rem] font-bold tracking-[0.2em] uppercase text-black">
+                {navSections.find(n => n.id === activeSection)?.label || 'Overview'}
+              </span>
+              <span
+                className={`text-black/50 text-xs transition-transform duration-300 ${mobileDropdownOpen ? 'rotate-180' : ''}`}
+              >
+                &#8964;
+              </span>
+            </div>
+          </button>
+
+          {/* Dropdown Links */}
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+              mobileDropdownOpen ? 'max-h-[30rem] opacity-100' : 'max-h-0 opacity-0'
+            }`}
+          >
+            <div className="flex flex-col pt-1">
+              {navSections.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    scrollToSection(item.id);
+                    setMobileDropdownOpen(false);
+                  }}
+                  className={`flex items-center gap-4 py-3 border-b border-black/5 text-left group ${
+                    activeSection === item.id ? 'text-black' : 'text-black/30'
+                  }`}
+                >
+                  <div className={`h-[1px] transition-all duration-300 ${
+                    activeSection === item.id ? 'w-5 bg-black' : 'w-2 bg-black/20 group-hover:w-4 group-hover:bg-black/60'
+                  }`} />
+                  <span className="text-[0.65rem] font-bold tracking-[0.2em] uppercase transition-colors group-hover:text-black">
+                    {item.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {/* Side-by-Side Visual Services Sections */}
         <div className="space-y-32 md:space-y-48">
