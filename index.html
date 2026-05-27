@@ -1,59 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MIND WOBBLER | CREATIVE STUDIO</title>
-    <meta name="description" content="Mind Wobbler is an independent creative studio specializing in brand identity, cinematic filmmaking, and digital design. We shape clean visuals and cinematic stories that build lasting legacies." />
-    <link rel="canonical" href="https://www.mindwobbler.com/" />
-    <!-- Social Sharing Metadata -->
-    <meta property="og:title" content="MIND WOBBLER | CREATIVE STUDIO" />
-    <meta property="og:description" content="Mind Wobbler is an independent creative studio specializing in brand identity, cinematic filmmaking, and digital design. We shape clean visuals and cinematic stories that build lasting legacies." />
-    <meta property="og:image" content="/mind-wobbler-logo.png" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/mascot-only.svg" />
-    <link rel="apple-touch-icon" href="/mascot-only.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-96QLDDHCV1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
 
-      // Configure Consent Mode Defaults dynamically based on localStorage
-      (function() {
-        var consentVal = localStorage.getItem('cookie-consent');
-        var analyticsConsent = 'denied';
-        if (consentVal) {
-          try {
-            var parsed = JSON.parse(consentVal);
-            if (parsed && parsed.analytics === true) {
-              analyticsConsent = 'granted';
-            }
-          } catch (e) {
-            if (consentVal === 'accepted') {
-              analyticsConsent = 'granted';
-            }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIND WOBBLER | CREATIVE STUDIO</title>
+  <meta name="description"
+    content="Mind Wobbler is an independent creative studio specializing in brand identity, cinematic filmmaking, and digital design. We shape clean visuals and cinematic stories that build lasting legacies." />
+  <link rel="canonical" href="https://www.mindwobbler.com/" />
+  <!-- Social Sharing Metadata -->
+  <meta property="og:title" content="MIND WOBBLER" />
+  <meta property="og:description"
+    content="Mind Wobbler is an independent creative studio specializing in brand identity, cinematic filmmaking, and digital design. We shape clean visuals and cinematic stories that build lasting legacies." />
+  <meta property="og:image" content="/mind-wobbler-logo.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/mascot-only.svg" />
+  <link rel="apple-touch-icon" href="/mascot-only.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+
+    // Configure Consent Mode Defaults dynamically based on localStorage
+    (function () {
+      var consentVal = localStorage.getItem('cookie-consent');
+      var consentState = 'denied';
+      if (consentVal) {
+        try {
+          var parsed = JSON.parse(consentVal);
+          if (parsed && parsed.analytics === true) {
+            consentState = 'granted';
+          }
+        } catch (e) {
+          if (consentVal === 'accepted') {
+            consentState = 'granted';
           }
         }
-        gtag('consent', 'default', {
-          'ad_storage': 'denied',
-          'ad_user_data': 'denied',
-          'ad_personalization': 'denied',
-          'analytics_storage': analyticsConsent
-        });
-      })();
+      }
+      gtag('consent', 'default', {
+        'ad_storage': consentState,
+        'ad_user_data': consentState,
+        'ad_personalization': consentState,
+        'analytics_storage': consentState
+      });
+    })();
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-96QLDDHCV1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-96QLDDHCV1');
+  </script>
+</head>
 
-      gtag('js', new Date());
-      gtag('config', 'G-96QLDDHCV1');
-    </script>
-  </head>
-  <body class="bg-black text-white font-montserrat antialiased selection:bg-white selection:text-black">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<body class="bg-black text-white font-montserrat antialiased selection:bg-white selection:text-black">
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

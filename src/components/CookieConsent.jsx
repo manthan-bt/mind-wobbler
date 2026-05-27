@@ -41,10 +41,14 @@ const CookieConsent = () => {
     localStorage.setItem('cookie-consent', JSON.stringify(prefs));
     setPreferences(prefs);
 
-    // Update Google Analytics Consent Mode
+    // Update Google Analytics Consent Mode (Consent Mode v2)
     if (typeof window.gtag === 'function') {
+      const consentState = prefs.analytics ? 'granted' : 'denied';
       window.gtag('consent', 'update', {
-        'analytics_storage': prefs.analytics ? 'granted' : 'denied'
+        'analytics_storage': consentState,
+        'ad_storage': consentState,
+        'ad_user_data': consentState,
+        'ad_personalization': consentState
       });
     }
 
