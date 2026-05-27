@@ -44,12 +44,15 @@ const CookieConsent = () => {
     // Update Google Analytics Consent Mode (Consent Mode v2)
     if (typeof window.gtag === 'function') {
       const consentState = prefs.analytics ? 'granted' : 'denied';
+      console.log('Updating Google Analytics consent state:', consentState);
       window.gtag('consent', 'update', {
         'analytics_storage': consentState,
         'ad_storage': consentState,
         'ad_user_data': consentState,
         'ad_personalization': consentState
       });
+    } else {
+      console.warn('Google Analytics gtag function not found on window object.');
     }
 
     setIsVisible(false);
