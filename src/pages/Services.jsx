@@ -313,7 +313,7 @@ const Services = () => {
   };
 
   return (
-    <div className="bg-white pt-[35vh] xl:pt-64 pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
+    <div className="bg-white pt-[25vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
 
       {/* Fixed Left-Side Navigation Overlay (remains fixed on scroll, does not squeeze page content) */}
       <aside 
@@ -354,7 +354,7 @@ const Services = () => {
 
       <div className="max-w-[1800px] mx-auto relative z-10 w-full">
         {/* Editorial Hero Header Section */}
-        <section id="overview" className="px-6 md:px-[4vw] xl:pl-64 xl:pr-[4vw] mb-32 md:mb-48 fade-in">
+        <section id="overview" className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] mb-32 md:mb-48 fade-in">
           <div className="max-w-4xl">
             <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-tighter leading-[0.9] mb-8 text-black uppercase">
               STRATEGIC DESIGN <br className="hidden md:block" /> & TECHNOLOGY.
@@ -373,7 +373,7 @@ const Services = () => {
               <section 
                 key={pillar.id}
                 id={pillar.id}
-                className="px-6 md:px-[4vw] xl:pl-64 xl:pr-[4vw] grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center relative py-12"
+                className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center relative py-12"
               >
 
 
@@ -435,7 +435,7 @@ const Services = () => {
         {/* Why Choose Us Minimal Comparison Table Section */}
         <section 
           id="why-choose-us"
-          className="px-6 md:px-[4vw] xl:pl-64 xl:pr-[4vw] mt-32 md:mt-48 py-24 border-t border-black/5 bg-white relative font-montserrat"
+          className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] mt-32 md:mt-48 py-24 border-t border-black/5 bg-white relative font-montserrat"
         >
           <ScrollReveal type="slide" className="max-w-4xl mb-16 font-montserrat">
             <div className="flex items-center gap-4 mb-6">

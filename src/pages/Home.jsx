@@ -55,12 +55,17 @@ const Home = () => {
           <div className="absolute inset-0 bg-white/20 z-10" />
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <iframe
-              src="https://www.youtube.com/embed/8zZe4gTxtY0?autoplay=1&mute=1&controls=0&loop=1&playlist=8zZe4gTxtY0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
+              src={`https://www.youtube-nocookie.com/embed/8zZe4gTxtY0?autoplay=1&mute=1&controls=0&loop=1&playlist=8zZe4gTxtY0&rel=0&disablekb=1&modestbranding=1&playsinline=1&origin=${window.location.origin}`}
+              title="Mind Wobbler Showreel"
               className={`iframe-cover transition-opacity duration-1000 ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
-              allow="autoplay; encrypted-media"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              frameBorder="0"
+              loading="lazy"
               onLoad={() => setIframeLoaded(true)}
             />
-            <div className="absolute inset-0 z-20" style={{ pointerEvents: 'all', background: 'transparent' }} />
+
+            {/* Invisible Shield: Blocks all clicks from reaching the player */}
+            <div className="absolute inset-0 z-20 pointer-events-auto bg-transparent" />
           </div>
           <div className="hero-overlay absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white z-20" />
         </motion.div>
@@ -115,7 +120,7 @@ const Home = () => {
       </ScrollReveal>
 
       {/* 03. CAPABILITIES */}
-      <section className="px-6 md:px-[3vw] py-32 overflow-hidden bg-white">
+      <section className="px-6 md:px-[5vw] py-24 md:py-32 overflow-hidden bg-white">
         <div className="max-w-[1600px] mx-auto">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-24 fade-in">
             <div className="w-full">
@@ -160,13 +165,13 @@ const Home = () => {
       </section>
 
       {/* 04. WORK */}
-      <section className="px-6 md:px-[3vw] py-32 bg-black/[0.005] border-y border-black/10">
+      <section className="px-6 md:px-[5vw] py-24 md:py-32 bg-black/[0.005] border-y border-black/10">
         <div className="max-w-[1600px] mx-auto">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-24 fade-in">
             <div className="w-full">
-              <h2 className="text-[0.7rem] tracking-[0.4em] text-black/40 mb-8 uppercase font-bold">PORTFOLIO</h2>
+              <h2 className="text-[0.7rem] tracking-[0.4em] text-black/40 mb-8 uppercase font-bold">FEATURED</h2>
               <h3 className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-black uppercase tracking-tighter leading-[0.9]">
-                SELECTED <br /> WORK.
+                PORTFOLIO.
               </h3>
             </div>
             {/* Desktop: VIEW MORE link aligned with title */}

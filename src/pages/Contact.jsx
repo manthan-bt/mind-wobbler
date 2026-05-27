@@ -123,14 +123,14 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-white pt-[35vh] xl:pt-64 pb-48 text-black min-h-screen relative overflow-hidden">
+    <div className="bg-white pt-[25vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black min-h-screen relative overflow-hidden">
 
 
 
       <div className="max-w-[1600px] mx-auto relative z-10 w-full">
 
         {/* Editorial Hero Header Section */}
-        <section className="px-6 md:px-[3vw] mb-32 md:mb-48 fade-in">
+        <section className="px-6 md:px-[5vw] mb-32 md:mb-48 fade-in">
           <div className="max-w-4xl">
             <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-tighter leading-[0.9] mb-8 text-black uppercase">
               START THE <br className="hidden md:block" />
@@ -143,7 +143,7 @@ const Contact = () => {
         </section>
 
         {/* Contact Grid Section */}
-        <section className="px-6 md:px-[3vw] pb-32">
+        <section className="px-6 md:px-[5vw] pb-32">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
 
             {/* Info Column */}

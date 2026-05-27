@@ -13,9 +13,9 @@ const Footer = () => {
             <img
               src="/mind-wobbler-icon.png"
               alt="M"
-              className="h-6 w-auto brightness-0 invert transition-transform duration-500 group-hover:scale-110"
+              className="h-5 md:h-6 w-auto brightness-0 invert transition-transform duration-500 group-hover:scale-110"
             />
-            <span className="text-white font-bold tracking-[0.3em] uppercase">
+            <span className="text-white font-bold tracking-[0.3em] uppercase text-[0.7rem] md:text-[0.8rem]">
               MIND WOBBLER
             </span>
           </Link>

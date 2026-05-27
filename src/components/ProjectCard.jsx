@@ -55,13 +55,19 @@ const ProjectCard = ({ id, title, category, hero, gallery, youtubeId, externalLi
           {isVideo && isHovered && (
             <div className={`absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-20 transition-opacity duration-700 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}>
               <iframe 
-                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${youtubeId}&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&playsinline=1`}
+                src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${youtubeId}&rel=0&disablekb=1&modestbranding=1&playsinline=1&origin=${window.location.origin}`}
+                title={`${title} preview`}
                 className="video-preview-iframe transition-all duration-1000"
-                allow="autoplay; encrypted-media"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                frameBorder="0"
+                loading="lazy"
                 onLoad={() => setVideoLoaded(true)}
               />
+              {/* Invisible Shield: Blocks all clicks from reaching the player */}
+              <div className="absolute inset-0 z-30 pointer-events-auto bg-transparent" />
             </div>
           )}
+
         </div>
       </div>
       <div className="mt-6 flex justify-between items-start">

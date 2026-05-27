@@ -73,7 +73,7 @@ const Work = () => {
   const filteredProjects = getFilteredProjects();
 
   return (
-    <div className="bg-white pt-[35vh] xl:pt-64 pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
+    <div className="bg-white pt-[25vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
 
       {/* Fixed Left-Side Category Navigation (Desktop Overlay, does not squeeze page content) */}
       <aside 
@@ -118,11 +118,10 @@ const Work = () => {
       <div className="max-w-[1800px] mx-auto relative z-10 w-full">
         
         {/* Editorial Header Section */}
-        <section className="px-6 md:px-[4vw] xl:pl-64 xl:pr-[4vw] mb-24 fade-in">
+        <section className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] mb-24 fade-in">
           <div className="max-w-4xl">
             <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-tighter leading-[0.9] mb-8 text-black uppercase">
-              SELECTED <br className="hidden md:block" />
-              WORK.
+              PORTFOLIO.
             </h1>
             <p className="text-black/60 text-[clamp(1rem,1.4vw,1.25rem)] leading-relaxed max-w-2xl font-medium">
               A collection of projects across branding, film, and digital design for global brands and creative partners.
@@ -132,7 +131,7 @@ const Work = () => {
 
 
         {/* Unified 2-Column Grid */}
-        <section className="px-6 md:px-[4vw] xl:pl-64 xl:pr-[4vw]">
+        <section className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24 items-start">
             {filteredProjects.map((project, index) => (
               <ScrollReveal 

@@ -20,14 +20,14 @@ const About = () => {
   }, []);
 
   return (
-    <div className="bg-white pt-[35vh] xl:pt-64 pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
+    <div className="bg-white pt-[25vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
       
 
       
       <div className="max-w-[1600px] mx-auto relative z-10 w-full">
         
         {/* Editorial Hero Header Section */}
-        <section className="px-6 md:px-[3vw] mb-32 md:mb-48 fade-in">
+        <section className="px-6 md:px-[5vw] mb-32 md:mb-48 fade-in">
           <div className="max-w-4xl">
             <h1 className="text-[clamp(1.8rem,5.5vw,4.5rem)] font-bold tracking-tighter leading-[0.9] mb-8 text-black uppercase">
               SHAPING IDEAS <br />
@@ -40,7 +40,7 @@ const About = () => {
         </section>
 
         {/* Narrative / Philosophy Section (Side-by-Side Style) */}
-        <section className="px-6 md:px-[3vw] space-y-32 md:space-y-48 pb-32">
+        <section className="px-6 md:px-[5vw] space-y-32 md:space-y-48 pb-32">
           
           {/* Story */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">

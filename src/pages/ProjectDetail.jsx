@@ -45,7 +45,7 @@ const ProjectDetail = () => {
 
   return (
     <div className="bg-white text-black min-h-screen relative">
-      <section key={id} className="project-hero h-[85vh] flex flex-col justify-end px-6 md:px-[3vw] pb-16 relative overflow-hidden">
+      <section key={id} className="project-hero h-[75vh] md:h-[85vh] flex flex-col justify-end px-6 md:px-[5vw] pb-16 relative overflow-hidden">
         <div className="hero-bg absolute inset-0 z-0">
           {project.youtubeId ? (
             <div className="w-full h-full relative overflow-hidden">
@@ -76,7 +76,7 @@ const ProjectDetail = () => {
         </div>
       </section>
 
-      <section className="project-content py-24 md:py-48 px-6 md:px-[3vw] relative z-20 bg-white">
+      <section className="project-content py-24 md:py-48 px-6 md:px-[5vw] relative z-20 bg-white">
         <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20">
           <div className="md:col-span-4 lg:col-span-3 fade-in">
             <h2 className="text-[0.7rem] tracking-[0.3em] text-black/40 uppercase mb-8 font-bold">PROJECT SCOPE</h2>
@@ -105,7 +105,7 @@ const ProjectDetail = () => {
         </div>
       </section>
 
-      <section className="project-visuals bg-white flex flex-col items-center relative z-20 px-6 md:px-[3vw] py-12 gap-12 md:gap-24">
+      <section className="project-visuals bg-white flex flex-col items-center relative z-20 px-6 md:px-[5vw] py-12 gap-12 md:gap-24">
         {project.gallery.map((media, index) => {
           // Detect YouTube URLs or Behance URLs that embed a youtubeId (broken placeholder pattern)
           const isYouTubeUrl = media.includes('youtube.com') || media.includes('shorts') || media.includes('youtu.be');
@@ -123,9 +123,11 @@ const ProjectDetail = () => {
               {videoId ? (
                 <div className="aspect-video w-full relative overflow-hidden">
                   <iframe 
-                    src={`https://www.youtube.com/embed/${videoId}?autoplay=0&controls=1&modestbranding=1&rel=0&playsinline=1`}
+                    src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=0&controls=1&modestbranding=1&rel=0&playsinline=1`}
+                    title={`${project.title} gallery video`}
                     className="w-full h-full border-0"
-                    allow="autoplay; encrypted-media"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    loading="lazy"
                   />
                 </div>
               ) : (
@@ -141,7 +143,7 @@ const ProjectDetail = () => {
         })}
       </section>
 
-      <section className="next-project py-48 px-6 md:px-[3vw] text-center border-t border-black/10 fade-in flex flex-col items-center gap-12 bg-white">
+      <section className="next-project py-48 px-6 md:px-[5vw] text-center border-t border-black/10 fade-in flex flex-col items-center gap-12 bg-white">
         <Link 
           to="/work" 
           className="text-black/60 hover:text-black uppercase tracking-[4px] text-xs transition-colors border-b-2 border-black/10 pb-2 font-bold"

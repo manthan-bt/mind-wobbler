@@ -143,9 +143,9 @@ const Navbar = () => {
               <img
                 src="/mind-wobbler-icon.png"
                 alt="M"
-                className={`h-6 w-auto transition-transform duration-500 group-hover:scale-110 ${logoFilter}`}
+                className={`h-5 md:h-6 w-auto transition-transform duration-500 group-hover:scale-110 ${logoFilter}`}
               />
-              <span className={`font-bold tracking-[0.3em] uppercase text-[0.8rem] transition-colors duration-500 ${textColor}`}>
+              <span className={`font-bold tracking-[0.3em] uppercase text-[0.7rem] md:text-[0.8rem] transition-colors duration-500 ${textColor}`}>
                 MIND WOBBLER
               </span>
             </Link>
