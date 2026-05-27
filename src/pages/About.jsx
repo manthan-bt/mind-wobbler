@@ -113,7 +113,7 @@ const About = () => {
             >
               <div className="aspect-square w-full overflow-hidden">
                 <img 
-                  src="/manthan.jpg" 
+                  src="/manthan-founder.jpg" 
                   alt="MANTHAN B T"
                   className="w-full h-full object-cover object-[-25%_15%] scale-[1.35] transition-all duration-[1200ms] ease-out group-hover:scale-[1.45]"
                 />
