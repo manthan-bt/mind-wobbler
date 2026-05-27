@@ -29,12 +29,12 @@ const About = () => {
         {/* Editorial Hero Header Section */}
         <section className="px-6 md:px-[3vw] mb-32 md:mb-48 fade-in">
           <div className="max-w-4xl">
-            <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-tighter leading-[0.9] mb-8 text-black uppercase">
-              AN INDEPENDENT, <br className="hidden md:block" />
-              PARTNER-LED FIRM.
+            <h1 className="text-[clamp(1.8rem,5.5vw,4.5rem)] font-bold tracking-tighter leading-[0.9] mb-8 text-black uppercase">
+              SHAPING IDEAS <br />
+              BUILDING BRANDS.
             </h1>
             <p className="text-black/60 text-[clamp(1rem,1.4vw,1.25rem)] leading-relaxed max-w-2xl font-medium">
-              Established in 2023, Mind Wobbler operates at the intersection of brand strategy, cinematic narrative, and digital innovation. We believe in minimalism as a tool for impact.
+              ESTABLISHED IN 2023, MIND WOBBLER IS A CREATIVE STUDIO SPECIALIZING IN BRAND IDENTITY, FILMMAKING, AND DIGITAL DESIGN. WE STRIP AWAY THE CLUTTER TO REVEAL THE TRUE ESSENCE OF YOUR BRAND.
             </p>
           </div>
         </section>
@@ -59,10 +59,10 @@ const About = () => {
                 THE STORY
               </h2>
               <p className="text-black/70 text-[1rem] md:text-[1.1rem] leading-relaxed mb-8 max-w-xl font-medium">
-                What started as a personal passion for cinematography and design has matured into a systematic pursuit of excellence. We translate ambitious concepts into functional art.
+                WE STARTED IN 2023 AS A PASSION DESIGN AND VIDEO EDITING PAGE. OUR GOAL WAS TO BRING MODERN, CLEAN EDITING AND CINEMATOGRAPHY TO PEOPLE. OVER TIME, AS WE GAINED THE TRUST OF MORE CLIENTS, WE EXPANDED OUR VISION.
               </p>
               <p className="text-black/70 text-[1rem] md:text-[1.1rem] leading-relaxed max-w-xl font-medium">
-                Our journey is defined by a relentless pursuit of visual clarity. We strip away the superfluous to reveal the core essence of every brand we touch.
+                TODAY, WE HAVE GROWN INTO A FULL-SERVICE CREATIVE COMPANY OFFERING 7 CORE DISCIPLINES ACROSS DESIGN, FILM, AND TECHNOLOGY. WE PARTNER WITH AMBITIOUS BRANDS TO BUILD COHESIVE VISUAL IDENTITIES AND CINEMATIC EXPERIENCES.
               </p>
             </ScrollReveal>
             <ScrollReveal 
@@ -71,8 +71,8 @@ const About = () => {
             >
               <div className="aspect-square w-full overflow-hidden">
                 <img 
-                  src="/hosp-hero.png" 
-                  alt="Studio Architecture"
+                  src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1200" 
+                  alt="MINIMALIST STUDIO WORKSPACE"
                   className="w-full h-full object-cover transition-all duration-[1200ms] ease-out group-hover:scale-105"
                 />
               </div>
@@ -94,14 +94,16 @@ const About = () => {
                 </div>
 
                 <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold tracking-tighter leading-[0.9] text-black mb-8 uppercase">
-                  PARTNERS
+                  FOUNDER
                 </h2>
                 <div>
                   <h3 className="text-xl font-bold tracking-tight uppercase mb-2">MANTHAN B T</h3>
-                  <p className="text-sm font-bold tracking-[0.2em] text-black/40 uppercase mb-8">Director & Founder</p>
-                  <p className="text-black/70 text-[1rem] md:text-[1.1rem] leading-relaxed font-medium">
-                    By combining technical mastery with artistic intuition, we deliver solutions that are both functional and profoundly cinematic. Every pixel serves a purpose.
-                  </p>
+                  <p className="text-sm font-bold tracking-[0.2em] text-black/40 uppercase mb-6">DIRECTOR & CREATIVE HEAD</p>
+                  <div className="bg-zinc-50 text-black p-8 md:p-10 border border-black/10 shadow-md rounded-sm mt-8 relative overflow-hidden group">
+                    <blockquote className="text-[clamp(1.1rem,1.4vw,1.35rem)] leading-relaxed font-black tracking-wide uppercase">
+                      “WE DO NOT DECORATE. WE SHAPE CINEMATIC STORIES AND CLEAN DESIGN SYSTEMS THAT BUILD LASTING LEGACIES.”
+                    </blockquote>
+                  </div>
                 </div>
               </div>
             </ScrollReveal>
@@ -112,7 +114,7 @@ const About = () => {
               <div className="aspect-square w-full overflow-hidden">
                 <img 
                   src="/manthan.jpg" 
-                  alt="Manthan B T"
+                  alt="MANTHAN B T"
                   className="w-full h-full object-cover transition-all duration-[1200ms] ease-out group-hover:scale-105"
                 />
               </div>

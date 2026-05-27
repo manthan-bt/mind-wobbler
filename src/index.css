@@ -2,10 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Text Selection – must live OUTSIDE @layer to win specificity ─── */
+::selection {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+::-moz-selection {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+/* Inputs have white bg — keep black bg but ensure text stays white */
+input::selection,
+textarea::selection {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+input::-moz-selection,
+textarea::-moz-selection {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
 @layer base {
+
   body {
-    @apply bg-white text-black font-montserrat antialiased selection:bg-black selection:text-white;
+    @apply bg-white text-black font-montserrat antialiased;
     overflow-x: hidden;
+    /* Disable copy-paste across the whole site */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    text-transform: uppercase;
+  }
+
+  /* Re-enable selection only for form inputs and contact details */
+  input,
+  textarea,
+  select,
+  [contenteditable],
+  .selectable {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+  }
+
+  input,
+  textarea,
+  select,
+  [contenteditable] {
+    text-transform: none !important;
   }
 
   /* Global Noise/Grain Overlay */

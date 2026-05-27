@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ScrollReveal from '../components/ScrollReveal';
+import AnimatedTick from '../components/AnimatedTick';
 
 const ThemedDropdown = ({ options, selected, onSelect, label }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,6 +58,7 @@ const Contact = () => {
   const [honey, setHoney] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -73,10 +75,17 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !email || !message) {
-      alert("PLEASE FILL IN ALL REQUIRED FIELDS.");
+
+    // Inline validation
+    const newErrors = {};
+    if (!name.trim()) newErrors.name = true;
+    if (!email.trim()) newErrors.email = true;
+    if (!message.trim()) newErrors.message = true;
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
+    setErrors({});
 
     setIsSubmitting(true);
     
@@ -114,7 +123,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-white pt-64 pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
+    <div className="bg-white pt-64 pb-48 text-black min-h-screen relative overflow-hidden">
 
 
 
@@ -175,7 +184,9 @@ const Contact = () => {
               <div className="bg-black/[0.01] p-8 md:p-16 border border-black/5 shadow-2xl rounded-sm">
                 {submitSuccess ? (
                   <div className="text-center py-20 space-y-8">
-                    <span className="text-black text-7xl block">✓</span>
+                    <div className="flex justify-center mb-8">
+                      <AnimatedTick size={80} />
+                    </div>
                     <h3 className="text-black font-bold tracking-tight text-2xl uppercase">INQUIRY TRANSMITTED</h3>
                     <p className="text-black/60 text-lg leading-relaxed max-w-sm mx-auto font-medium">
                       Thank you for contacting Mind Wobbler. Our team will respond within 24 hours.
@@ -191,25 +202,29 @@ const Contact = () => {
                   <form onSubmit={handleSubmit} className="flex flex-col gap-12">
                     <div className="input-group">
                       <label className="text-[0.7rem] font-bold tracking-[0.3em] text-black/40 block mb-4 uppercase">FULL NAME</label>
-                      <input 
-                        type="text" 
-                        placeholder="REQUIRED" 
-                        required 
+                      <input
+                        type="text"
+                        placeholder="E.G. ARJUN SHARMA"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="w-full bg-transparent border-b-2 border-black/10 text-black text-lg py-4 outline-none focus:border-black transition-colors uppercase tracking-widest placeholder:text-black/5" 
+                        onChange={(e) => { setName(e.target.value); setErrors(p => ({ ...p, name: false })); }}
+                        className={`w-full bg-transparent border-b-2 text-black text-lg py-4 outline-none transition-colors tracking-widest placeholder:text-black/20 ${
+                          errors.name ? 'border-red-500' : 'border-black/10 focus:border-black'
+                        }`}
                       />
+                      {errors.name && <span className="text-red-500 text-[0.65rem] font-bold tracking-widest uppercase mt-2 block">Required</span>}
                     </div>
                     <div className="input-group">
                       <label className="text-[0.7rem] font-bold tracking-[0.3em] text-black/40 block mb-4 uppercase">EMAIL ADDRESS</label>
-                      <input 
-                        type="email" 
-                        placeholder="REQUIRED" 
-                        required 
+                      <input
+                        type="email"
+                        placeholder="E.G. HELLO@YOURBRAND.COM"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-transparent border-b-2 border-black/10 text-black text-lg py-4 outline-none focus:border-black transition-colors uppercase tracking-widest placeholder:text-black/5" 
+                        onChange={(e) => { setEmail(e.target.value); setErrors(p => ({ ...p, email: false })); }}
+                        className={`w-full bg-transparent border-b-2 text-black text-lg py-4 outline-none transition-colors tracking-widest placeholder:text-black/20 ${
+                          errors.email ? 'border-red-500' : 'border-black/10 focus:border-black'
+                        }`}
                       />
+                      {errors.email && <span className="text-red-500 text-[0.65rem] font-bold tracking-widest uppercase mt-2 block">Required</span>}
                     </div>
 
                     <ThemedDropdown 
@@ -221,13 +236,16 @@ const Contact = () => {
 
                     <div className="input-group">
                       <label className="text-[0.7rem] font-bold tracking-[0.3em] text-black/40 block mb-4 uppercase">MESSAGE</label>
-                      <textarea 
-                        placeholder="TELL US ABOUT YOUR PROJECT" 
-                        rows="4" 
+                      <textarea
+                        placeholder="E.G. WE'RE LAUNCHING A NEW BRAND AND NEED A FULL IDENTITY — LOGO, MOTION, AND SOCIAL STRATEGY."
+                        rows="4"
                         value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        className="w-full bg-transparent border-b-2 border-black/10 text-black text-lg py-4 outline-none focus:border-black transition-colors tracking-tight placeholder:text-black/5 resize-none font-sans"
+                        onChange={(e) => { setMessage(e.target.value); setErrors(p => ({ ...p, message: false })); }}
+                        className={`w-full bg-transparent border-b-2 text-black text-lg py-4 outline-none transition-colors tracking-tight placeholder:text-black/20 resize-none font-montserrat ${
+                          errors.message ? 'border-red-500' : 'border-black/10 focus:border-black'
+                        }`}
                       />
+                      {errors.message && <span className="text-red-500 text-[0.65rem] font-bold tracking-widest uppercase mt-2 block">Required</span>}
                     </div>
 
                     <input 

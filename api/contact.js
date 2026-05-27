@@ -1,14 +1,9 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
-import path from 'path';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
 
 // Load environment variables for local testing
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -42,41 +37,10 @@ export default async function handler(req, res) {
     return res.status(500).json({ message: 'EMAIL SERVER IS NOT FULLY CONFIGURED.' });
   }
 
-  // Resolve logo assets and prepare attachments
-  const attachments = [];
-  let logoHtml = '<div class="logo-text">M I N D &nbsp; W O B B L E R</div>';
-  let adminLogoHtml = '<div class="logo-text">M I N D &nbsp; W O B B L E R</div>';
-
-  const logoPath = path.join(__dirname, '../public/mind-wobbler-logo.png');
-  const iconPath = path.join(__dirname, '../public/mind-wobbler-icon.png');
-
-  if (fs.existsSync(logoPath)) {
-    attachments.push({
-      filename: 'mind-wobbler-logo.png',
-      path: logoPath,
-      cid: 'mw_logo'
-    });
-    logoHtml = `<img src="cid:mw_logo" alt="MIND WOBBLER" style="height: auto; max-height: 48px; width: auto; max-width: 200px; border: 0; display: block; margin: 0 auto;" />`;
-    adminLogoHtml = `<img src="cid:mw_logo" alt="MIND WOBBLER" style="height: auto; max-height: 32px; width: auto; max-width: 160px; border: 0; display: inline-block; vertical-align: middle;" />`;
-  } else if (fs.existsSync(iconPath)) {
-    attachments.push({
-      filename: 'mind-wobbler-icon.png',
-      path: iconPath,
-      cid: 'mw_icon'
-    });
-    logoHtml = `
-      <div style="text-align: center;">
-        <img src="cid:mw_icon" alt="M" style="height: 24px; width: auto; border: 0; display: inline-block; vertical-align: middle; margin-right: 12px;" />
-        <span style="font-size: 16px; font-weight: 900; letter-spacing: 0.3em; color: #000000; vertical-align: middle; font-family: 'Montserrat', sans-serif;">MIND WOBBLER</span>
-      </div>
-    `;
-    adminLogoHtml = `
-      <div>
-        <img src="cid:mw_icon" alt="M" style="height: 20px; width: auto; border: 0; display: inline-block; vertical-align: middle; margin-right: 10px;" />
-        <span style="font-size: 14px; font-weight: 900; letter-spacing: 0.3em; color: #000000; vertical-align: middle; font-family: 'Montserrat', sans-serif;">MIND WOBBLER</span>
-      </div>
-    `;
-  }
+  // Logo — served from the public folder (works reliably on Vercel & Cloudflare)
+  const SITE_URL = 'https://mindwobbler.com';
+  const logoHtml = `<img src="${SITE_URL}/mind-wobbler-logo.png" alt="MIND WOBBLER" style="height: auto; max-height: 52px; width: auto; max-width: 220px; border: 0; display: block; margin: 0 auto;" />`;
+  const adminLogoHtml = `<img src="${SITE_URL}/mind-wobbler-logo.png" alt="MIND WOBBLER" style="height: auto; max-height: 36px; width: auto; max-width: 180px; border: 0; display: inline-block; vertical-align: middle;" />`;
 
   // Create SMTP transporter
   const transporter = nodemailer.createTransport({
@@ -265,9 +229,13 @@ export default async function handler(req, res) {
             <a href="https://www.instagram.com/mind_wobbler" class="social-link">Instagram</a>
             <a href="https://www.linkedin.com/in/manthan-bt-268610295/" class="social-link">LinkedIn</a>
             <a href="https://www.behance.net/mind_wobbler" class="social-link">Behance</a>
+            <a href="https://www.youtube.com/@mind_wobbler" class="social-link">YouTube</a>
+          </div>
+          <div style="margin-bottom: 16px;">
+            <a href="https://mindwobbler.com/unsubscribe" style="color: #888888; text-decoration: underline; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Unsubscribe from marketing emails</a>
           </div>
           <div style="margin-bottom: 24px;">
-            <a href="https://mind-wobbler.vercel.app/unsubscribe" style="color: #555555; text-decoration: underline; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Unsubscribe from updates</a>
+            <span style="color: #555555; font-size: 9px; letter-spacing: 0.05em;">You will still receive a reply to your inquiry — that is a direct response, not marketing.</span>
           </div>
           <div class="copyright">MIND WOBBLER &copy; 2026 &bull; Strategic Creative Direction</div>
         </td>
@@ -423,8 +391,7 @@ export default async function handler(req, res) {
       replyTo: email,
       to: smtpTo,
       subject: `[MIND WOBBLER] NEW INQUIRY: ${inquiryType || 'GENERAL INQUIRY'} - FROM ${name.toUpperCase()}`,
-      html: adminHtml,
-      attachments: attachments
+      html: adminHtml
     });
 
     // 2. Send Receipt Confirmation to Client
@@ -432,8 +399,7 @@ export default async function handler(req, res) {
       from: `"${smtpFrom}" <${smtpUser}>`,
       to: email,
       subject: `INQUIRY RECEIVED — MIND WOBBLER`,
-      html: clientHtml,
-      attachments: attachments
+      html: clientHtml
     });
 
     return res.status(200).json({ success: true, message: 'INQUIRY SENT.' });
