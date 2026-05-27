@@ -20,30 +20,39 @@ const Work = () => {
 
     document.querySelectorAll('.fade-in, .fade-in-up').forEach(el => observer.observe(el));
 
-    // Scroll tracker for footer clearance
+    // Throttled scroll tracker for footer clearance
+    let ticking = false;
     const handleScroll = () => {
-      const aside = sidebarRef.current;
-      const footer = document.querySelector('footer');
-      const sidebarHeight = aside ? aside.offsetHeight : 250;
-      const footerHeight = footer ? footer.offsetHeight : 450;
-      
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
-      
-      const sidebarBottom = window.scrollY + clientHeight / 2 + sidebarHeight / 2;
-      const footerTop = scrollHeight - footerHeight - 80; // Stop exactly 80px above the footer
-      
-      const excess = sidebarBottom - footerTop;
-      if (aside) {
-        if (excess > 0) {
-          aside.style.transform = `translateY(calc(-50% - ${excess}px))`;
-        } else {
-          aside.style.transform = 'translateY(-50%)';
-        }
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const aside = sidebarRef.current;
+          if (!aside) {
+            ticking = false;
+            return;
+          }
+
+          const footer = document.querySelector('footer');
+          const sidebarHeight = aside.offsetHeight;
+          const footerHeight = footer ? footer.offsetHeight : 450;
+          
+          const scrollHeight = document.documentElement.scrollHeight;
+          const clientHeight = document.documentElement.clientHeight;
+          
+          const sidebarBottom = window.scrollY + clientHeight / 2 + sidebarHeight / 2;
+          const footerTop = scrollHeight - footerHeight - 80;
+          
+          const excess = sidebarBottom - footerTop;
+          aside.style.transform = excess > 0 
+            ? `translateY(calc(-50% - ${excess}px))` 
+            : 'translateY(-50%)';
+          
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
     const timeoutId = setTimeout(handleScroll, 50);
@@ -73,7 +82,7 @@ const Work = () => {
   const filteredProjects = getFilteredProjects();
 
   return (
-    <div className="bg-white pt-[25vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
+    <div className="bg-white pt-[32vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
 
       {/* Fixed Left-Side Category Navigation (Desktop Overlay, does not squeeze page content) */}
       <aside 

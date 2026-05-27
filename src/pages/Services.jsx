@@ -10,64 +10,70 @@ const Services = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const observer = new IntersectionObserver((entries) => {
+    const observerOptions = { threshold: 0.1 };
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
         }
       });
-    }, { threshold: 0.1 });
+    }, observerOptions);
 
-    document.querySelectorAll('.fade-in, .fade-in-up').forEach(el => observer.observe(el));
+    document.querySelectorAll('.fade-in, .fade-in-up').forEach(el => revealObserver.observe(el));
 
-    // Scroll tracker for side navigation
+    // Optimized section tracking with IntersectionObserver
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveActiveSection(entry.target.id);
+        }
+      });
+    }, { rootMargin: '-20% 0% -70% 0%' });
+
+    const sectionIds = ['overview', 'branding', 'graphic-design', 'digital-products', 'ai-integration', 'social-media', 'web-presence', 'ongoing-support', 'why-choose-us'];
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) sectionObserver.observe(el);
+    });
+
+    // Throttled scroll tracker for side navigation footer clearance
+    let ticking = false;
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 250; // trigger active highlights early
-      
-      if (window.scrollY < 150) {
-        setActiveActiveSection('overview');
-      } else {
-        const ids = ['branding', 'graphic-design', 'digital-products', 'ai-integration', 'social-media', 'web-presence', 'ongoing-support', 'why-choose-us'];
-        let current = 'overview';
-        for (const id of ids) {
-          const el = document.getElementById(id);
-          if (el) {
-            const top = el.offsetTop;
-            if (scrollPosition >= top - 200) {
-              current = id;
-            }
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const aside = sidebarRef.current;
+          if (!aside) {
+            ticking = false;
+            return;
           }
-        }
-        setActiveActiveSection(current);
-      }
 
-      // Check footer overlap dynamically to pin it exactly above the footer
-      const aside = sidebarRef.current;
-      const footer = document.querySelector('footer');
-      const sidebarHeight = aside ? aside.offsetHeight : 250;
-      const footerHeight = footer ? footer.offsetHeight : 450;
-      
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
-      
-      const sidebarBottom = window.scrollY + clientHeight / 2 + sidebarHeight / 2;
-      const footerTop = scrollHeight - footerHeight - 80; // Stop exactly 80px above the footer
-      
-      const excess = sidebarBottom - footerTop;
-      if (aside) {
-        if (excess > 0) {
-          aside.style.transform = `translateY(calc(-50% - ${excess}px))`;
-        } else {
-          aside.style.transform = 'translateY(-50%)';
-        }
+          const footer = document.querySelector('footer');
+          const sidebarHeight = aside.offsetHeight;
+          const footerHeight = footer ? footer.offsetHeight : 450;
+          
+          const scrollHeight = document.documentElement.scrollHeight;
+          const clientHeight = document.documentElement.clientHeight;
+          
+          const sidebarBottom = window.scrollY + clientHeight / 2 + sidebarHeight / 2;
+          const footerTop = scrollHeight - footerHeight - 80;
+          
+          const excess = sidebarBottom - footerTop;
+          aside.style.transform = excess > 0 
+            ? `translateY(calc(-50% - ${excess}px))` 
+            : 'translateY(-50%)';
+          
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
     return () => {
-      observer.disconnect();
+      revealObserver.disconnect();
+      sectionObserver.disconnect();
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
@@ -313,7 +319,7 @@ const Services = () => {
   };
 
   return (
-    <div className="bg-white pt-[25vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
+    <div className="bg-white pt-[32vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
 
       {/* Fixed Left-Side Navigation Overlay (remains fixed on scroll, does not squeeze page content) */}
       <aside 
