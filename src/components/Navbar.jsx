@@ -54,6 +54,10 @@ const Navbar = () => {
   const logoFilter = isTransparent ? 'brightness-0 invert' : 'brightness-0';
   const hamburgerBg = isTransparent ? 'bg-white' : 'bg-black';
 
+  // Mobile Overlay Background - Strictly Solid Black or White
+  const mobileMenuBg = isTransparent ? 'bg-black' : 'bg-white';
+  const mobileMenuTextColor = isTransparent ? 'text-white' : 'text-black';
+
   const workFilters = [
     { label: 'All Work', value: 'ALL' },
     { label: 'Branding', value: 'BRANDING' },
@@ -344,10 +348,6 @@ const Navbar = () => {
         </Link>
       </div>
     </>
-  );
-};
-
-export default Navbar;
   );
 };
 

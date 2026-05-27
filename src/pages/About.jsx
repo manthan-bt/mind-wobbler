@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
 import AnimatedNumber from '../components/AnimatedNumber';
 
@@ -20,23 +21,33 @@ const About = () => {
   }, []);
 
   return (
-    <div className="bg-white pt-[32vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
+    <div className="bg-white pt-[42vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
       
 
       
       <div className="max-w-[1600px] mx-auto relative z-10 w-full">
         
-        {/* Editorial Hero Header Section */}
-        <section className="px-6 md:px-[5vw] mb-32 md:mb-48 fade-in">
-          <div className="max-w-4xl">
+        {/* Perfectly Centered Editorial Header Section */}
+        <section className="px-6 md:px-[5vw] min-h-[90vh] flex flex-col justify-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-4xl"
+          >
             <h1 className="text-[clamp(1.8rem,5.5vw,4.5rem)] font-bold tracking-tighter leading-[0.9] mb-8 text-black uppercase">
               SHAPING IDEAS <br />
               BUILDING BRANDS.
             </h1>
-            <p className="text-black/60 text-[clamp(1rem,1.4vw,1.25rem)] leading-relaxed max-w-2xl font-medium">
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="text-black/60 text-[clamp(1rem,1.4vw,1.25rem)] leading-relaxed max-w-2xl font-medium"
+            >
               ESTABLISHED IN 2023, MIND WOBBLER IS A CREATIVE STUDIO SPECIALIZING IN BRAND IDENTITY, FILMMAKING, AND DIGITAL DESIGN. WE STRIP AWAY THE CLUTTER TO REVEAL THE TRUE ESSENCE OF YOUR BRAND.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </section>
 
         {/* Narrative / Philosophy Section (Side-by-Side Style) */}

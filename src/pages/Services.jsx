@@ -319,7 +319,7 @@ const Services = () => {
   };
 
   return (
-    <div className="bg-white pt-[32vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
+    <div className="bg-white pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
 
       {/* Fixed Left-Side Navigation Overlay (remains fixed on scroll, does not squeeze page content) */}
       <aside 
@@ -360,15 +360,25 @@ const Services = () => {
 
       <div className="max-w-[1800px] mx-auto relative z-10 w-full">
         {/* Editorial Hero Header Section */}
-        <section id="overview" className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] mb-32 md:mb-48 fade-in">
-          <div className="max-w-4xl">
+        <section id="overview" className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] mb-32 md:mb-48">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-4xl"
+          >
             <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-tighter leading-[0.9] mb-8 text-black uppercase">
               STRATEGIC DESIGN <br className="hidden md:block" /> & TECHNOLOGY.
             </h1>
-            <p className="text-black/60 text-[clamp(1rem,1.4vw,1.25rem)] leading-relaxed max-w-2xl font-medium">
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="text-black/60 text-[clamp(1rem,1.4vw,1.25rem)] leading-relaxed max-w-2xl font-medium"
+            >
               We shape memorable brand identities, digital products, and automated workflows that help ambitious companies stand out in a crowded visual landscape.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </section>
 
         {/* Side-by-Side Visual Services Sections */}
@@ -534,6 +544,13 @@ const Services = () => {
             </div>
           </div>
         </section>
+      </div>
+    </div>
+  );
+};
+
+export default Services;
+</section>
       </div>
     </div>
   );

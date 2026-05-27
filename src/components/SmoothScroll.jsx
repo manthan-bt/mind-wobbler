@@ -8,15 +8,16 @@ const SmoothScroll = ({ children }) => {
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0, // Reduced duration for faster response
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.0, 
       smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
+      lerp: 0.12, // Increased lerp for instant-stop feel with high smoothness
     });
 
     lenisRef.current = lenis;

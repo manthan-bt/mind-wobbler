@@ -69,21 +69,37 @@ const Home = () => {
           </div>
           <div className="hero-overlay absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white z-20" />
         </motion.div>
-        <div className="hero-content relative z-30 text-center px-6 md:px-[3vw] fade-in">
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          className="hero-content relative z-30 text-center px-6 md:px-[3vw]"
+        >
           <h1 className="text-[clamp(2.5rem,6vw,5rem)] leading-[0.9] font-black mb-10 tracking-tighter text-black uppercase">
             MIND <br /> WOBBLER
           </h1>
-          <p className="text-[0.65rem] md:text-[0.75rem] tracking-[0.5em] text-black/60 uppercase fade-in delay-300 font-bold">
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.6 }}
+            transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[0.65rem] md:text-[0.75rem] tracking-[0.5em] text-black/60 uppercase font-bold"
+          >
             Strategic Creative Direction • Est. 2023
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div className="scroll-indicator absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 fade-in delay-500">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1 }}
+          className="scroll-indicator absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        >
           <span className="text-[0.6rem] tracking-[3px] opacity-70 font-bold text-black uppercase">SCROLL</span>
           <div className="line w-[1px] h-[50px] bg-black/20 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-black origin-top animate-scroll-line" />
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* 02. STATS */}

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
 import { projectsData } from '../data/projectsData';
 import ProjectCard from '../components/ProjectCard';
@@ -82,7 +83,7 @@ const Work = () => {
   const filteredProjects = getFilteredProjects();
 
   return (
-    <div className="bg-white pt-[32vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
+    <div className="bg-white pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
 
       {/* Fixed Left-Side Category Navigation (Desktop Overlay, does not squeeze page content) */}
       <aside 
@@ -100,7 +101,6 @@ const Work = () => {
               }}
               className="group flex items-center gap-4 py-1 focus:outline-none"
             >
-              {/* Line Indicator */}
               <div 
                 className={`h-[1.5px] transition-all duration-300 ${
                   isActive 
@@ -108,8 +108,6 @@ const Work = () => {
                     : 'w-3 bg-white/20 group-hover:w-5 group-hover:bg-white'
                 }`} 
               />
-              
-              {/* Text Label without container */}
               <span 
                 className={`text-[0.62rem] font-medium uppercase tracking-[0.18em] transition-colors duration-300 whitespace-nowrap ${
                   isActive 
@@ -125,19 +123,27 @@ const Work = () => {
       </aside>
 
       <div className="max-w-[1800px] mx-auto relative z-10 w-full">
-        
-        {/* Editorial Header Section */}
-        <section className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] mb-24 fade-in">
-          <div className="max-w-4xl">
+        {/* Perfectly Centered Editorial Header Section - Matches Services.jsx structure */}
+        <section className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] min-h-screen flex flex-col justify-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-4xl"
+          >
             <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-tighter leading-[0.9] mb-8 text-black uppercase">
               PORTFOLIO.
             </h1>
-            <p className="text-black/60 text-[clamp(1rem,1.4vw,1.25rem)] leading-relaxed max-w-2xl font-medium">
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="text-black/60 text-[clamp(1rem,1.4vw,1.25rem)] leading-relaxed max-w-2xl font-medium"
+            >
               A collection of projects across branding, film, and digital design for global brands and creative partners.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </section>
-
 
         {/* Unified 2-Column Grid */}
         <section className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw]">
@@ -158,7 +164,6 @@ const Work = () => {
             </div>
           )}
         </section>
-
       </div>
     </div>
   );
