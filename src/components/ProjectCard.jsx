@@ -35,7 +35,7 @@ const ProjectCard = ({ id, title, category, hero, gallery, youtubeId, externalLi
       target={externalLink ? "_blank" : "_self"}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="block no-underline text-black group fade-in-up"
+      className="block no-underline text-black group"
     >
       <div className="w-full relative overflow-hidden bg-zinc-100">
         <div className="relative overflow-hidden aspect-[16/10] sm:aspect-video animate-fade-in">

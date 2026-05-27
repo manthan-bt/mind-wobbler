@@ -136,7 +136,7 @@ const Work = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24 items-start">
             {filteredProjects.map((project, index) => (
               <ScrollReveal 
-                key={project.id}
+                key={`${selectedFilter}-${project.id}`}
                 type="clip"
               >
                 <ProjectCard {...project} />

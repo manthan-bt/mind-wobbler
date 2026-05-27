@@ -11,12 +11,23 @@ const ScrollReveal = ({
   const ref = useRef(null);
   const progress = useMotionValue(0);
   const latestProgress = useRef(0);
+  const isAnimatingOnMount = useRef(false);
 
   useEffect(() => {
     const handleScroll = () => {
       if (!ref.current) return;
       const rect = ref.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
+      
+      // If we are at the top of the page and the element is in the viewport,
+      // keep its progress at 1.0 (fully visible) and don't let timeouts fade it out.
+      if (window.scrollY < 50 && rect.top < viewportHeight) {
+        if (isAnimatingOnMount.current) return;
+        progress.set(1);
+        latestProgress.current = 1;
+        return;
+      }
+      
       const isMobile = window.innerWidth < 1024;
       
       let newProgress = 0;
@@ -29,8 +40,9 @@ const ScrollReveal = ({
       // Determine completion point (y_end)
       let y_end = (isMobile ? 0.75 : centerRatio) * viewportHeight;
       if (type === 'clip') {
-        // Complete when the bottom of the element reaches 75% of the viewport height
-        const calculatedEnd = 0.75 * viewportHeight - rect.height;
+        // Complete when the bottom of the element reaches 100% of the viewport height
+        // This ensures items at the top of the page are fully revealed
+        const calculatedEnd = 1.0 * viewportHeight - rect.height;
         // Safety guard: ensure y_end doesn't go too high on the screen for tall images
         y_end = Math.max(0.15 * viewportHeight, calculatedEnd);
       }
@@ -57,15 +69,19 @@ const ScrollReveal = ({
     const isMobile = window.innerWidth < 1024;
     const viewportHeight = window.innerHeight;
 
-    if (window.scrollY < 10 && rect && rect.top < viewportHeight) {
+    if (window.scrollY < 50 && rect && rect.top < viewportHeight) {
       // For elements already in the viewport on mount when scroll is at top,
       // animate them to 1.0 smoothly using the safe animate signature.
+      isAnimatingOnMount.current = true;
       animate(0, 1, {
         duration: 0.8,
         ease: "easeOut",
         onUpdate: (latest) => {
           progress.set(latest);
           latestProgress.current = latest;
+        },
+        onComplete: () => {
+          isAnimatingOnMount.current = false;
         }
       });
     } else {
