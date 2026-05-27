@@ -20,7 +20,7 @@ const About = () => {
   }, []);
 
   return (
-    <div className="bg-white pt-[25vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
+    <div className="bg-white pt-[32vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
       
 
       
@@ -115,7 +115,7 @@ const About = () => {
                 <img 
                   src="/manthan.jpg" 
                   alt="MANTHAN B T"
-                  className="w-full h-full object-cover transition-all duration-[1200ms] ease-out group-hover:scale-105"
+                  className="w-full h-full object-cover object-[-25%_15%] scale-[1.35] transition-all duration-[1200ms] ease-out group-hover:scale-[1.45]"
                 />
               </div>
             </ScrollReveal>

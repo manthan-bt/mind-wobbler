@@ -18,7 +18,7 @@ const ScrollReveal = ({
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: [`start ${startRatio}`, `start ${centerRatio}`]
+    offset: [`start ${startRatio}`, `end 0.95`] // Animation completes when the BOTTOM enters 95% of viewport
   });
 
   // Ease-in-out-cubic mapping applied directly to scroll progress for instant matching
