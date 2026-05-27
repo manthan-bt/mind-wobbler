@@ -294,10 +294,10 @@ const Navbar = () => {
 
       {/* Mobile Overlay */}
       <div
-        className="fixed inset-0 bg-white z-[1999] flex flex-col items-center justify-center gap-8 md:hidden"
+        className={`fixed inset-0 ${mobileMenuBg} z-[1999] flex flex-col items-center justify-center gap-8 md:hidden transition-colors duration-700 ease-in-out`}
         style={{
           clipPath: isOpen ? 'circle(150% at calc(100% - 2.5rem) 2.5rem)' : 'circle(0% at calc(100% - 2.5rem) 2.5rem)',
-          transition: 'clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1)',
+          transition: 'clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1), background-color 0.7s ease-in-out',
           pointerEvents: isOpen ? 'auto' : 'none',
         }}
       >
@@ -311,13 +311,13 @@ const Navbar = () => {
                 setIsOpen(false);
                 window.scrollTo(0, 0);
               }}
-              className={`text-[1.8rem] font-bold uppercase tracking-wider text-black no-underline relative overflow-hidden transition-all duration-300 hover:after:scale-x-100 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-px after:bg-black after:transition-transform after:duration-500 after:ease-in-out hover:after:origin-left ${
+              className={`text-[1.8rem] font-bold uppercase tracking-wider ${mobileMenuTextColor} no-underline relative overflow-hidden transition-all duration-300 hover:after:scale-x-100 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-px after:bg-current after:transition-transform after:duration-500 after:ease-in-out hover:after:origin-left ${
                 isActive ? 'after:scale-x-100 after:origin-left' : 'after:scale-x-0 after:origin-right'
               }`}
               style={{
                 transform: isOpen ? 'translateY(0) skewY(0deg)' : 'translateY(20px) skewY(1.5deg)',
                 opacity: isOpen ? 1 : 0,
-                transition: `transform 0.5s cubic-bezier(0.23,1,0.32,1) ${0.15 + i * 0.07}s, opacity 0.4s ease ${0.12 + i * 0.07}s`,
+                transition: `transform 0.6s cubic-bezier(0.23,1,0.32,1) ${0.2 + i * 0.08}s, opacity 0.5s ease ${0.15 + i * 0.08}s`,
               }}
             >
               {label}
@@ -331,17 +331,23 @@ const Navbar = () => {
             setIsOpen(false);
             window.scrollTo(0, 0);
           }}
-          className="mt-6 px-10 py-5 text-[0.8rem] font-black tracking-[0.25em] uppercase bg-black text-white rounded-sm shadow-xl active:scale-95 transition-transform"
+          className={`mt-6 px-10 py-5 text-[0.8rem] font-black tracking-[0.25em] uppercase rounded-sm shadow-xl active:scale-95 transition-transform ${
+            isTransparent ? 'bg-white text-black' : 'bg-black text-white'
+          }`}
           style={{
             transform: isOpen ? 'translateY(0) skewY(0deg)' : 'translateY(20px) skewY(1.5deg)',
             opacity: isOpen ? 1 : 0,
-            transition: `transform 0.5s cubic-bezier(0.23,1,0.32,1) ${0.15 + navItems.length * 0.07}s, opacity 0.4s ease ${0.12 + navItems.length * 0.07}s`,
+            transition: `transform 0.6s cubic-bezier(0.23,1,0.32,1) ${0.2 + navItems.length * 0.08}s, opacity 0.5s ease ${0.15 + navItems.length * 0.08}s`,
           }}
         >
           WORK WITH US
         </Link>
       </div>
     </>
+  );
+};
+
+export default Navbar;
   );
 };
 
