@@ -77,6 +77,7 @@ const Navbar = () => {
   const activeWorkFilter = searchParams.get('category') || 'ALL';
 
   const handleWorkFilterClick = (value) => {
+    window.scrollTo(0, 0);
     setSearchParams({ category: value });
     setMobileSubDropdownOpen(false);
   };
@@ -92,7 +93,10 @@ const Navbar = () => {
     return (
       <Link
         to={to}
-        onClick={() => setIsOpen(false)}
+        onClick={() => {
+          setIsOpen(false);
+          window.scrollTo(0, 0);
+        }}
         className={`text-[0.75rem] font-bold uppercase tracking-widest relative overflow-hidden transition-all duration-300 hover:opacity-100 ${
           isActive ? `opacity-100 ${textColor}` : `opacity-60 ${textColor}`
         }`}
@@ -135,7 +139,7 @@ const Navbar = () => {
         <header className={getHeaderClass()}>
           {/* Logo */}
           <div className="logo relative z-[2005]">
-            <Link to="/" className="flex items-center gap-3 no-underline group pointer-events-auto">
+            <Link to="/" onClick={() => window.scrollTo(0, 0)} className="flex items-center gap-3 no-underline group pointer-events-auto">
               <img
                 src="/mind-wobbler-icon.png"
                 alt="M"
@@ -154,6 +158,7 @@ const Navbar = () => {
             ))}
             <Link 
               to="/contact" 
+              onClick={() => window.scrollTo(0, 0)}
               className={`px-8 py-3.5 text-[0.7rem] font-bold tracking-[0.2em] uppercase transition-all rounded-sm ${
                 isTransparent 
                   ? 'bg-white text-black hover:bg-white/80' 
@@ -302,7 +307,10 @@ const Navbar = () => {
             <Link
               key={label}
               to={to}
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                setIsOpen(false);
+                window.scrollTo(0, 0);
+              }}
               className={`text-[1.8rem] font-bold uppercase tracking-wider text-black no-underline relative overflow-hidden transition-all duration-300 hover:after:scale-x-100 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-px after:bg-black after:transition-transform after:duration-500 after:ease-in-out hover:after:origin-left ${
                 isActive ? 'after:scale-x-100 after:origin-left' : 'after:scale-x-0 after:origin-right'
               }`}
@@ -319,7 +327,10 @@ const Navbar = () => {
         
         <Link 
           to="/contact" 
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            setIsOpen(false);
+            window.scrollTo(0, 0);
+          }}
           className="mt-6 px-10 py-5 text-[0.8rem] font-black tracking-[0.25em] uppercase bg-black text-white rounded-sm shadow-xl active:scale-95 transition-transform"
           style={{
             transform: isOpen ? 'translateY(0) skewY(0deg)' : 'translateY(20px) skewY(1.5deg)',

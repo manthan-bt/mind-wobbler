@@ -5,7 +5,7 @@ const ScrollReveal = ({
   children, 
   type = 'slide', 
   startRatio = 0.95, // Animation starts when top enters 95% of viewport
-  centerRatio = 0.50, // Animation completes when center reaches 50% of viewport
+  centerRatio = 0.75, // Animation completes when top reaches 75% of viewport
   className = '' 
 }) => {
   const ref = useRef(null);
@@ -23,23 +23,21 @@ const ScrollReveal = ({
       let y_start = 0;
       let distance = 1;
       
-      if (isMobile) {
-        // Mobile: start animating when element enters bottom 10% of screen,
-        // complete when element reaches ~35% from top (near upper-center).
-        // This prevents elements finishing animation while still low on screen.
-        y_start = 0.98 * viewportHeight;
-        const y_end = 0.35 * viewportHeight;
-        distance = y_start - y_end;
-      } else {
-        // Desktop height-aware centering formula
-        y_start = startRatio * viewportHeight;
-        // Complete when the center of the element reaches centerRatio of viewport height
-        const y_end = (centerRatio * viewportHeight) - (rect.height / 2);
-        
-        // Safety guard: ensure y_end is less than y_start
-        const endVal = y_end < y_start ? y_end : 0.45 * viewportHeight;
-        distance = y_start - endVal;
+      // Animation starts when the top of the element enters the viewport
+      y_start = (isMobile ? 0.95 : startRatio) * viewportHeight;
+      
+      // Determine completion point (y_end)
+      let y_end = (isMobile ? 0.75 : centerRatio) * viewportHeight;
+      if (type === 'clip') {
+        // Complete when the bottom of the element reaches 75% of the viewport height
+        const calculatedEnd = 0.75 * viewportHeight - rect.height;
+        // Safety guard: ensure y_end doesn't go too high on the screen for tall images
+        y_end = Math.max(0.15 * viewportHeight, calculatedEnd);
       }
+      
+      // Safety guard: ensure y_end is less than y_start
+      const endVal = y_end < y_start ? y_end : 0.75 * viewportHeight;
+      distance = y_start - endVal;
       
       if (distance > 0) {
         const rawProgress = (y_start - rect.top) / distance;

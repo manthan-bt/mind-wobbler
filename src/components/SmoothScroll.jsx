@@ -56,7 +56,7 @@ const SmoothScroll = ({ children }) => {
         clearTimeout(t3);
       };
     }
-  }, [location.pathname]);
+  }, [location.pathname, location.search]);
 
   return <>{children}</>;
 };

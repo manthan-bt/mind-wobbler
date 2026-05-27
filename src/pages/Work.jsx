@@ -86,8 +86,8 @@ const Work = () => {
             <button
               key={filter.value}
               onClick={() => {
+                window.scrollTo(0, 0);
                 setSearchParams({ category: filter.value });
-                window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               className="group flex items-center gap-4 py-1 focus:outline-none"
             >
