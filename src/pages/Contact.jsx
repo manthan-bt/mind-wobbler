@@ -123,7 +123,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-white pt-64 pb-48 text-black min-h-screen relative overflow-hidden">
+    <div className="bg-white pt-[35vh] xl:pt-64 pb-48 text-black min-h-screen relative overflow-hidden">
 
 
 

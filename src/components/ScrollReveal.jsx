@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 
 const ScrollReveal = ({ 
   children, 
@@ -10,6 +10,7 @@ const ScrollReveal = ({
 }) => {
   const ref = useRef(null);
   const progress = useMotionValue(0);
+  const latestProgress = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,37 +19,60 @@ const ScrollReveal = ({
       const viewportHeight = window.innerHeight;
       const isMobile = window.innerWidth < 1024;
       
-      let clampedProgress;
+      let newProgress = 0;
+      let y_start = 0;
+      let distance = 1;
       
       if (isMobile) {
         // Mobile: start animating when element enters bottom 10% of screen,
         // complete when element reaches ~35% from top (near upper-center).
         // This prevents elements finishing animation while still low on screen.
-        const y_start = 0.98 * viewportHeight;
+        y_start = 0.98 * viewportHeight;
         const y_end = 0.35 * viewportHeight;
-        const distance = y_start - y_end;
-        const rawProgress = (y_start - rect.top) / distance;
-        clampedProgress = Math.max(0, Math.min(1, rawProgress));
+        distance = y_start - y_end;
       } else {
         // Desktop height-aware centering formula
-        const y_start = startRatio * viewportHeight;
+        y_start = startRatio * viewportHeight;
         // Complete when the center of the element reaches centerRatio of viewport height
         const y_end = (centerRatio * viewportHeight) - (rect.height / 2);
         
         // Safety guard: ensure y_end is less than y_start
         const endVal = y_end < y_start ? y_end : 0.45 * viewportHeight;
-        const distance = y_start - endVal;
-        
-        // Calculate scroll progress from y_start to endVal
-        const rawProgress = (y_start - rect.top) / distance;
-        clampedProgress = Math.max(0, Math.min(1, rawProgress));
+        distance = y_start - endVal;
       }
       
-      progress.set(clampedProgress);
+      if (distance > 0) {
+        const rawProgress = (y_start - rect.top) / distance;
+        newProgress = Math.max(0, Math.min(1, rawProgress));
+      }
+      
+      if (isNaN(newProgress)) {
+        newProgress = 0;
+      }
+      
+      latestProgress.current = newProgress;
+      progress.set(newProgress);
     };
 
     // Run immediately on mount to establish initial state
-    handleScroll();
+    const rect = ref.current?.getBoundingClientRect();
+    const isMobile = window.innerWidth < 1024;
+    const viewportHeight = window.innerHeight;
+
+    if (window.scrollY < 10 && rect && rect.top < viewportHeight) {
+      // For elements already in the viewport on mount when scroll is at top,
+      // animate them to 1.0 smoothly using the safe animate signature.
+      animate(0, 1, {
+        duration: 0.8,
+        ease: "easeOut",
+        onUpdate: (latest) => {
+          progress.set(latest);
+          latestProgress.current = latest;
+        }
+      });
+    } else {
+      handleScroll();
+    }
 
     // Listen to scroll and resize events
     window.addEventListener('scroll', handleScroll, { passive: true });

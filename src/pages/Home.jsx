@@ -109,7 +109,7 @@ const Home = () => {
             <span className="text-black text-[clamp(2rem,5vw,3.5rem)] font-bold tracking-tighter leading-none mb-4 uppercase">
               0<AnimatedNumber value={7} />
             </span>
-            <p className="text-[0.6rem] tracking-[0.3em] text-black/40 uppercase font-bold">Disciplines</p>
+            <p className="text-[0.6rem] tracking-[0.3em] text-black/40 uppercase font-bold">Services</p>
           </div>
         </div>
       </ScrollReveal>
@@ -119,13 +119,14 @@ const Home = () => {
         <div className="max-w-[1600px] mx-auto">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-24 fade-in">
             <div className="w-full">
-              <h2 className="text-[0.7rem] tracking-[0.4em] text-black/40 mb-8 uppercase font-bold">CAPABILITIES</h2>
+              <h2 className="text-[0.7rem] tracking-[0.4em] text-black/40 mb-8 uppercase font-bold">WHAT WE DO</h2>
               <h3 className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-black uppercase tracking-tighter leading-[0.9]">
                 STRATEGIC DESIGN <br /> & TECHNOLOGY.
               </h3>
             </div>
-            <Link to="/services" className="group flex items-center gap-3 text-black border-b border-black/20 pb-2 hover:border-black transition-all hover-target mb-4 shrink-0">
-              <span className="text-[0.65rem] tracking-[0.4em] font-bold uppercase">INDEX</span>
+            {/* Desktop: VIEW ALL link aligned with title */}
+            <Link to="/services" className="hidden lg:flex group items-center gap-3 text-black border-b border-black/20 pb-2 hover:border-black transition-all hover-target mb-4 shrink-0">
+              <span className="text-[0.65rem] tracking-[0.4em] font-bold uppercase">VIEW ALL</span>
               <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
             </Link>
           </div>
@@ -147,6 +148,14 @@ const Home = () => {
               </ScrollReveal>
             ))}
           </div>
+
+          {/* Mobile: VIEW ALL below the cards */}
+          <div className="lg:hidden flex justify-center mt-12">
+            <Link to="/services" className="group flex items-center gap-3 text-black border-b border-black/20 pb-2 hover:border-black transition-all hover-target">
+              <span className="text-[0.65rem] tracking-[0.4em] font-bold uppercase">VIEW ALL</span>
+              <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -160,8 +169,9 @@ const Home = () => {
                 SELECTED <br /> WORK.
               </h3>
             </div>
-            <Link to="/work" className="group flex items-center gap-3 text-black border-b border-black/20 pb-2 hover:border-black transition-all hover-target mb-4 shrink-0">
-              <span className="text-[0.65rem] tracking-[0.4em] font-bold uppercase">ARCHIVE</span>
+            {/* Desktop: VIEW MORE link aligned with title */}
+            <Link to="/work" className="hidden lg:flex group items-center gap-3 text-black border-b border-black/20 pb-2 hover:border-black transition-all hover-target mb-4 shrink-0">
+              <span className="text-[0.65rem] tracking-[0.4em] font-bold uppercase">VIEW MORE</span>
               <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
             </Link>
           </div>
@@ -175,6 +185,14 @@ const Home = () => {
                 <ProjectCard {...project} />
               </ScrollReveal>
             ))}
+          </div>
+
+          {/* Mobile: VIEW MORE below the cards */}
+          <div className="lg:hidden flex justify-center mt-12">
+            <Link to="/work" className="group flex items-center gap-3 text-black border-b border-black/20 pb-2 hover:border-black transition-all hover-target">
+              <span className="text-[0.65rem] tracking-[0.4em] font-bold uppercase">VIEW MORE</span>
+              <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
+            </Link>
           </div>
         </div>
       </section>

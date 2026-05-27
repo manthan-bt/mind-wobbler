@@ -10,7 +10,7 @@ const Unsubscribe = () => {
   }, []);
 
   return (
-    <div className="bg-white pt-64 pb-48 text-black min-h-screen relative overflow-hidden">
+    <div className="bg-white pt-[35vh] xl:pt-64 pb-48 text-black min-h-screen relative overflow-hidden">
       <div className="max-w-[1600px] mx-auto relative z-10 w-full">
         <section className="px-6 md:px-[3vw]">
 

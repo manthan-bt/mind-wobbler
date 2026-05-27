@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { Zap, Sparkles } from 'lucide-react';
 import ScrollReveal from '../components/ScrollReveal';
 
 const Services = () => {
   const [activeSection, setActiveActiveSection] = useState('overview');
-  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const sidebarRef = useRef(null);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const Services = () => {
       if (window.scrollY < 150) {
         setActiveActiveSection('overview');
       } else {
-        const ids = ['branding', 'graphic-design', 'digital-products', 'ai-integration', 'social-media', 'web-presence', 'ongoing-support'];
+        const ids = ['branding', 'graphic-design', 'digital-products', 'ai-integration', 'social-media', 'web-presence', 'ongoing-support', 'why-choose-us'];
         let current = 'overview';
         for (const id of ids) {
           const el = document.getElementById(id);
@@ -69,6 +70,21 @@ const Services = () => {
       observer.disconnect();
       window.removeEventListener('scroll', handleScroll);
     };
+  }, []);
+
+  // Dispatch active section updates to Navbar
+  useEffect(() => {
+    const event = new CustomEvent('active-service-section', { detail: activeSection });
+    window.dispatchEvent(event);
+  }, [activeSection]);
+
+  // Listen to navigation clicks from Navbar
+  useEffect(() => {
+    const handleScrollToService = (e) => {
+      scrollToSection(e.detail);
+    };
+    window.addEventListener('scroll-to-service', handleScrollToService);
+    return () => window.removeEventListener('scroll-to-service', handleScrollToService);
   }, []);
 
   const pillars = [
@@ -194,8 +210,86 @@ const Services = () => {
     { id: 'ai-integration', label: 'AI Integration' },
     { id: 'social-media', label: 'Social Media' },
     { id: 'web-presence', label: 'Web Presence' },
-    { id: 'ongoing-support', label: 'Ongoing Support' }
+    { id: 'ongoing-support', label: 'Ongoing Support' },
+    { id: 'why-choose-us', label: 'Why Choose Us' }
   ];
+
+  const comparisonData = [
+    {
+      criteria: "Talent Pool",
+      inHouse: "Limited to hired staff",
+      freelancer: "Single niche specialist",
+      studio: "Varies by team size",
+      us: "7 Core disciplines (Strategy to AI)"
+    },
+    {
+      criteria: "Kickoff Speed",
+      inHouse: "Months (Hiring & training)",
+      freelancer: "Days (Vetting & contracts)",
+      studio: "Weeks (Planning & resource lock)",
+      us: "Instant (Within 48 hours)"
+    },
+    {
+      criteria: "AI Integration",
+      inHouse: "Outdated / high research cost",
+      freelancer: "Rarely offered / basic",
+      studio: "Basic / slow adoption",
+      us: "Proprietary MCP & automated pipelines"
+    },
+    {
+      criteria: "Turnover Risk",
+      inHouse: "High (Churn pauses momentum)",
+      freelancer: "High (Project abandonment risk)",
+      studio: "Moderate (Employee churn)",
+      us: "Zero (Dedicated PMs & 100% SLA)"
+    },
+    {
+      criteria: "Cost Structure",
+      inHouse: "High overhead (Salaries, hardware)",
+      freelancer: "Variable hourly rates",
+      studio: "Premium fees + markup",
+      us: "Flat project rates / predictable retainer"
+    },
+    {
+      criteria: "Quality Control",
+      inHouse: "Inconsistent due to split focus",
+      freelancer: "Highly variable",
+      studio: "Consistent but relies on outsourcing",
+      us: "Stringent (Creative & technical direction)"
+    },
+    {
+      criteria: "Scalability",
+      inHouse: "Limited to staff headcount",
+      freelancer: "Limited by individual capacity",
+      studio: "Can scale but struggles with size",
+      us: "Highly scalable global expert network"
+    },
+    {
+      criteria: "Reliability",
+      inHouse: "Moderate",
+      freelancer: "Low to moderate",
+      studio: "Moderate to high",
+      us: "High (Guaranteed velocity & delivery)"
+    }
+  ];
+
+  const tableContainerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.08
+      }
+    }
+  };
+
+  const tableRowVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.5, ease: 'easeOut' }
+    }
+  };
 
   const scrollToSection = (id) => {
     if (id === 'overview') {
@@ -219,10 +313,8 @@ const Services = () => {
   };
 
   return (
-    <div className="bg-white pt-64 pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
-      
+    <div className="bg-white pt-[35vh] xl:pt-64 pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
 
-      
       {/* Fixed Left-Side Navigation Overlay (remains fixed on scroll, does not squeeze page content) */}
       <aside 
         ref={sidebarRef}
@@ -272,57 +364,6 @@ const Services = () => {
             </p>
           </div>
         </section>
-
-        {/* Mobile Services Dropdown — only visible below xl */}
-        <div className="xl:hidden px-6 md:px-[4vw] mb-16">
-          <button
-            onClick={() => setMobileDropdownOpen(prev => !prev)}
-            className="w-full flex items-center justify-between border-b border-black/20 pb-3 group"
-          >
-            <span className="text-[0.65rem] font-bold tracking-[0.3em] uppercase text-black/40">
-              Disciplines
-            </span>
-            <div className="flex items-center gap-3">
-              <span className="text-[0.65rem] font-bold tracking-[0.2em] uppercase text-black">
-                {navSections.find(n => n.id === activeSection)?.label || 'Overview'}
-              </span>
-              <span
-                className={`text-black/50 text-xs transition-transform duration-300 ${mobileDropdownOpen ? 'rotate-180' : ''}`}
-              >
-                &#8964;
-              </span>
-            </div>
-          </button>
-
-          {/* Dropdown Links */}
-          <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              mobileDropdownOpen ? 'max-h-[30rem] opacity-100' : 'max-h-0 opacity-0'
-            }`}
-          >
-            <div className="flex flex-col pt-1">
-              {navSections.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    scrollToSection(item.id);
-                    setMobileDropdownOpen(false);
-                  }}
-                  className={`flex items-center gap-4 py-3 border-b border-black/5 text-left group ${
-                    activeSection === item.id ? 'text-black' : 'text-black/30'
-                  }`}
-                >
-                  <div className={`h-[1px] transition-all duration-300 ${
-                    activeSection === item.id ? 'w-5 bg-black' : 'w-2 bg-black/20 group-hover:w-4 group-hover:bg-black/60'
-                  }`} />
-                  <span className="text-[0.65rem] font-bold tracking-[0.2em] uppercase transition-colors group-hover:text-black">
-                    {item.label}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
 
         {/* Side-by-Side Visual Services Sections */}
         <div className="space-y-32 md:space-y-48">
@@ -390,6 +431,103 @@ const Services = () => {
             );
           })}
         </div>
+
+        {/* Why Choose Us Minimal Comparison Table Section */}
+        <section 
+          id="why-choose-us"
+          className="px-6 md:px-[4vw] xl:pl-64 xl:pr-[4vw] mt-32 md:mt-48 py-24 border-t border-black/5 bg-white relative font-montserrat"
+        >
+          <ScrollReveal type="slide" className="max-w-4xl mb-16 font-montserrat">
+            <div className="flex items-center gap-4 mb-6">
+              <span className="text-[0.7rem] font-mono font-bold tracking-widest text-black/20">
+                [COMPARISON]
+              </span>
+              <div className="h-[1px] w-12 bg-black/10" />
+            </div>
+            <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold tracking-tighter leading-[0.9] text-black mb-8 uppercase font-montserrat">
+              WHY CHOOSE US.
+            </h2>
+            <p className="text-black/60 text-[1rem] leading-relaxed max-w-2xl font-medium font-montserrat">
+              A transparent comparison of capabilities, velocity, and reliability across creative execution models.
+            </p>
+          </ScrollReveal>
+
+          {/* Minimalist Animated Table */}
+          <div className="w-full relative overflow-hidden select-none font-montserrat">
+            <div className="overflow-x-auto">
+              <motion.table 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.15 }}
+                variants={tableContainerVariants}
+                className="w-full min-w-[850px] border-collapse text-left font-montserrat"
+              >
+                <thead>
+                  <tr className="border-b border-black/10 text-[0.6rem] md:text-[0.65rem] font-bold tracking-[0.2em] uppercase text-black/30">
+                    <th className="py-5 pr-4 text-left w-1/5 font-bold">CRITERIA</th>
+                    <th className="py-5 px-4 text-center w-1/5 font-semibold">IN-HOUSE TEAM</th>
+                    <th className="py-5 px-4 text-center w-1/5 font-semibold">FREELANCER</th>
+                    <th className="py-5 px-4 text-center w-1/5 font-semibold">STUDIO / AGENCY</th>
+                    <th className="py-5 px-4 text-center w-1/5 font-bold text-black bg-black/[0.02] border-x border-black/5">
+                      <span className="inline-flex items-center gap-2 justify-center">
+                        <svg width="14" height="14" viewBox="0 0 100 100" fill="none" className="text-black inline-block shrink-0">
+                          <motion.circle
+                            cx="50"
+                            cy="50"
+                            r="40"
+                            stroke="currentColor"
+                            strokeWidth="10"
+                            variants={{
+                              hidden: { pathLength: 0 },
+                              visible: { pathLength: 1, transition: { duration: 0.4, ease: "easeOut" } }
+                            }}
+                          />
+                          <motion.path
+                            d="M32 50 L46 64 L70 34"
+                            stroke="currentColor"
+                            strokeWidth="10"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            variants={{
+                              hidden: { pathLength: 0 },
+                              visible: { pathLength: 1, transition: { duration: 0.3, ease: "easeOut", delay: 0.35 } }
+                            }}
+                          />
+                        </svg>
+                        MIND WOBBLER
+                      </span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="text-[0.62rem] md:text-[0.7rem] font-semibold tracking-tight uppercase text-black/80">
+                  {comparisonData.map((row) => (
+                    <motion.tr 
+                      key={row.criteria}
+                      variants={tableRowVariants}
+                      className="border-b border-black/5 hover:bg-black/[0.01] transition-colors"
+                    >
+                      <td className="py-5 pr-4 text-left font-bold text-black text-[0.65rem] md:text-[0.72rem]">
+                        {row.criteria}
+                      </td>
+                      <td className="py-5 px-4 text-center text-black/45 font-medium">
+                        {row.inHouse}
+                      </td>
+                      <td className="py-5 px-4 text-center text-black/45 font-medium">
+                        {row.freelancer}
+                      </td>
+                      <td className="py-5 px-4 text-center text-black/45 font-medium">
+                        {row.studio}
+                      </td>
+                      <td className="py-5 px-4 text-center text-black font-bold bg-black/[0.02] border-x border-black/5">
+                        {row.us}
+                      </td>
+                    </motion.tr>
+                  ))}
+                </tbody>
+              </motion.table>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

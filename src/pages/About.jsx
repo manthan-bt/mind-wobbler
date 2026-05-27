@@ -20,7 +20,7 @@ const About = () => {
   }, []);
 
   return (
-    <div className="bg-white pt-64 pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
+    <div className="bg-white pt-[35vh] xl:pt-64 pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
       
 
       
