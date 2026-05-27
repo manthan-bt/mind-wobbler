@@ -550,10 +550,3 @@ const Services = () => {
 };
 
 export default Services;
-</section>
-      </div>
-    </div>
-  );
-};
-
-export default Services;
