@@ -40,6 +40,14 @@ const CookieConsent = () => {
   const saveConsent = (prefs) => {
     localStorage.setItem('cookie-consent', JSON.stringify(prefs));
     setPreferences(prefs);
+
+    // Update Google Analytics Consent Mode
+    if (typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', {
+        'analytics_storage': prefs.analytics ? 'granted' : 'denied'
+      });
+    }
+
     setIsVisible(false);
   };
 
