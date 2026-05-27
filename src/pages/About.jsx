@@ -81,21 +81,40 @@ const About = () => {
 
           {/* Partners */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            
+            {/* Mobile Title - Visible only on mobile, order 1 */}
+            <div className="lg:hidden order-1">
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-[0.7rem] font-mono font-bold tracking-widest text-black/20">
+                  [002]
+                </span>
+                <div className="h-[1px] w-12 bg-black/10" />
+              </div>
+              <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold tracking-tighter leading-[0.9] text-black uppercase">
+                FOUNDER
+              </h2>
+            </div>
+
+            {/* Info Block (Name, Position, Quote) - Order 3 on mobile, Order 2 on desktop */}
             <ScrollReveal 
               type="slide"
-              className="lg:col-span-7 lg:order-2 lg:col-start-6 flex flex-col lg:items-end justify-center"
+              className="lg:col-span-7 lg:order-2 lg:col-start-6 flex flex-col lg:items-end justify-center order-3"
             >
               <div className="w-full max-w-xl">
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="text-[0.7rem] font-mono font-bold tracking-widest text-black/20">
-                    [002]
-                  </span>
-                  <div className="h-[1px] w-12 bg-black/10" />
+                {/* Desktop Title - Hidden on mobile */}
+                <div className="hidden lg:block">
+                  <div className="flex items-center gap-4 mb-6">
+                    <span className="text-[0.7rem] font-mono font-bold tracking-widest text-black/20">
+                      [002]
+                    </span>
+                    <div className="h-[1px] w-12 bg-black/10" />
+                  </div>
+
+                  <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold tracking-tighter leading-[0.9] text-black mb-8 uppercase">
+                    FOUNDER
+                  </h2>
                 </div>
 
-                <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold tracking-tighter leading-[0.9] text-black mb-8 uppercase">
-                  FOUNDER
-                </h2>
                 <div>
                   <h3 className="text-xl font-bold tracking-tight uppercase mb-2">MANTHAN B T</h3>
                   <p className="text-sm font-bold tracking-[0.2em] text-black/40 uppercase mb-6">DIRECTOR & CREATIVE HEAD</p>
@@ -107,9 +126,11 @@ const About = () => {
                 </div>
               </div>
             </ScrollReveal>
+
+            {/* Image Block - Order 2 on mobile, Order 1 on desktop */}
             <ScrollReveal 
               type="clip"
-              className="lg:col-span-4 lg:order-1 lg:col-start-1 relative group overflow-hidden bg-zinc-50 border border-black/[0.06] shadow-xl"
+              className="lg:col-span-4 lg:order-1 lg:col-start-1 relative group overflow-hidden bg-zinc-50 border border-black/[0.06] shadow-xl order-2"
             >
               <div className="aspect-square w-full overflow-hidden">
                 <img 
