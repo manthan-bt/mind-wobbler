@@ -1,17 +1,33 @@
 import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 const TermsOfService = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in, .fade-in-up').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div className="bg-white pt-[35vh] xl:pt-64 pb-48 text-black selection:bg-black selection:text-white min-h-screen">
       <div className="max-w-[1600px] mx-auto px-6 md:px-[3vw]">
         <div className="max-w-4xl">
-          <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-tighter leading-[0.9] mb-12 text-black uppercase">
-            TERMS OF <br /> SERVICE.
-          </h1>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-tighter leading-[0.9] mb-12 text-black uppercase">
+              TERMS OF <br /> SERVICE.
+            </h1>
+          </motion.div>
           
           <div className="space-y-16 text-[1rem] md:text-[1.1rem] leading-relaxed text-black/70 font-medium text-justify">
             <p className="text-black font-bold border-b border-black/10 pb-8 uppercase text-xs tracking-[0.2em]">Effective Date: May 26, 2026</p>

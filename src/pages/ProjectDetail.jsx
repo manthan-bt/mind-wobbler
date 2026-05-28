@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
 import { projectsData } from '../data/projectsData';
 
@@ -9,6 +10,7 @@ const ProjectDetail = () => {
   const [iframeLoaded, setIframeLoaded] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setIframeLoaded(false);
   }, [id]);
 
@@ -64,16 +66,26 @@ const ProjectDetail = () => {
           )}
           <div className="hero-overlay absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent z-10" />
         </div>
-        <div className="relative z-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-20"
+        >
           <span className="block text-[0.7rem] font-bold uppercase tracking-[0.3em] text-black/40 mb-6">{project.category}</span>
           <h1 className="text-[clamp(2.5rem,6vw,5rem)] leading-[0.9] font-black tracking-tighter mb-8 uppercase">
             {project.title}
           </h1>
-          <div className="project-meta flex gap-12 text-[0.9rem] text-black/60 uppercase tracking-widest font-bold">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.6 }}
+            transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="project-meta flex gap-12 text-[0.9rem] text-black/60 uppercase tracking-widest font-bold"
+          >
             <span>Year: {project.year}</span>
             <span>Role: {project.role}</span>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       <section className="project-content py-24 md:py-48 px-6 md:px-[5vw] relative z-20 bg-white">

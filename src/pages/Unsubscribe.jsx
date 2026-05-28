@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import AnimatedTick from '../components/AnimatedTick';
 
 const Unsubscribe = () => {
@@ -7,6 +8,15 @@ const Unsubscribe = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in, .fade-in-up').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -15,7 +25,12 @@ const Unsubscribe = () => {
         <section className="px-6 md:px-[3vw]">
 
           {status === 'pending' ? (
-            <div className="max-w-3xl">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-3xl"
+            >
               <p className="text-[0.65rem] font-bold tracking-[0.4em] text-black/30 uppercase mb-8">
                 Email Preferences
               </p>
@@ -24,9 +39,14 @@ const Unsubscribe = () => {
                 Unsubscribe
               </h1>
 
-              <p className="text-black/50 text-[clamp(0.95rem,1.3vw,1.2rem)] leading-relaxed max-w-xl font-medium mb-4">
+              <motion.p 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.5 }}
+                transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="text-black/50 text-[clamp(0.95rem,1.3vw,1.2rem)] leading-relaxed max-w-xl font-medium mb-4"
+              >
                 YOU ARE ABOUT TO UNSUBSCRIBE FROM MIND WOBBLER'S <strong>MARKETING UPDATES</strong>.
-              </p>
+              </motion.p>
               <p className="text-black/30 text-sm leading-relaxed max-w-xl mb-4">
                 NOTE: YOU WILL STILL RECEIVE TRANSACTIONAL EMAILS — SUCH AS CONFIRMATION OF YOUR SUBMITTED INQUIRY AND OUR REPLY — AS THESE ARE ESSENTIAL COMMUNICATIONS, NOT MARKETING.
               </p>
@@ -51,10 +71,15 @@ const Unsubscribe = () => {
                   TAKE ME BACK
                 </Link>
               </div>
-            </div>
+            </motion.div>
 
           ) : (
-            <div className="max-w-3xl">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-3xl"
+            >
               <div className="flex items-center gap-3 mb-8">
                 <AnimatedTick size={24} strokeWidth={8} className="text-black flex-shrink-0" />
                 <p className="text-[0.65rem] font-bold tracking-[0.4em] text-black/30 uppercase">
@@ -66,9 +91,14 @@ const Unsubscribe = () => {
                 You're all done.
               </h1>
 
-              <p className="text-black/50 text-[clamp(0.95rem,1.3vw,1.2rem)] leading-relaxed max-w-xl font-medium mb-4">
+              <motion.p 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.5 }}
+                transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="text-black/50 text-[clamp(0.95rem,1.3vw,1.2rem)] leading-relaxed max-w-xl font-medium mb-4"
+              >
                 YOU'VE BEEN SUCCESSFULLY REMOVED FROM OUR MARKETING UPDATES MAILING LIST.
-              </p>
+              </motion.p>
               <p className="text-black/30 text-sm leading-relaxed max-w-xl mb-4">
                 NOTE: YOU MAY STILL RECEIVE DIRECT REPLIES TO ANY SUBMITTED INQUIRIES, AS THESE ARE TRANSACTIONAL COMMUNICATIONS, NOT MARKETING.
               </p>
@@ -84,8 +114,17 @@ const Unsubscribe = () => {
               >
                 BACK TO MIND WOBBLER
               </Link>
-            </div>
+            </motion.div>
           )}
+
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default Unsubscribe;
+
 
         </section>
       </div>

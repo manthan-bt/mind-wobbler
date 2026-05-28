@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
 import AnimatedTick from '../components/AnimatedTick';
 
@@ -274,6 +275,23 @@ const Contact = () => {
                       type="submit" 
                       disabled={isSubmitting}
                       className="bg-black text-white py-6 px-12 text-[0.8rem] font-black uppercase tracking-[0.3em] self-start transition-all hover:bg-black/80 hover-target disabled:opacity-50 rounded-sm shadow-2xl mt-4"
+                    >
+                      {isSubmitting ? "TRANSMITTING..." : "SUBMIT INQUIRY"}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  );
+};
+
+export default Contact;
+y-50 rounded-sm shadow-2xl mt-4"
                     >
                       {isSubmitting ? "TRANSMITTING..." : "SUBMIT INQUIRY"}
                     </button>
