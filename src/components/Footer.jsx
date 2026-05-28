@@ -143,7 +143,7 @@ const Footer = () => {
             <li className="flex flex-wrap gap-x-6 gap-y-2 mt-4">
               {[
                 { label: 'INSTAGRAM', href: 'https://www.instagram.com/mind_wobbler' },
-                { label: 'LINKEDIN', href: 'https://www.linkedin.com/in/manthan-bt-268610295/' },
+                { label: 'LINKEDIN', href: 'https://www.linkedin.com/company/mind-wobbler' },
                 { label: 'BEHANCE', href: 'https://www.behance.net/mind_wobbler' },
                 { label: 'YOUTUBE', href: 'https://www.youtube.com/@mind_wobbler' },
                 { label: 'WHATSAPP', href: 'https://wa.me/918105176785' }

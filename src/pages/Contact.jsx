@@ -123,14 +123,12 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-white pt-[25vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black min-h-screen relative overflow-hidden">
+    <div className="bg-white pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
 
+      <div className="max-w-[1800px] mx-auto relative z-10 w-full">
 
-
-      <div className="max-w-[1600px] mx-auto relative z-10 w-full">
-
-        {/* Editorial Hero Header Section */}
-        <section className="px-6 md:px-[5vw] mb-32 md:mb-48 fade-in">
+        {/* Perfectly Centered Editorial Header Section - Matches Services.jsx and Work.jsx */}
+        <section className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] min-h-screen flex flex-col justify-center fade-in">
           <div className="max-w-4xl">
             <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-tighter leading-[0.9] mb-8 text-black uppercase">
               START THE <br className="hidden md:block" />
@@ -142,28 +140,28 @@ const Contact = () => {
           </div>
         </section>
 
-        {/* Contact Grid Section */}
-        <section className="px-6 md:px-[5vw] pb-32">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+        {/* Contact Grid Section - Aligned with main column layout */}
+        <section className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] pb-32">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-stretch">
 
-            {/* Info Column */}
+            {/* Info Column - Flex stretched to align the bottom of the map exactly with the form bottom */}
             <ScrollReveal 
               type="slide"
-              className="lg:col-span-5 space-y-24"
+              className="lg:col-span-5 lg:flex lg:flex-col lg:justify-between lg:h-full space-y-16 lg:space-y-0 pt-8 md:pt-16"
             >
               <div>
-                <h4 className="text-[0.7rem] font-bold tracking-[0.4em] text-black/40 mb-8 uppercase">NEW BUSINESS</h4>
+                <h4 className="text-[0.7rem] font-bold tracking-[0.4em] text-black/40 mb-3 uppercase">NEW BUSINESS</h4>
                 <div className="space-y-4">
-                  <a href="mailto:mindwobblerstudios@gmail.com" className="block text-[clamp(1.2rem,2.5vw,1.8rem)] font-bold tracking-tighter hover:text-black/60 transition-colors break-all uppercase">MINDWOBBLERSTUDIOS@GMAIL.COM</a>
-                  <a href="tel:+918105176785" className="block text-[clamp(1.2rem,2.5vw,1.8rem)] font-bold tracking-tighter hover:text-black/60 transition-colors">+91 81051 76785</a>
+                  <a href="mailto:mindwobblerstudios@gmail.com" className="block text-[clamp(0.85rem,1.8vw,1.3rem)] font-bold tracking-tight hover:text-black/60 transition-colors uppercase whitespace-nowrap">MINDWOBBLERSTUDIOS@GMAIL.COM</a>
+                  <a href="tel:+918105176785" className="block text-[clamp(0.85rem,1.8vw,1.3rem)] font-bold tracking-tight hover:text-black/60 transition-colors uppercase whitespace-nowrap">+91 81051 76785</a>
                 </div>
               </div>
 
               <div>
-                <h4 className="text-[0.7rem] font-bold tracking-[0.4em] text-black/40 mb-8 uppercase">SOCIAL</h4>
+                <h4 className="text-[0.7rem] font-bold tracking-[0.4em] text-black/40 mb-3 uppercase">SOCIAL</h4>
                 <div className="grid grid-cols-2 gap-x-8 gap-y-4">
                   <a href="https://www.instagram.com/mind_wobbler" target="_blank" rel="noopener noreferrer" className="text-sm font-bold tracking-widest hover:text-black/60 transition-colors uppercase">INSTAGRAM</a>
-                  <a href="https://www.linkedin.com/in/manthan-bt-268610295/" target="_blank" rel="noopener noreferrer" className="text-sm font-bold tracking-widest hover:text-black/60 transition-colors uppercase">LINKEDIN</a>
+                  <a href="https://www.linkedin.com/company/mind-wobbler" target="_blank" rel="noopener noreferrer" className="text-sm font-bold tracking-widest hover:text-black/60 transition-colors uppercase">LINKEDIN</a>
                   <a href="https://www.behance.net/mind_wobbler" target="_blank" rel="noopener noreferrer" className="text-sm font-bold tracking-widest hover:text-black/60 transition-colors uppercase">BEHANCE</a>
                   <a href="https://www.youtube.com/@mind_wobbler" target="_blank" rel="noopener noreferrer" className="text-sm font-bold tracking-widest hover:text-black/60 transition-colors uppercase">YOUTUBE</a>
                   <a href="https://wa.me/918105176785" target="_blank" rel="noopener noreferrer" className="text-sm font-bold tracking-widest hover:text-black/60 transition-colors uppercase">WHATSAPP</a>
@@ -171,8 +169,23 @@ const Contact = () => {
               </div>
 
               <div>
-                <h4 className="text-[0.7rem] font-bold tracking-[0.4em] text-black/40 mb-8 uppercase">LOCATION</h4>
-                <p className="text-sm font-bold tracking-widest uppercase">BENGALURU, INDIA</p>
+                <h4 className="text-[0.7rem] font-bold tracking-[0.4em] text-black/40 mb-3 uppercase">LOCATION</h4>
+                <p className="text-[0.75rem] font-bold tracking-widest leading-relaxed uppercase mb-4">
+                  362/28, 2ND FLOOR, 11TH CROSS,<br />
+                  8TH MAIN ROAD, 2ND BLOCK JAYANAGAR,<br />
+                  BENGALURU, KARNATAKA, INDIA
+                </p>
+                
+                {/* Theme-Matching Interactive Map */}
+                <div className="relative w-full aspect-[16/11] overflow-hidden border border-black/10 dark:border-white/10 rounded-sm shadow-lg hide-custom-cursor">
+                  <iframe
+                    src="https://maps.google.com/maps?q=12.9382963,77.5822796&z=16&output=embed"
+                    title="Mind Wobbler Location"
+                    className="w-full h-full border-0 map-iframe"
+                    loading="lazy"
+                    allowFullScreen
+                  ></iframe>
+                </div>
               </div>
             </ScrollReveal>
 

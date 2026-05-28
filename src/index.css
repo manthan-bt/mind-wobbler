@@ -639,3 +639,16 @@ html {
 .animate-bounce-right {
   animation: bounceRight 1.2s ease-in-out infinite;
 }
+
+/* Custom Cursor Hiding & Re-enabling Default Cursor for Iframe compatibility */
+.custom-cursor-active .hide-custom-cursor,
+.custom-cursor-active .hide-custom-cursor * {
+  cursor: auto !important;
+}
+
+/* Smoothly fade out custom cursor when hovering over hide-custom-cursor elements */
+body:has(.hide-custom-cursor:hover) .custom-cursor-dot,
+body:has(.hide-custom-cursor:hover) .custom-cursor-follower {
+  opacity: 0 !important;
+  transition: opacity 0.25s ease-out !important;
+}
