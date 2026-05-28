@@ -129,16 +129,26 @@ const Contact = () => {
       <div className="max-w-[1800px] mx-auto relative z-10 w-full">
 
         {/* Perfectly Centered Editorial Header Section - Matches Services.jsx and Work.jsx */}
-        <section className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] min-h-screen flex flex-col justify-center fade-in">
-          <div className="max-w-4xl">
+        <section className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] min-h-screen flex flex-col justify-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-4xl"
+          >
             <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-tighter leading-[0.9] mb-8 text-black uppercase">
               START THE <br className="hidden md:block" />
               CONVERSATION.
             </h1>
-            <p className="text-black/60 text-[clamp(1rem,1.4vw,1.25rem)] leading-relaxed max-w-2xl font-medium">
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="text-black/60 text-[clamp(1rem,1.4vw,1.25rem)] leading-relaxed max-w-2xl font-medium"
+            >
               We are always interested in hearing about new projects and collaborations. Reach out to discuss your vision, or simply to connect.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </section>
 
         {/* Contact Grid Section - Aligned with main column layout */}
@@ -275,23 +285,6 @@ const Contact = () => {
                       type="submit" 
                       disabled={isSubmitting}
                       className="bg-black text-white py-6 px-12 text-[0.8rem] font-black uppercase tracking-[0.3em] self-start transition-all hover:bg-black/80 hover-target disabled:opacity-50 rounded-sm shadow-2xl mt-4"
-                    >
-                      {isSubmitting ? "TRANSMITTING..." : "SUBMIT INQUIRY"}
-                    </button>
-                  </form>
-                )}
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-      </div>
-    </div>
-  );
-};
-
-export default Contact;
-y-50 rounded-sm shadow-2xl mt-4"
                     >
                       {isSubmitting ? "TRANSMITTING..." : "SUBMIT INQUIRY"}
                     </button>

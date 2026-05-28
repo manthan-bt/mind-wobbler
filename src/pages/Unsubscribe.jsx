@@ -124,12 +124,3 @@ const Unsubscribe = () => {
 };
 
 export default Unsubscribe;
-
-
-        </section>
-      </div>
-    </div>
-  );
-};
-
-export default Unsubscribe;
