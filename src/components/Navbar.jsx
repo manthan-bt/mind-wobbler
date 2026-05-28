@@ -115,13 +115,13 @@ const Navbar = () => {
     
     if (isWorkPage || isServicesPage) {
       if (scrolled) {
-        return `${base} md:bg-white/80 md:backdrop-blur-md md:border-b md:border-black/5`;
+        return `${base} md:navbar-header-bg md:backdrop-blur-md md:border-b md:border-black/5`;
       } else {
         return `${base} md:border-transparent`;
       }
     } else {
       if (scrolled) {
-        return `${base} bg-white/80 backdrop-blur-md border-b border-black/5`;
+        return `${base} navbar-header-bg backdrop-blur-md border-b border-black/5`;
       } else {
         return `${base} border-transparent`;
       }
@@ -134,7 +134,7 @@ const Navbar = () => {
       <div 
         className={`fixed top-0 left-0 right-0 z-[2000] flex flex-col transition-all duration-500 ${
           (isWorkPage || isServicesPage)
-            ? 'bg-white/80 backdrop-blur-md border-b border-black/5 md:bg-transparent md:backdrop-blur-none md:border-b-0 md:pointer-events-none pointer-events-auto'
+            ? 'navbar-wrapper-bg backdrop-blur-md border-b border-black/5 md:bg-transparent md:backdrop-blur-none md:border-b-0 md:pointer-events-none pointer-events-auto'
             : 'pointer-events-none'
         }`}
       >

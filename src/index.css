@@ -386,9 +386,44 @@ textarea::-moz-selection {
   color: #ffffff !important;
 }
 
+/* Premium Custom Navbar Backgrounds */
+/* Wrapper Background - defaults to translucent white on mobile */
+.navbar-wrapper-bg {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+.dark .navbar-wrapper-bg {
+  background-color: #000000 !important;
+}
+
+/* On desktop, wrapper background is transparent */
+@media (min-width: 768px) {
+  .navbar-wrapper-bg,
+  .dark .navbar-wrapper-bg {
+    background-color: transparent !important;
+  }
+}
+
+/* Header Background - defaults to translucent white when scrolled */
+.navbar-header-bg {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+.dark .navbar-header-bg {
+  background-color: #000000 !important;
+}
+
+@media (min-width: 768px) {
+  .md\:navbar-header-bg {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+  }
+  .dark .md\:navbar-header-bg {
+    background-color: #000000 !important;
+  }
+}
+
 /* Global white bg overrides to black */
 .dark .bg-white,
-.dark .bg-white\/80 {
+.dark .bg-white\/80,
+.dark .md\:bg-white\/80 {
   background-color: #000000 !important;
 }
 
@@ -413,11 +448,17 @@ textarea::-moz-selection {
 .dark .text-black\/90 {
   color: rgba(255, 255, 255, 0.9) !important;
 }
+.dark .text-black\/80 {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
 .dark .text-black\/70 {
   color: rgba(255, 255, 255, 0.7) !important;
 }
 .dark .text-black\/60 {
   color: rgba(255, 255, 255, 0.6) !important;
+}
+.dark .text-black\/50 {
+  color: rgba(255, 255, 255, 0.5) !important;
 }
 .dark .text-black\/45 {
   color: rgba(255, 255, 255, 0.45) !important;
@@ -425,8 +466,43 @@ textarea::-moz-selection {
 .dark .text-black\/40 {
   color: rgba(255, 255, 255, 0.4) !important;
 }
+.dark .text-black\/30 {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+.dark .text-black\/25 {
+  color: rgba(255, 255, 255, 0.25) !important;
+}
 .dark .text-black\/20 {
   color: rgba(255, 255, 255, 0.2) !important;
+}
+.dark .text-black\/10 {
+  color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Translucent bg-black mappings (invert to translucent white in dark theme) */
+.dark .bg-black\/5 {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+.dark .bg-black\/10 {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+.dark .bg-black\/20 {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+.dark .bg-black\/80 {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+.dark .bg-black\/\[0\.03\] {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+.dark .bg-black\/\[0\.02\] {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+.dark .bg-black\/\[0\.01\] {
+  background-color: rgba(255, 255, 255, 0.01) !important;
+}
+.dark .bg-black\/\[0\.005\] {
+  background-color: rgba(255, 255, 255, 0.005) !important;
 }
 
 /* Map solid black elements (lines, buttons) to white with black text */
@@ -490,4 +566,76 @@ textarea::-moz-selection {
 .dark .custom-cursor-follower.w-\[60px\] {
   background-color: rgba(255, 255, 255, 0.2) !important;
   border-color: transparent !important;
+}
+
+/* ─── Custom Scrollbar ─── */
+/* Default (Light Theme) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888888;
+}
+
+/* Firefox support */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #cccccc #ffffff;
+}
+
+/* Dark Theme Scrollbar */
+.dark::-webkit-scrollbar-track,
+.dark ::-webkit-scrollbar-track {
+  background: #000000 !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark::-webkit-scrollbar-thumb,
+.dark ::-webkit-scrollbar-thumb {
+  background: #333333 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 10px !important;
+}
+
+.dark::-webkit-scrollbar-thumb:hover,
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #555555 !important;
+}
+
+/* Firefox support for Dark Theme */
+.dark {
+  scrollbar-color: #333333 #000000 !important;
+}
+
+/* Hide scrollbar on desktop (width >= 768px) */
+@media (min-width: 768px) {
+  .no-scrollbar-desktop::-webkit-scrollbar {
+    display: none !important;
+  }
+  .no-scrollbar-desktop {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;  /* Firefox */
+  }
+}
+
+/* Mobile Swipe Indicator Animation */
+@keyframes bounceRight {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+.animate-bounce-right {
+  animation: bounceRight 1.2s ease-in-out infinite;
 }

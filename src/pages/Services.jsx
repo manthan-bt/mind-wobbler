@@ -470,7 +470,14 @@ const Services = () => {
 
           {/* Minimalist Animated Table */}
           <div className="w-full relative overflow-hidden select-none font-montserrat">
-            <div className="overflow-x-auto">
+            
+            {/* Mobile Scroll Swipe Prompt */}
+            <div className="md:hidden flex items-center justify-end gap-1.5 text-black/40 text-[0.58rem] font-bold tracking-[0.25em] uppercase mb-4">
+              <span>Swipe to view</span>
+              <span className="inline-block animate-bounce-right text-[0.7rem] leading-none">→</span>
+            </div>
+
+            <div className="overflow-x-auto overflow-y-hidden no-scrollbar-desktop">
               <motion.table 
                 initial="hidden"
                 whileInView="visible"
