@@ -76,7 +76,7 @@ const Home = () => {
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           className="hero-content relative z-30 text-center px-6 md:px-[3vw]"
         >
-          <h1 className="text-[clamp(2.5rem,6vw,5rem)] leading-[0.9] font-black mb-10 tracking-tighter text-black uppercase">
+          <h1 className="text-[clamp(2.5rem,6vw,5rem)] leading-[0.9] font-bold mb-10 tracking-tighter text-black uppercase">
             MIND <br /> WOBBLER
           </h1>
           <motion.p 
