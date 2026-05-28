@@ -1,7 +1,72 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { ChevronDown } from 'lucide-react';
+
+const setCookie = (name, value, days = 365) => {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${value}; expires=${expires}; path=/; SameSite=Lax`;
+};
+
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
+};
 
 const Footer = () => {
+  const [theme, setTheme] = useState(() => {
+    return getCookie('theme') || 'system';
+  });
+
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const applyTheme = (selectedTheme) => {
+    setTheme(selectedTheme);
+    setCookie('theme', selectedTheme);
+    
+    if (selectedTheme === 'black') {
+      document.documentElement.classList.add('dark');
+    } else if (selectedTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else if (selectedTheme === 'system') {
+      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+  };
+
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
+
+  useEffect(() => {
+    if (theme !== 'system') return;
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e) => {
+      if (e.matches) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    };
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [theme]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
   const currentYear = new Date().getFullYear();
 
   return (
@@ -103,10 +168,45 @@ const Footer = () => {
         <div className="text-[0.6rem] text-white/20 tracking-[0.3em] uppercase font-bold">
           © {currentYear} MIND WOBBLER. ALL RIGHTS RESERVED.
         </div>
+        
+        {/* Policy Links */}
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-[0.55rem] text-white/10 tracking-[0.2em] uppercase font-bold">
           <Link to="/privacy-policy" className="hover:text-white/40 transition-colors">PRIVACY POLICY</Link>
           <Link to="/terms-of-service" className="hover:text-white/40 transition-colors">TERMS OF SERVICE</Link>
           <Link to="/cookies" className="hover:text-white/40 transition-colors">COOKIES</Link>
+        </div>
+
+        {/* Theme Dropdown */}
+        <div className="relative font-montserrat" ref={dropdownRef}>
+          <button 
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex items-center gap-1.5 text-[0.6rem] text-white/40 hover:text-white transition-opacity tracking-[0.2em] font-bold uppercase focus:outline-none group"
+          >
+            THEME: {theme} 
+            <ChevronDown 
+              size={11} 
+              className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'} opacity-60 group-hover:opacity-100`} 
+            />
+          </button>
+          
+          {isOpen && (
+            <div className="absolute right-0 bottom-full mb-3 bg-black border border-white/10 z-[100] min-w-[120px] shadow-2xl flex flex-col">
+              {['SYSTEM', 'LIGHT', 'BLACK'].map((t) => (
+                <button
+                  key={t}
+                  onClick={() => {
+                    applyTheme(t.toLowerCase());
+                    setIsOpen(false);
+                  }}
+                  className={`px-4 py-3 text-[0.55rem] tracking-[0.2em] font-bold text-left hover:bg-white/10 transition-colors uppercase ${
+                    theme === t.toLowerCase() ? 'text-white bg-white/5' : 'text-white/60'
+                  }`}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </footer>

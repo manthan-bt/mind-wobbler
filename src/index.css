@@ -379,3 +379,115 @@ textarea::-moz-selection {
 .glow-filter {
   filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
 }
+
+/* ─── Dark Theme Overrides (System & Black Modes) ─── */
+.dark body {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Global white bg overrides to black */
+.dark .bg-white,
+.dark .bg-white\/80 {
+  background-color: #000000 !important;
+}
+
+/* Background video overlay gradient ends in black */
+.dark .hero-overlay {
+  background-image: linear-gradient(to bottom, transparent, transparent, #000000) !important;
+}
+
+/* Keep gray background panels dark gray */
+.dark .bg-zinc-50,
+.dark .bg-zinc-100,
+.dark .bg-gray-50,
+.dark .bg-slate-50,
+.dark blockquote {
+  background-color: #111111 !important;
+}
+
+/* Global text color overrides */
+.dark .text-black {
+  color: #ffffff !important;
+}
+.dark .text-black\/90 {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .text-black\/70 {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+.dark .text-black\/60 {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+.dark .text-black\/45 {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+.dark .text-black\/40 {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+.dark .text-black\/20 {
+  color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Map solid black elements (lines, buttons) to white with black text */
+.dark .bg-black {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Borders */
+.dark .border-black\/5 {
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+.dark .border-black\/10 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.dark .border-black\/20 {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+.dark .border-black {
+  border-color: #ffffff !important;
+}
+
+/* Logo inversion */
+.dark .brightness-0 {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* Inverse selection styling */
+.dark ::selection {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+.dark ::-moz-selection {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* ─── Footer Restorations (Footer remains black with white text) ─── */
+.dark footer.bg-black {
+  background-color: #000000 !important;
+}
+.dark footer .bg-black {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+.dark footer .bg-white {
+  background-color: #ffffff !important;
+}
+.dark footer .bg-white.text-black {
+  color: #000000 !important;
+}
+
+/* ─── Custom Cursor overrides in Dark Mode ─── */
+.dark .custom-cursor-dot {
+  background-color: #ffffff !important;
+}
+.dark .custom-cursor-follower {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  background-color: transparent !important;
+}
+.dark .custom-cursor-follower.w-\[60px\] {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-color: transparent !important;
+}

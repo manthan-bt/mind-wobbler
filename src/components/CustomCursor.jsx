@@ -117,14 +117,14 @@ const CustomCursor = () => {
       <div
         ref={cursorRef}
         style={{ opacity: isVisible ? 1 : 0, mixBlendMode: 'difference' }}
-        className={`fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] transition-[width,height,background-color,opacity] duration-300 transform -translate-x-1/2 -translate-y-1/2 ${
+        className={`fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] transition-[width,height,background-color,opacity] duration-300 transform -translate-x-1/2 -translate-y-1/2 custom-cursor-dot ${
           isHovered ? 'w-3 h-3 bg-transparent border border-white' : ''
         }`}
       />
       <div
         ref={followerRef}
         style={{ opacity: isVisible ? 1 : 0, mixBlendMode: 'difference' }}
-        className={`fixed top-0 left-0 w-10 h-10 border border-white/40 rounded-full pointer-events-none z-[9998] transition-[width,height,background-color,opacity] duration-300 transform -translate-x-1/2 -translate-y-1/2 ${
+        className={`fixed top-0 left-0 w-10 h-10 border border-white/40 rounded-full pointer-events-none z-[9998] transition-[width,height,background-color,opacity] duration-300 transform -translate-x-1/2 -translate-y-1/2 custom-cursor-follower ${
           isHovered ? 'w-[60px] h-[60px] bg-white/20 border-transparent' : ''
         }`}
       />
