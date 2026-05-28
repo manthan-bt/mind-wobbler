@@ -555,6 +555,35 @@ textarea::-moz-selection {
   color: #000000 !important;
 }
 
+/* ─── Contact Form – Dark Mode Fixes ─── */
+/* Placeholder text: black/20 becomes invisible on black bg */
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+/* Input typed text */
+.dark input,
+.dark textarea {
+  color: #ffffff !important;
+}
+/* Input bottom border */
+.dark .border-black\/10 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.dark input:focus,
+.dark textarea:focus {
+  border-color: #ffffff !important;
+}
+/* Dropdown "SELECT TYPE" placeholder — already covered by .dark .text-black/20 above */
+
+/* ─── Hamburger Menu Bars – always white in Dark Mode ─── */
+/* The bars use bg-white on transparent header (home, not scrolled).
+   .dark .bg-white would normally flip them to black (invisible).
+   This rule restores them to white so they remain visible. */
+.dark button[aria-label="Toggle menu"] span {
+  background-color: #ffffff !important;
+}
+
 /* ─── Custom Cursor overrides in Dark Mode ─── */
 .dark .custom-cursor-dot {
   background-color: #ffffff !important;
