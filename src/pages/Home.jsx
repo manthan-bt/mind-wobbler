@@ -55,7 +55,7 @@ const Home = () => {
           <div className="absolute inset-0 bg-white/20 z-10" />
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <iframe
-              src={`https://www.youtube-nocookie.com/embed/8zZe4gTxtY0?autoplay=1&mute=1&controls=0&loop=1&playlist=8zZe4gTxtY0&rel=0&disablekb=1&modestbranding=1&playsinline=1&origin=${window.location.origin}`}
+              src={`https://www.youtube-nocookie.com/embed/8zZe4gTxtY0?autoplay=1&mute=1&controls=0&loop=1&playlist=8zZe4gTxtY0&rel=0&disablekb=1&modestbranding=1&playsinline=1&vq=hd1080&origin=${window.location.origin}`}
               title="Mind Wobbler Showreel"
               className={`iframe-cover transition-opacity duration-1000 ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
