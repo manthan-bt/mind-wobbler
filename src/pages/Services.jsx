@@ -360,7 +360,7 @@ const Services = () => {
 
       <div className="max-w-[1800px] mx-auto relative z-10 w-full">
         {/* Editorial Hero Header Section */}
-        <section id="overview" className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] mb-32 md:mb-48">
+        <section id="overview" className="px-6 md:px-[5vw] xl:pl-64 xl:pr-[5vw] min-h-screen flex flex-col justify-center">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

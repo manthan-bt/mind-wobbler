@@ -21,21 +21,21 @@ const About = () => {
   }, []);
 
   return (
-    <div className="bg-white pt-[42vh] md:pt-48 xl:pt-64 pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
+    <div className="bg-white pb-32 md:pb-48 text-black selection:bg-black selection:text-white min-h-screen relative overflow-hidden">
       
 
       
       <div className="max-w-[1600px] mx-auto relative z-10 w-full">
         
         {/* Perfectly Centered Editorial Header Section */}
-        <section className="px-6 md:px-[5vw] min-h-[90vh] flex flex-col justify-center">
+        <section className="px-6 md:px-[5vw] min-h-screen flex flex-col justify-center">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-4xl"
           >
-            <h1 className="text-[clamp(1.8rem,5.5vw,4.5rem)] font-bold tracking-tighter leading-[0.9] mb-8 text-black uppercase">
+            <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-tighter leading-[0.9] mb-8 text-black uppercase">
               SHAPING IDEAS <br />
               BUILDING BRANDS.
             </h1>
