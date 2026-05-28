@@ -6,5 +6,11 @@
       "destination": "https://mindwobbler.com/$1",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
   ]
 }
