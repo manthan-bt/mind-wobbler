@@ -190,7 +190,7 @@ const Contact = () => {
                 {/* Theme-Matching Interactive Map */}
                 <div className="relative w-full aspect-[16/11] overflow-hidden border border-black/10 dark:border-white/10 rounded-sm shadow-lg hide-custom-cursor">
                   <iframe
-                    src="https://maps.google.com/maps?q=12.9382963,77.5822796&z=16&output=embed"
+                    src="https://maps.google.com/maps?q=12.9382858,77.582226&z=16&output=embed"
                     title="Mind Wobbler Location"
                     className="w-full h-full border-0 map-iframe"
                     loading="lazy"
