@@ -155,6 +155,61 @@ const About = () => {
 
         </section>
 
+        {/* Contact / Emails Section */}
+        <section className="px-6 md:px-[5vw] pb-32">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+            <ScrollReveal 
+              type="slide"
+              className="lg:col-span-12"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-[0.7rem] font-mono font-bold tracking-widest text-black/20">
+                  [003]
+                </span>
+                <div className="h-[1px] w-12 bg-black/10" />
+              </div>
+              <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold tracking-tighter leading-[0.9] text-black mb-16 uppercase">
+                GET IN TOUCH
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-black/10 pt-12">
+                <div>
+                  <h4 className="text-[0.7rem] font-bold tracking-[0.3em] text-black/40 mb-4 uppercase">STUDIO INQUIRIES</h4>
+                  <a 
+                    href="mailto:info@mindwobbler.com" 
+                    className="text-[clamp(0.9rem,1.5vw,1.25rem)] font-bold tracking-tight hover:text-black/60 transition-colors uppercase block mb-2"
+                  >
+                    INFO@MINDWOBBLER.COM
+                  </a>
+                  <p className="text-[0.7rem] text-black/40 tracking-wider uppercase font-semibold">For client opportunities, collaborations, and project briefs.</p>
+                </div>
+
+                <div>
+                  <h4 className="text-[0.7rem] font-bold tracking-[0.3em] text-black/40 mb-4 uppercase">CAREERS</h4>
+                  <a 
+                    href="mailto:career@mindwobbler.com" 
+                    className="text-[clamp(0.9rem,1.5vw,1.25rem)] font-bold tracking-tight hover:text-black/60 transition-colors uppercase block mb-2"
+                  >
+                    CAREER@MINDWOBBLER.COM
+                  </a>
+                  <p className="text-[0.7rem] text-black/40 tracking-wider uppercase font-semibold">We are always looking for exceptional directors, designers, and developers.</p>
+                </div>
+
+                <div>
+                  <h4 className="text-[0.7rem] font-bold tracking-[0.3em] text-black/40 mb-4 uppercase">DIRECT CONTACT</h4>
+                  <a 
+                    href="mailto:manthan@mindwobbler.com" 
+                    className="text-[clamp(0.9rem,1.5vw,1.25rem)] font-bold tracking-tight hover:text-black/60 transition-colors uppercase block mb-2"
+                  >
+                    MANTHAN@MINDWOBBLER.COM
+                  </a>
+                  <p className="text-[0.7rem] text-black/40 tracking-wider uppercase font-semibold">Direct line to our Founder & Creative Head, Manthan B T.</p>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
       </div>
     </div>
   );
